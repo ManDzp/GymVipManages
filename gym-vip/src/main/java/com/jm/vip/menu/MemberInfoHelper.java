@@ -105,6 +105,13 @@ public class MemberInfoHelper
 		menu.setId("activeCard");
 		menuList.add(menu);
 
+		menu = new MenuItem();
+		menu.setDisplayName("续卡");
+		menu.setBclass("icon-add");
+		menu.setItemClick("openContinueCard('" + guid + "')");
+		menu.setId("continueCard");
+		menuList.add(menu);
+
 		return menuList;
 	}
 

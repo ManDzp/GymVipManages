@@ -174,6 +174,10 @@ public class MemberInfoService
 
 		try
 		{
+			// 更新会员资料
+
+			// 保存充值记录
+
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "充值成功", guid, money, content);
 			return true;
@@ -207,6 +211,10 @@ public class MemberInfoService
 
 		try
 		{
+			// 更新会员资料状态为待开卡
+
+			// 保存买卡记录
+
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "买卡成功", guid, money, content);
 			return true;
@@ -240,6 +248,10 @@ public class MemberInfoService
 
 		try
 		{
+			// 更新会员资料
+
+			// 保存开卡记录
+
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "开卡成功", guid, activetime, expiretime,
 					content);
@@ -252,6 +264,44 @@ public class MemberInfoService
 					.setRollbackOnly();
 			// 记错误日志
 			LogProxy.WriteLogError(log, "开卡异常", ex.toString(), guid, activetime,
+					expiretime, content);
+			return false;
+		}
+	}
+
+	/**
+	 * 续卡
+	 * @param guid 会员资料唯一标识
+	 * @param money 消费金额
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@Transactional
+	public boolean continueCard(String guid, Integer money, Date expiretime,
+			String content)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return false;
+
+		try
+		{
+			// 更新会员资料
+
+			// 保存续卡记录
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "续卡成功", guid, money, expiretime,
+					content);
+			return true;
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "续卡异常", ex.toString(), guid, money,
 					expiretime, content);
 			return false;
 		}

@@ -378,4 +378,38 @@ public class MemberController extends BaseController
 		return result;
 	}
 
+	/**
+	 * 续卡
+	 * @param guid 会员资料唯一标识
+	 * @param money 消费金额
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/continueCard", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO continueCard(@RequestParam String guid,
+			@RequestParam Integer money,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
+			@RequestParam String content)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean success = this.memberInfoService.continueCard(guid, money,
+					expiretime, content);
+			result.setSuccess(success);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "续卡失败", ex.toString(), guid, money,
+					expiretime, content);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
 }
