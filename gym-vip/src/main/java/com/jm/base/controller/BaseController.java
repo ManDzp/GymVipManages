@@ -45,14 +45,6 @@ public class BaseController
 	{
 	}
 
-	@InitBinder
-	protected void initBinder(WebDataBinder binder)
-	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		binder.registerCustomEditor(Date.class,
-				new CustomDateEditor(dateFormat, true));
-	}
-
 	/**
 	 * 获取当前登录用户信息
 	 * @return

@@ -411,7 +411,8 @@ var $dp, WdatePicker;
 				X($dp.eCont.childNodes[0], W)
 			} else {
 				$dp.dd = T[N].createElement("DIV");
-				$dp.dd.style.cssText = "position:absolute;z-index:19700";
+//				$dp.dd.style.cssText = "position:absolute;z-index:19700";
+				$dp.dd.style.cssText = "position:absolute;z-index:29891014";
 				$dp.dd.innerHTML = B;
 				T[N].body.appendChild($dp.dd);
 				X($dp.dd.childNodes[0], W);

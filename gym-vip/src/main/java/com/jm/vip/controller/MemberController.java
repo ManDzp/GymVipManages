@@ -1,11 +1,13 @@
 package com.jm.vip.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -284,24 +286,27 @@ public class MemberController extends BaseController
 	 * 充值
 	 * @param guid 会员资料唯一标识
 	 * @param money 充值金额
+	 * @param content 备注说明
 	 * @return
 	 */
 	@RequestMapping(value = "/charge", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultDTO charge(@RequestParam String guid,
-			@RequestParam Integer money)
+			@RequestParam Double money, @RequestParam String content)
 	{
 		ResultDTO result = new ResultDTO();
 
 		try
 		{
-			boolean success = this.memberInfoService.charge(guid, money);
+			boolean success = this.memberInfoService.charge(guid, money,
+					content);
 			result.setSuccess(success);
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
-			LogProxy.WriteLogError(log, "充值失败", ex.toString(), guid);
+			LogProxy.WriteLogError(log, "充值失败", ex.toString(), guid, money,
+					content);
 			result.setSuccess(false);
 		}
 
@@ -333,6 +338,40 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "买卡失败", ex.toString(), guid, money,
 					content);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 开卡
+	 * @param guid 会员资料唯一标识
+	 * @param activetime 开卡时间
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/activeCard", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO activeCard(@RequestParam String guid,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date activetime,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
+			@RequestParam String content)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean success = this.memberInfoService.activeCard(guid,
+					activetime, expiretime, content);
+			result.setSuccess(success);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "开卡失败", ex.toString(), guid, activetime,
+					expiretime, content);
 			result.setSuccess(false);
 		}
 

@@ -17,6 +17,7 @@
 <![endif]-->
 
 <script type="text/javascript" src="<c:url value='/deco/system.js${res_v}'/>"></script>
+<script type="text/javascript" src="<c:url value='/deco/layer/layer.js'/>"></script>
 
 <script type="text/javascript">
 	// 公用全局变量

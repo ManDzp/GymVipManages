@@ -8,6 +8,8 @@
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
+<script type="text/javascript" src="${ctx}/deco/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx}/deco/pubfunction.js"></script>
 <script type="text/javascript" src="${ctx}/business/member/member.js${res_v}"></script>
 </head>
 
@@ -34,9 +36,9 @@
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">开卡日期：</td>
-						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.activetime}" /></label></td>
+						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberInfo.activetime}" /></label></td>
 						<td class="lefttdbgcolor">到期日期：</td>
-						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberInfo.expiretime}" /></label></td>
+						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.expiretime}" /></label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">卡内余额：</td>

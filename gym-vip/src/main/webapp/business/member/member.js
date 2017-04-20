@@ -6,7 +6,7 @@ function getViewUrl(val, rec) {
 			+ clickFun + "\">" + value + "</a>";// 格式化内容
 }
 
-//返回列表页面
+// 返回列表页面
 function doBack() {
 	closeIFrameDialog();
 }
@@ -26,7 +26,7 @@ function openEdit(guid) {
 	window.location.href = "edit?guid=" + guid;
 }
 
-//修改后，跳转查看页面
+// 修改后，跳转查看页面
 function changeToView(guid) {
 	window.location.href = "view?guid=" + guid;
 }
@@ -37,32 +37,23 @@ function saveAddUser() {
 		return;
 	}
 
-	$.messager.confirm('确认', '确定保存信息吗？', function(r) {
-		if (r) {
-//			$.post("isSameName", {
-//				"userName" : $("#username").val()
-//			}, function(data) {
-//				var ret = eval('(' + data + ')');
-//				if (ret.success) {
-//					$.messager.alert('错误', "登陆账号已存在！");
-//				} else {
-					// 添加操作
-					$('#fm').form('submit', {
-						url : 'insert',
-						contentType : 'application/json',
-						type : "POST",
-						success : function(data) {
-							var ret = eval('(' + data + ')');
-							if (ret.success) {
-								changeToView(ret.message);
-							} else {
-								$.messager.alert('错误', "添加失败！");
-							}
-						}
-					});
-//				}
-//			});
-		}
+	layer.confirm('确定保存信息吗？', function(index) {
+		// 添加操作
+		$('#fm').form('submit', {
+			url : 'insert',
+			contentType : 'application/json',
+			type : "POST",
+			success : function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					changeToView(ret.message);
+				} else {
+					layer.alert('添加失败！');
+				}
+			}
+		});
+
+		layer.close(index);
 	});
 }
 
@@ -71,42 +62,24 @@ function saveUpdateUser(guid) {
 	if (!check(fm)) {
 		return;
 	}
-	//校验修改密码与确认密码
-	var userpass = $('#fm').find("#userpass").val();
-	var confirmpass = $('#fm').find("#confirmpass").val();
 
-	if (userpass != confirmpass) {
-		$.messager.alert('提示', "两次密码输入不一致！");
-		return false;
-	}
-	
-	$.messager.confirm('确认', '确定保存信息吗？', function(r) {
-		if (r) {
-			$.post("isSameName", {
-				"userName" : $("#username").val(),
-				"userGuid" : userguid
-			}, function(data) {
+	layer.confirm('确定保存信息吗？', function(index) {
+		// 添加操作
+		$('#fm').form('submit', {
+			url : 'update',
+			contentType : 'application/json',
+			type : "POST",
+			success : function(data) {
 				var ret = eval('(' + data + ')');
 				if (ret.success) {
-					$.messager.alert('错误', "登陆账号已存在！");
+					changeToView(guid);
 				} else {
-					// 添加操作
-					$('#fm').form('submit', {
-						url : 'update',
-						contentType : 'application/json',
-						type : "POST",
-						success : function(data) {
-							var ret = eval('(' + data + ')');
-							if (ret.success) {
-								changeToView(guid);
-							} else {
-								$.messager.alert('错误', "修改版块信息失败！");
-							}
-						}
-					});
+					layer.alert('修改信息失败！');
 				}
-			});
-		}
+			}
+		});
+
+		layer.close(index);
 	});
 }
 
@@ -114,45 +87,171 @@ function saveUpdateUser(guid) {
 function deleteList() {
 	var rows = $('#grid').datagrid('getChecked');
 	if (rows.length == 0) {
-		$.messager.alert('提示', "没有选中项");
+		layer.alert('没有选中项！');
 		return;
 	}
 
-	$.messager.confirm('确认', '确定将选中的账号删除吗？', function(r) {
-		if (r) {
-			var jsonText = JSON.stringify(rows);
-			$.ajax({
-				type : "POST",
-				url : "deletelist",
-				data : jsonText,
-				contentType : 'application/json',
-				success : function(data) {
-					var ret = eval('(' + data + ')');
-					if (ret.success) {
-						$("#grid").datagrid("reload");
-						$("#grid").datagrid("acceptChanges");
-					} else {
-						$.messager.alert('错误', "删除失败！");
-					}
+	layer.confirm('确定将选中的账号删除吗？', function(index) {
+		var jsonText = JSON.stringify(rows);
+		$.ajax({
+			type : "POST",
+			url : "deletelist",
+			data : jsonText,
+			contentType : 'application/json',
+			success : function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					$("#grid").datagrid("reload");
+					$("#grid").datagrid("acceptChanges");
+				} else {
+					layer.alert('删除失败！');
 				}
-			});
-		}
+			}
+		});
+
+		layer.close(index);
 	});
 }
 
 // 查看页删除
 function deleteOne(guid) {
-	$.messager.confirm('确认', '确定删除选中项吗？', function(r) {
-		if (r) {
-			$.post("deleteOne", {
+	layer.confirm('确定删除选中项吗？', function(index) {
+		$.post("deleteOne", {
+			"guid" : guid
+		}, function(data) {
+			var ret = eval('(' + data + ')');
+			if (ret.success) {
+				doBack();
+			} else {
+				layer.alert('删除失败！');
+			}
+		});
+
+		layer.close(index);
+	});
+}
+
+// 打开充值页
+function openCharge(guid) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>充值金额：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-money" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '充值',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '200px' ],
+		btn : [ '充值', '关闭' ],
+		content : html,
+		yes : function(index, layero) {
+			var money = layero.find('.form-money').val();
+			var content = layero.find('.form-content').val();
+
+			if (money === "") {
+				layer.alert('充值金额必填！');
+				return;
+			}
+			if (!money.isPlus()) {
+				layer.alert('充值金额需要是正数！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("charge", {
 				"guid" : guid,
+				"money" : money,
+				"content" : content
 			}, function(data) {
 				var ret = eval('(' + data + ')');
 				if (ret.success) {
-					doBack();
+					window.location.reload();
 				} else {
-					$.messager.alert('错误', "删除失败！");
+					layer.alert('删除失败！');
 				}
+
+				layer.close(index);
+			});
+		}
+	});
+}
+
+// 打开开卡页
+function openActiveCard(guid) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>开卡时间：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-activetime"',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd HH:mm:ss\' })" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-expiretime"',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\' })" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '开卡',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '250px' ],
+		btn : [ '开卡', '关闭' ],
+		content : html,
+		yes : function(index, layero) {
+			var activetime = layero.find('.form-activetime').val();
+			var expiretime = layero.find('.form-expiretime').val();
+			var content = layero.find('.form-content').val();
+
+			if (activetime === "") {
+				layer.alert('开卡时间必填！');
+				return;
+			}
+			if (expiretime === "") {
+				layer.alert('到期日期必填！');
+				return;
+			}
+			if (!activetime.isDateTime()) {
+				layer.alert('开卡时间格式不正确！');
+				return;
+			}
+			if (!expiretime.isDate()) {
+				layer.alert('到期日期格式不正确！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("activeCard", {
+				"guid" : guid,
+				"activetime" : activetime,
+				"expiretime" : expiretime,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert('开卡失败！');
+				}
+
+				layer.close(index);
 			});
 		}
 	});

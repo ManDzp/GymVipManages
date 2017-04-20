@@ -1,5 +1,6 @@
 package com.jm.vip.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,6 @@ import com.jm.utils.DateHelper;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.entity.MemberInfo;
-import com.jm.vip.type.MemberStatus;
 
 @Service
 public class MemberInfoService
@@ -161,10 +161,11 @@ public class MemberInfoService
 	 * 充值
 	 * @param guid 会员资料唯一标识
 	 * @param money 充值金额
+	 * @param content 备注说明
 	 * @return
 	 */
 	@Transactional
-	public boolean charge(String guid, Integer money)
+	public boolean charge(String guid, Double money, String content)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
@@ -174,8 +175,7 @@ public class MemberInfoService
 		try
 		{
 			// 记录操作日志
-			LogProxy.WriteLogOperate(log, "充值成功", guid, money);
-
+			LogProxy.WriteLogOperate(log, "充值成功", guid, money, content);
 			return true;
 		}
 		catch (Exception ex)
@@ -184,7 +184,8 @@ public class MemberInfoService
 			TransactionAspectSupport.currentTransactionStatus()
 					.setRollbackOnly();
 			// 记错误日志
-			LogProxy.WriteLogError(log, "充值异常", ex.toString(), guid, money);
+			LogProxy.WriteLogError(log, "充值异常", ex.toString(), guid, money,
+					content);
 			return false;
 		}
 	}
@@ -208,7 +209,6 @@ public class MemberInfoService
 		{
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "买卡成功", guid, money, content);
-
 			return true;
 		}
 		catch (Exception ex)
@@ -219,6 +219,40 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "买卡异常", ex.toString(), guid, money,
 					content);
+			return false;
+		}
+	}
+
+	/**
+	 * 开卡
+	 * @param guid 会员资料唯一标识
+	 * @param activetime 开卡时间
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@Transactional
+	public boolean activeCard(String guid, Date activetime, Date expiretime,
+			String content)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return false;
+
+		try
+		{
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "开卡成功", guid, activetime, expiretime,
+					content);
+			return true;
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "开卡异常", ex.toString(), guid, activetime,
+					expiretime, content);
 			return false;
 		}
 	}

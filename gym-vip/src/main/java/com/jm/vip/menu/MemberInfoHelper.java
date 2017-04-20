@@ -91,6 +91,20 @@ public class MemberInfoHelper
 		menu.setId("delete");
 		menuList.add(menu);
 
+		menu = new MenuItem();
+		menu.setDisplayName("充值");
+		menu.setBclass("icon-add");
+		menu.setItemClick("openCharge('" + guid + "')");
+		menu.setId("charge");
+		menuList.add(menu);
+
+		menu = new MenuItem();
+		menu.setDisplayName("开卡");
+		menu.setBclass("icon-add");
+		menu.setItemClick("openActiveCard('" + guid + "')");
+		menu.setId("activeCard");
+		menuList.add(menu);
+
 		return menuList;
 	}
 

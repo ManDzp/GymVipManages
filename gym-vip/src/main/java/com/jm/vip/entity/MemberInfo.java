@@ -2,6 +2,8 @@ package com.jm.vip.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MemberInfo
 {
 	private String guid;
@@ -10,8 +12,10 @@ public class MemberInfo
 
 	private String cardtype;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date activetime;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiretime;
 
 	private Double balance;
@@ -32,12 +36,14 @@ public class MemberInfo
 
 	private String identitycard;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 
 	private String mobile;
 
 	private Short status;// 状态 0：正常，1：删除
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createtime;
 
 	private String creator;
