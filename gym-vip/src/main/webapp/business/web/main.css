@@ -1,0 +1,244 @@
+body
+{
+    width: 970px;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 10pt;
+    vertical-align: middle;
+    font-family:宋体 Arial;
+    vertical-align: middle;
+}
+#Container
+{
+    text-align:center;
+    width: 970px;
+    background-color: White;
+}
+#footer
+{
+    height: 50px;
+    font-size:14px;
+    color:#FFFFFF;
+    width: 100%;
+    margin: 0 auto;
+}
+#footerbb
+{
+    width: 970px;
+    height: 50px;
+    color:#000000;
+    margin: 0 auto;
+    background-color: White;
+}
+#main
+{
+    width: 968px;
+    background-color: #0066cc;
+}
+#logo
+{
+	width:970px;
+	height:82px;
+	background-image: url(../../deco/img/web/top.jpg);
+	float: left;
+}
+#menu
+{
+	width:970px;
+	height:37px;
+	background-image: url(../../deco/img/web/nav.jpg);
+	line-height: 37px;
+	font-weight: bold;
+	color: #FFF;
+	font-size: 14px;
+	margin-bottom: 15px;
+	float: left;
+}
+#content
+{
+    width: 970px;
+    background-color: White;
+    color: #000;
+    font-size: 9pt;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+#bt_reg, #bt_exit, #bt_login
+{
+    border: 1px solid transparent;
+    height: 20px;
+    background-color: transparent;
+    cursor: hand;
+    color: White;
+    float: left;
+    margin-left: 5px;
+    padding: 0;
+}
+#table1
+{
+    border: 1px solid #b0cbd6;
+    margin: 5px auto;
+}
+#table1 td
+{
+    margin: 0;
+    padding: 0;
+}
+#table2
+{
+    border-bottom: 1px solid #DCDCDC;
+    color: #696969;
+}
+
+#table2 td
+{
+    padding: 5px 0 5px 5px;
+}
+
+#forum
+{
+    background-image: url(../../deco/img/web/2.jpg);
+    background-repeat: repeat-x;
+    height: 30px;
+}
+h2
+{
+    font-weight: bold;
+    font-size: 14px;
+    color: #0066FF;
+    margin: 0;
+    padding: 0;
+}
+.welcome
+{
+    font-size:14px;
+    float: left;
+    color: #FFF;
+    padding-left: 30px;
+    
+}
+a, a:link, a:active
+{
+    color: inherit;
+    text-decoration: none;
+    
+}
+a:hover
+{
+    text-decoration: underline;
+}
+#table2 a, a:link, a:active
+{
+    color: Black;
+    font-weight: bold;
+}
+#table2 a:hover
+{
+    color: #0066ff;
+}
+#table3
+{
+    border-bottom: 1px solid #DCDCDC;
+}
+#table3 td
+{
+    height: 30px;
+}
+#table3 a, a:link, a:active
+{
+    color: Black;
+    font-weight:normal;
+}
+#table3 a:hover
+{
+    color: #0066ff;
+      font-weight:normal;
+}
+#login
+{
+    background-color: White;
+    width: 350px;
+    height: 200px;
+    position: absolute;
+    display: block;
+    top: 250px;
+    left: 200px;
+    border: 10px solid #b0cbd6;
+}
+
+.bt_login2
+{
+    border: 1px solid #b0cbd6;
+    height: 25px;
+    padding: 5px;
+    background-color: transparent;
+    cursor: hand;
+    color: Black;
+}
+p
+{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+#table5
+{
+    width: 700px;
+    margin-left: 240px;
+    border: 1px solid #e4e4e4;
+}
+#table5 td
+{
+    padding-left: 5px;
+    padding-top: 3px;
+}
+#table5 a, a:link, a:active
+{
+    color: #333333;
+    font-size: 12px;
+    font-weight:normal;
+}
+#table5 a:hover
+{
+    color: #0099FF;
+    font-size: 12px;
+    font-weight:normal;
+}
+
+#header {
+	width:970px;
+	height:82px;
+	background-image: url(../../deco/img/web/top.jpg);
+	float: left;
+}
+#nav {
+	width:970px;
+	height:37px;
+	background-image: url(../../deco/img/web/nav.jpg);
+	line-height: 37px;
+	font-weight: bold;
+	color: #FFF;
+	font-size: 14px;
+	margin-bottom: 15px;
+	float: left;
+	
+}
+/* 文章页中间结束*/
+#footer {
+	width:970px;
+	height:66px;
+	float: left;
+	padding:10px 0;
+}
+.footer {
+	width:970px;
+	height:13px;
+	background-image: url(../../deco/img/web/footer.jpg);
+	background-repeat: repeat-x;
+}
+.bq{
+	text-align:center;
+	height:18px;
+	line-height:18px;
+	color:#666;
+}

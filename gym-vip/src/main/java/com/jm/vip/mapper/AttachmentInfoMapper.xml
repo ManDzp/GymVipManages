@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AttachmentInfoMapper" >
+  <resultMap id="BaseResultMap" type="AttachmentInfo" >
+    <id column="BLOBGUID" property="blobguid" jdbcType="VARCHAR" />
+    <result column="GUID" property="guid" jdbcType="VARCHAR" />
+    <result column="attachmentType" property="attachmenttype" jdbcType="CHAR" />
+    <result column="docType" property="doctype" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="fileLength" property="filelength" jdbcType="INTEGER" />
+    <result column="fileExt" property="fileext" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BLOBGUID, GUID, attachmentType, docType, title, fileLength, fileExt, createTime
+  </sql>
+  <select id="selectByGuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from attachmentinfo
+    where BLOBGUID = #{blobguid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByGuid" parameterType="java.lang.String" >
+    delete from attachmentinfo
+    where BLOBGUID = #{blobguid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="AttachmentInfo" >
+    insert into attachmentinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blobguid != null" >
+        BLOBGUID,
+      </if>
+      <if test="guid != null" >
+        GUID,
+      </if>
+      <if test="attachmenttype != null" >
+        attachmentType,
+      </if>
+      <if test="doctype != null" >
+        docType,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="filelength != null" >
+        fileLength,
+      </if>
+      <if test="fileext != null" >
+        fileExt,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blobguid != null" >
+        #{blobguid,jdbcType=VARCHAR},
+      </if>
+      <if test="guid != null" >
+        #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmenttype != null" >
+        #{attachmenttype,jdbcType=CHAR},
+      </if>
+      <if test="doctype != null" >
+        #{doctype,jdbcType=SMALLINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="filelength != null" >
+        #{filelength,jdbcType=INTEGER},
+      </if>
+      <if test="fileext != null" >
+        #{fileext,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByGuid" parameterType="AttachmentInfo" >
+    update attachmentinfo
+    <set >
+      <if test="guid != null" >
+        GUID = #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmenttype != null" >
+        attachmentType = #{attachmenttype,jdbcType=CHAR},
+      </if>
+      <if test="doctype != null" >
+        docType = #{doctype,jdbcType=SMALLINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="filelength != null" >
+        fileLength = #{filelength,jdbcType=INTEGER},
+      </if>
+      <if test="fileext != null" >
+        fileExt = #{fileext,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BLOBGUID = #{blobguid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,339 @@
+@CHARSET "UTF-8";
+
+/* CSS Document */
+* {
+	margin:0 auto;
+	font-size:13px;
+}
+
+body {
+	width:970px;
+	margin:0 auto;
+}
+
+#header {
+	width:970px;
+	height:82px;
+	background: url('../../deco/img/web/top.jpg') no-repeat;
+	float: left;
+}
+#nav {
+	width:970px;
+	height:37px;
+	background-image: url(../../deco/img/web/nav.jpg);
+	line-height: 37px;
+	font-weight: bold;
+	color: #FFF;
+	font-size: 14px;
+	margin-bottom: 15px;
+	float: left;
+}
+
+#nav #row1 {
+	float: left;
+	padding-left:50px;
+}
+
+#nav #row2 {
+	text-align:right;
+	margin-right:10px;
+}
+
+.STYLE1 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+h1
+{
+font-size:14px;
+font-weight:bold;
+}
+
+.clear{ clear:both; float:none;}
+
+.fatie
+{
+}
+
+.fatie li
+{
+	float:left;display:block;width:80px;height:44px; line-height:44px; text-align:center;cursor: pointer;
+}
+.headtop
+{
+width:970px;
+height:25px;
+color:#444444;
+margin-top:2px;
+}
+
+.head
+{
+width:970px;
+height:118px;
+}
+
+.tongji
+{
+width:970px;
+height:25px;
+margin:10px 0 0px 0;
+color:#999999;
+}
+
+.tongji span
+{
+color:#444444;
+}
+
+.twzx
+{
+width:970px;
+height:290px;
+}
+
+.twtj
+{
+width:345px;
+height:280px;
+float:left;
+border:1px solid #bccbdc;
+}
+
+.twtjbj1
+{
+background:url(../../deco/img/web/twtjbj.jpg);
+width:15px;
+border-right:1px solid #bccbdc;
+height:32px;
+}
+
+.twtjbj2
+{
+background:url(../../deco/img/web/twtjbj12.jpg);
+width:257px;
+height:32px;
+}
+
+
+.zxft
+{
+width:968px;
+height:303px;
+float:left;
+border:1px solid #bccbdc;
+margin-bottom:5px;
+}
+
+.zxftbj1
+{
+width:15px;
+height:32px;
+background:url(../../deco/img/web/twtjbj.jpg);
+}
+
+.zxftbj2
+{
+background:url(../../deco/img/web/twtjbj11.jpg);
+border-bottom:1px solid #e5e5e5;
+color:#424242;
+}
+
+.zxftbj22
+{
+background:url(../../deco/img/web/twtjbj22.jpg);
+color:#01669A;
+}
+
+.zxftbj3
+{
+background:url(../../deco/img/web/twtjbj3.jpg);
+}
+
+.zfftname
+{
+color:#999999;
+}
+
+.zfftdate
+{
+color:#555353;
+}
+
+/* 最新回复列表 表格 */
+.zxhflb {
+	margin-left: 3px;
+	margin-top: 3px;
+}
+
+/* 最新回复列表 行 */
+.zxhflb tr {
+	height: 24px;
+}
+
+/* 最新回复列表 表头 */
+.zxhflb th {
+	padding: 5px 10px;
+	background: #069;
+	color: #fff;
+	font-weight: bold;
+	line-height: 18px;
+}
+
+/* 最新回复列表 单元格 */
+.zxhflb td {
+	padding: 2px 10px;
+	text-align: left;
+	line-height: 18px;
+}
+
+/* 最新回复列表 单元格 斑马行 */
+.zxhflb tr.zebra td {
+	background: #e5e5e5;
+}
+
+/* 最新回复列表 标题列 */
+.zxhflb th.title, .zxhflb td.title {
+	width: 640px;
+}
+
+/* 最新回复列表 创建者列 */
+.zxhflb th.creator, .zxhflb td.creator {
+	width: 130px;
+}
+
+/* 最新回复列表 创建时间列 */
+.zxhflb th.createtime, .zxhflb td.createtime {
+	width: 130px;
+	text-align: center;
+}
+
+.main
+{
+width:967px;
+
+
+}
+
+.mainbody
+{
+width:967px;
+
+
+float:left;
+
+}
+
+.mainbodytitle
+{
+width:967px;
+background:url(../../deco/img/web/mainbodytitlebj.jpg);
+border:1px solid #c2d5e3;
+
+}
+
+.mainbodytitle span
+{
+color:#3f6f9f;
+font-weight:bold;
+font-size:14px;
+padding-left:20px;
+line-height:30px;
+}
+
+.mainbodytitlecontent
+{
+width:967px;
+border-left:1px solid #c2d5e3;
+border-right:1px solid #c2d5e3;
+float:left;
+
+
+}
+
+.main
+{
+width:968px;
+border-bottom:1px solid #c2d5e3;
+float:left;
+}
+
+.mainbodytitlecontent1
+{
+width:320px;
+height:70px;
+float:left;
+}
+
+.mainbodytitlecontent11
+{
+margin-top:20px;
+margin-left:10px;
+width:32px;
+float:left;
+}
+
+.mainbodytitlecontent12
+{
+margin-top:20px;
+margin-left:10px;
+width:auto;
+float:left;
+font-size:14px;
+font-weight:bold;
+}
+
+.mainbodytitlecontent12 span
+{
+color:#ff0000;
+}
+
+.mainbodytitlecontent12 ul 
+{
+width:184px;
+margin-top:5px;
+margin-left:-38px;
+_margin-left:2px;
+}
+
+
+.mainbodytitlecontent12 ul li
+{
+list-style:none;
+font-size:12px;
+font-weight:100;
+line-height:20px;
+color:#666666;
+width:184px;
+}
+
+.mainbodytitlecontent2
+{
+width:320px;
+height:115px;
+float:left;
+}
+
+.mainbodytitlecontent3
+{
+width:320px;
+height:115px;
+float:left;
+}
+
+.footerbj
+{
+background:url(../../deco/img/web/foterbj.jpg);
+width:970px;
+height:13px;
+margin-top:5px;
+}
+
+.footer
+{
+width:970px;
+height:50px;
+color:#444444;
+line-height:40px;
+}

@@ -1,0 +1,590 @@
+.icon-blank {
+	background: url('icons/blank.gif') no-repeat center center;
+}
+
+.icon-add {
+	background: url('icons/add.gif') no-repeat center center;
+}
+
+.icon-create {
+	background: url('icons/edit_add.png') no-repeat center center;
+}
+
+.icon-edit {
+	background: url('icons/pencil.png') no-repeat center center;
+}
+
+.icon-clear {
+	background: url('icons/clear.png') no-repeat center center;
+}
+
+.icon-remove {
+	background: url('icons/edit_remove.png') no-repeat center center;
+}
+
+.icon-save {
+	background: url('icons/filesave.png') no-repeat center center;
+}
+
+.icon-cut {
+	background: url('icons/cut.png') no-repeat center center;
+}
+
+.icon-ok {
+	background: url('icons/ok.png') no-repeat center center;
+}
+
+.icon-no {
+	background: url('icons/no.png') no-repeat center center;
+}
+
+.icon-cancel {
+	background: url('icons/cancel.png') no-repeat center center;
+}
+
+.icon-reload {
+	background: url('icons/reload.png') no-repeat center center;
+}
+
+.icon-search {
+	background: url('icons/search.png') no-repeat center center;
+}
+
+.icon-print {
+	background: url('icons/print.png') no-repeat center center;
+}
+
+.icon-help {
+	background: url('icons/help.png') no-repeat center center;
+}
+
+.icon-undo {
+	background: url('icons/undo.png') no-repeat center center;
+}
+
+.icon-redo {
+	background: url('icons/redo.png') no-repeat center center;
+}
+
+.icon-back {
+	background: url('icons/back.gif') no-repeat center center;
+}
+
+.icon-sum {
+	background: url('icons/sum.png') no-repeat center center;
+}
+
+.icon-tip {
+	background: url('icons/tip.png') no-repeat center center;
+}
+
+.icon-filter {
+	background: url('icons/filter.png') no-repeat center center;
+}
+
+.icon-man {
+	background: url('icons/man.png') no-repeat center center;
+}
+
+.icon-lock {
+	background: url('icons/lock.png') no-repeat center center;
+}
+
+.icon-more {
+	background: url('icons/more.png') no-repeat center center;
+}
+
+.icon-mini-add {
+	background: url('icons/mini_add.png') no-repeat center center;
+}
+
+.icon-mini-edit {
+	background: url('icons/mini_edit.png') no-repeat center center;
+}
+
+.icon-mini-refresh {
+	background: url('icons/mini_refresh.png') no-repeat center center;
+}
+
+.icon-large-picture {
+	background: url('icons/large_picture.png') no-repeat center center;
+}
+
+.icon-large-clipart {
+	background: url('icons/large_clipart.png') no-repeat center center;
+}
+
+.icon-large-shapes {
+	background: url('icons/large_shapes.png') no-repeat center center;
+}
+
+.icon-large-smartart {
+	background: url('icons/large_smartart.png') no-repeat center center;
+}
+
+.icon-large-chart {
+	background: url('icons/large_chart.png') no-repeat center center;
+}
+
+.icon-mini-chart {
+	background: url('icons/18.gif') no-repeat center center;
+}
+
+/* 办公系统个性化图标样式 */
+.menu-zhuanyiban {
+	background: url('icons/zhuanyiban.gif') no-repeat center center;
+}
+
+.menu-delete {
+	background: url('icons/delete1.gif') no-repeat center center;
+}
+
+.menu-zhuanshouwen {
+	background: url('icons/zhuanshouwen.gif') no-repeat center center;
+}
+
+.menu-zhuanducha {
+	background: url('icons/zhuanducha.gif') no-repeat center center;
+}
+
+.menu-modify {
+	background: url('icons/amend.gif') no-repeat center center;
+}
+
+.menu-send {
+	background: url('icons/send.gif') no-repeat center center;
+}
+
+.menu-send1 {
+	background: url('icons/send1.gif') no-repeat center center;
+}
+
+.menu-send2 {
+	background: url('icons/send2.gif') no-repeat center center;
+}
+
+.menu-yichu {
+	background: url('icons/yichu.gif') no-repeat center center;
+}
+
+.menu-yizhi {
+	background: url('icons/yizhi.gif') no-repeat center center;
+}
+
+.menu-jiyaojian {
+	background: url('icons/top.gif') no-repeat center center;
+}
+
+.menu-print {
+	background: url('icons/print.gif') no-repeat center center;
+}
+
+.menu-refresh {
+	background: url('icons/tu_refresh.gif') no-repeat center center;
+}
+
+/*添加*/
+.menu-add {
+	background: url('icons/add.gif') no-repeat center center;
+}
+
+/*查看*/
+.menu-view {
+	background: url('icons/view.gif') no-repeat center center;
+}
+
+/*发送*/
+.menu-fasong {
+	background: url('icons/fasong.gif') no-repeat center center;
+}
+/*重发*/
+.menu-resend {
+	background: url('icons/chongfa.gif') no-repeat center center;
+}
+/*发送短信样式*/
+.menu-sendmessage {
+	background: url('icons/mobile_icon.gif') no-repeat center center;
+}
+/*补发*/
+.menu-bufa {
+	background: url('icons/bufa.gif') no-repeat center center;
+}
+/*修订原附件*/
+.menu-xdyfj {
+	background: url('icons/font.gif') no-repeat center center;
+}
+/*回复*/
+.menu-reply {
+	background: url('icons/huifu.gif') no-repeat center center;
+}
+/*修订并回复*/
+.menu-modifyandreply {
+	background: url('icons/magazine.gif') no-repeat center center;
+}
+/*转发*/
+.menu-reward {
+	background: url('icons/zhuanfa.gif') no-repeat center center;
+}
+/*归档*/
+.menu-guidang {
+	background: url('icons/rk.gif') no-repeat center center;
+}
+/*查原件*/
+.menu-vieworigin {
+	background: url('icons/chakanyuanjian.gif') no-repeat center center;
+}
+/*查看原件*/
+.menu-viewyuanjian {
+	background: url('icons/chakanyuanjian.gif') no-repeat center center;
+}
+
+/*转在办*/
+.menu-zhuanzaiban {
+	background: url('icons/zhuanzaiban.gif') no-repeat center center;
+}
+/*办结*/
+.menu-finished {
+	background: url('icons/banjie.gif') no-repeat center center;
+}
+/*转接待*/
+.menu-zhuanjiedai {
+	background: url('icons/switch2.gif') no-repeat center center;
+}
+/*入信息库*/
+.menu-ruxinxiku {
+	background: url('icons/rk.gif') no-repeat center center;
+}
+
+/**查回复***/
+.menu-viewreply {
+	background: url('icons/chahuifu.gif') no-repeat center center;
+}
+/*查回执*/
+.menu-viewrollback {
+	background: url('icons/view.gif') no-repeat center center;
+}
+/*克隆*/
+.menu-copy {
+	background: url('icons/fuzhi.gif') no-repeat center center;
+}
+
+/*上移*/
+.menu-up {
+	background: url('icons/up.gif') no-repeat center center;
+}
+/*下移*/
+.menu-down {
+	background: url('icons/down.gif') no-repeat center center;
+}
+/*启用*/
+.menu-qiyong {
+	background: url('icons/checkmark.png') no-repeat center center;
+}
+/*停用*/
+.menu-tingyong {
+	background: url('icons/cross.png') no-repeat center center;
+}
+/*添加人员*/
+.menu-adduser {
+	background: url('icons/xinjianyonghu.gif') no-repeat center center;
+}
+
+.menu-addleader {
+	background: url('icons/zhuyaolingdao.gif') no-repeat center center;
+}
+
+.menu-addreader {
+	background: url('icons/user.gif') no-repeat center center;
+}
+
+.menu-addadmin {
+	background: url('icons/gly.gif') no-repeat center center;
+}
+/*移除人员*/
+.menu-deluser {
+	background: url('icons/jujuediaoru.gif') no-repeat center center;
+}
+/*打开书签*/
+.menu-bookmarks {
+	background: url('icons/dakaibiaoqian.gif') no-repeat center center;
+}
+
+/*处理单*/
+.menu-chulidan {
+	background: url('icons/chulidan.gif') no-repeat center center;
+}
+/*办理单*/
+.menu-banlidan {
+	background: url('icons/banlidan.gif') no-repeat center center;
+}
+/*转阅单*/
+.menu-zhuanyuedan {
+	background: url('icons/waibudiaodong.gif') no-repeat center center;
+}
+/*呈阅单*/
+.menu-chengyuedan {
+	background: url('icons/wjqingdan.gif') no-repeat center center;
+}
+/*反馈单*/
+.menu-fankuidan {
+	background: url('icons/insertidea.gif') no-repeat center center;
+}
+/*退文单*/
+.menu-tuiwendan {
+	background: url('icons/send.gif') no-repeat center center;
+}
+
+/**其它处理***/
+.menu-other {
+	background: url('icons/folder.gif') no-repeat center center;
+}
+
+/*修改密码*/
+.menu-modifypass {
+	background: url('icons/chongzhimima.gif') no-repeat center center;
+}
+/**相关件***/
+.menu-xiangguanjian {
+	background: url('icons/chahuifu.gif') no-repeat center center;
+}
+
+/*地方信息 采用*/
+.menu-touse {
+	background: url('icons/kanwucaibian.gif') no-repeat center center;
+}
+/*地方信息 采用记录*/
+.menu-inpublication {
+	background: url('icons/yonggaotongji.gif') no-repeat center center;
+}
+/**地方信息 上报***/
+.menu-report {
+	background: url('icons/shangbao.gif') no-repeat center center;
+}
+/*地方信息 点评*/
+.menu-comment {
+	background: url('icons/dianping.gif') no-repeat center center;
+}
+/*刊物编辑 送审*/
+.menu-songshen {
+	background: url('icons/send.gif') no-repeat center center;
+}
+/*刊物编辑 强制审毕*/
+.menu-qzshenbi {
+	background: url('icons/qzshenbi.gif') no-repeat center center;
+}
+/*刊物编辑 出版*/
+.menu-chuban {
+	background: url('icons/chuban.gif') no-repeat center center;
+}
+/*刊物编辑 封存*/
+.menu-store {
+	background: url('icons/fengcun.gif') no-repeat center center;
+}
+/*刊物编辑 解封*/
+.menu-unstore {
+	background: url('icons/jiefeng.gif') no-repeat center center;
+}
+/*刊物编辑 合并*/
+.menu-hebing {
+	background: url('icons/hb.gif') no-repeat center center;
+}
+/*刊物编辑 再采用*/
+.menu-recollection {
+	background: url('icons/zaicaiyong.gif') no-repeat center center;
+}
+/*刊物编辑 重置出版时间*/
+.menu-resettime {
+	background: url('icons/banlishixianchongshe.gif') no-repeat center center;
+}
+/*刊物编辑 另存为*/
+.menu-savelocal {
+	background: url('icons/word.gif') no-repeat center center;
+}
+/*发布*/
+.menu-publish {
+	background: url('icons/fabu.gif') no-repeat center center;
+}
+/*恢复在编*/
+.menu-reedit {
+	background: url('icons/hfzaibian.gif') no-repeat center center;
+}
+/*审核通过*/
+.menu-shenhepass {
+	background: url('icons/checkmark.png') no-repeat center center;
+}
+/*驳回*/
+.menu-reject {
+	background: url('icons/back1.gif') no-repeat center center;
+}
+/*编号*/
+.menu-number {
+	background: url('icons/genggaixqrq.gif') no-repeat center center;
+}
+/*入质量体系*/
+.menu-toquality {
+	background: url('icons/myFile.gif') no-repeat center center;
+}
+/*流程-添加意见*/
+.menu-addopinion {
+	background: url('icons/dianping.gif') no-repeat center center;
+}
+/*发流程*/
+.menu-sendflow {
+	background: url('icons/redo.png') no-repeat center center;
+}
+/*拟办意见*/
+.menu-nibanyijian {
+	background: url('icons/niban.gif') no-repeat center center;
+}
+/**查看意见***/
+.menu-viewOpinion {
+	background: url('icons/chakanyijian.gif') no-repeat center center;
+}
+/**流程-流程办结***/
+.menu-endflow {
+	background: url('icons/endflow.gif') no-repeat center center;
+}
+/**流程-新建流程***/
+.menu-newflow {
+	background: url('icons/fuzhi.gif') no-repeat center center;
+}
+/**流程退回**/
+.menu-backflow {
+	background: url('icons/tui.gif') no-repeat center center;
+}
+/*退文*/
+.menu-tuiwen {
+	background: url('icons/tuisong.gif') no-repeat center center;
+}
+/*退改*/
+.menu-tuigai {
+	background: url('icons/shenheshangbao.gif') no-repeat center center;
+}
+/*受理*/
+.menu-shouli {
+	background: url('icons/16.gif') no-repeat center center;
+}
+/*查看原因*/
+.menu-viewreason {
+	background: url('icons/ducharenqingdan.gif') no-repeat center center;
+}
+/*查看资产*/
+.menu-viewassetrepair {
+	background: url('icons/end1.gif') no-repeat center center;
+}
+/*结账*/
+.menu-repair-checkout {
+	background: url('icons/end1.gif') no-repeat center center;
+}
+/*换流转中心*/
+.menu-changecenter {
+	background: url('icons/user.gif') no-repeat center center;
+}
+/*保存为附件*/
+.menu-saveasatt {
+	background: url('icons/myFile.gif') no-repeat center center;
+}
+/*签发*/
+.menu-qianfaopinion {
+	background: url('icons/pz.gif') no-repeat center center;
+}
+/*签发结束*/
+.menu-qianfa {
+	background: url('icons/097.gif') no-repeat center center;
+}
+/*审阅结束rank2.gif*/
+.menu-shenyue {
+	background: url('icons/endflow.gif') no-repeat center center;
+}
+/*插入公章*/
+.menu-cachet {
+	background: url('icons/rank2.gif') no-repeat center center;
+}
+/*转换正文*/
+.menu-convertpdf {
+	background: url('icons/pdf.gif') no-repeat center center;
+}
+/*统计*/
+.menu-tongji {
+	background: url('icons/tongji.gif') no-repeat center center;
+}
+/*合同执行情况说明*/
+.menu-hetongremark {
+	background: url('icons/21.gif') no-repeat center center;
+}
+/*历史版本zhengwendayin*/
+.menu-histroy {
+	background: url('icons/chaoqiqingdan.gif') no-repeat center center;
+}
+
+/*正文打印*/
+.menu-printinfo {
+	background: url('icons/zhengwendayin.gif') no-repeat center center;
+}
+
+/*转登记件*/
+.menu-zhuandengjijian {
+	background: url('icons/zhuandengjijian.gif') no-repeat center center;
+}
+
+/*转运转监控*/
+.menu-monitor {
+	background: url('icons/zduchajiankong.gif') no-repeat center center;
+}
+
+/*转文秘*/
+.menu-wenmi {
+	background: url('icons/yizhi.gif') no-repeat center center;
+}
+/*申请*/
+.menu-shenqing {
+	background: url('icons/shenqing.gif') no-repeat center center;
+}
+/*申请通过*/
+.menu-end {
+	background: url('icons/end.gif') no-repeat center center;
+}
+/*申请驳回*/
+.menu-cross {
+	background: url('icons/cross.png') no-repeat center center;
+}
+/*修改驳回理由*/
+.icon-amend {
+	background: url('icons/amend.gif') no-repeat center center;
+}
+/*在线拟稿*/
+.icon-nigao {
+	background: url('icons/xiugaiyijian.gif') no-repeat center center;
+}
+/*文件回执*/
+.icon-huizhi {
+	background: url('icons/view.gif') no-repeat center center;
+}
+/*文件回执*/
+.icon-jiubanben {
+	background: url('icons/chakanyuanjian.gif') no-repeat center center;
+}
+/*套头*/
+.icon-taotou {
+	background: url('icons/bullets.gif') no-repeat center center;
+}
+/*插入附件*/
+.icon-fujian {
+	background: url('icons/dot_7.gif') no-repeat center center;
+}
+/*替会*/
+.icon-user {
+	background: url('icons/user.gif') no-repeat center center;
+}
+/*取消替会*/
+.icon-no{
+	background: url('icons/no.png') no-repeat center center;
+}
+/*查看报名*/
+.icon-smallfont{
+	background: url('icons/smallfont.gif') no-repeat center center;
+}
+/*汇总统计*/
+.icon-lsqktj{
+	background: url('icons/lsqktj.gif') no-repeat center center;
+}

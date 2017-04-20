@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdminInfoMapper">
+	<resultMap id="BaseResultMap" type="AdminInfo">
+		<id column="userGuid" property="userguid" jdbcType="VARCHAR" />
+		<result column="userName" property="username" jdbcType="VARCHAR" />
+		<result column="userPass" property="userpass" jdbcType="VARCHAR" />
+		<result column="displayName" property="displayname" jdbcType="VARCHAR" />
+		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		userGuid, userName, userPass, displayName
+	</sql>
+	<sql id="List_Column">
+		userGuid, userName, userPass, displayName
+	</sql>
+
+	<select id="selectByGuid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM AdminInfo
+		WHERE USERGUID = #{userguid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据登陆账号判断注册账号是否存在 -->
+	<select id="selectByUser" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM AdminInfo
+		<where>
+			<if test="username != null and username != ''">
+				AND userName = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="password != null and password != ''">
+				AND userPass = #{password,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!--判断注册会员是用户名在库中是否已经存在 -->
+	<select id="isSameName" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM AdminInfo
+		<where>
+			userName = #{username,jdbcType=VARCHAR}
+			<if test="userguid != null and userguid != ''">
+				<![CDATA[ AND userGuid  <> #{userguid,jdbcType=VARCHAR} ]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 获取管理员分页数据 -->
+	<select id="selectAdminInfoByPage" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="List_Column" />
+		FROM AdminInfo
+	</select>
+
+	<!-- 删除用户 -->
+	<delete id="deleteByGuid" parameterType="AdminInfo">
+		delete from userinfo
+		where userGuid = #{userguid,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="AdminInfo">
+		insert into userinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userguid != null">
+				userGuid,
+			</if>
+			<if test="username != null">
+				userName,
+			</if>
+			<if test="userpass != null">
+				userPass,
+			</if>
+			<if test="displayname != null">
+				displayName,
+			</if>
+			<if test="createtime != null">
+				createTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userguid != null">
+				#{userguid,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="userpass != null">
+				#{userpass,jdbcType=VARCHAR},
+			</if>
+			<if test="displayname != null">
+				#{displayname,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByGuid" parameterType="AdminInfo">
+		update userinfo
+		<set>
+			<if test="username != null">
+				userName = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="userpass != null">
+				userPass = #{userpass,jdbcType=VARCHAR},
+			</if>
+			<if test="displayname != null">
+				displayName = #{displayname,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where userGuid = #{userguid,jdbcType=VARCHAR}
+	</update>
+</mapper>

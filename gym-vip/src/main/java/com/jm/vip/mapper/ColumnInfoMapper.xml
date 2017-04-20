@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ColumnInfoMapper">
+	<resultMap id="BaseResultMap" type="ColumnInfo">
+		<id column="guid" property="guid" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="logoUrl" property="logourl" jdbcType="VARCHAR" />
+		<result column="orderNum" property="ordernum" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="SMALLINT" />
+		<result column="publishDate" property="publishdate" jdbcType="TIMESTAMP" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="creatorID" property="creatorid" jdbcType="VARCHAR" />
+		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		guid, title, logoUrl, orderNum, status, publishDate, creator, creatorID,
+		createTime
+	</sql>
+
+	<select id="selectByGuid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from columninfo
+		where guid = #{guid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 获取分页数据 -->
+	<select id="selectListByPage" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM columninfo
+		<where>
+			<if test="wheresql.advSql != null and wheresql.advSql != ''">
+				AND ${wheresql.advSql}
+			</if>
+		</where>
+
+		<if test="ordersql != null and ordersql != ''">
+			ORDER BY ${ordersql}
+		</if>
+		<if test="ordersql == null or ordersql == ''">
+			ORDER BY orderNum asc
+		</if>
+	</select>
+
+	<!-- 获取板块列表 -->
+	<select id="selectColumnList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM columninfo
+		<where>
+			<if test="status != null">
+				AND status = #{status,jdbcType=SMALLINT}
+			</if>
+		</where>
+		ORDER BY orderNum asc
+	</select>
+
+	<delete id="deleteByGuid" parameterType="java.lang.String">
+		delete from columninfo
+		where guid = #{guid,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="ColumnInfo">
+		insert into columninfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="guid != null">
+				guid,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="logourl != null">
+				logoUrl,
+			</if>
+			<if test="ordernum != null">
+				orderNum,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="publishdate != null">
+				publishDate,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="creatorid != null">
+				creatorID,
+			</if>
+			<if test="createtime != null">
+				createTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="guid != null">
+				#{guid,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="logourl != null">
+				#{logourl,jdbcType=VARCHAR},
+			</if>
+			<if test="ordernum != null">
+				#{ordernum,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=SMALLINT},
+			</if>
+			<if test="publishdate != null">
+				#{publishdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorid != null">
+				#{creatorid,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByGuid" parameterType="ColumnInfo">
+		update columninfo
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="logourl != null">
+				logoUrl = #{logourl,jdbcType=VARCHAR},
+			</if>
+			<if test="ordernum != null">
+				orderNum = #{ordernum,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=SMALLINT},
+			</if>
+			<if test="publishdate != null">
+				publishDate = #{publishdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorid != null">
+				creatorID = #{creatorid,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createTime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 修改板块状态 -->
+	<update id="updateStatusByGuid" parameterType="java.util.Map">
+		UPDATE
+		columninfo
+		SET STATUS = #{status,jdbcType=SMALLINT}
+		WHERE GUID =
+		#{guid,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

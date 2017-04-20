@@ -1,0 +1,286 @@
+@CHARSET "UTF-8";
+
+/**********************************系统样式*****************************/
+/***********************
+页面缺省风格：不包含在表格、控件之中的字体大小、颜色、字形、背景色、滚动条样式
+***********************/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	/* font-size: 12px; */
+	color: black;
+	font-family: 宋体;
+	background-color: #ffffff;
+	margin: 0px;
+}
+
+html {
+	height: 100%;
+}
+
+form {
+	background-color: #ffffff;
+}
+
+/* 页面内容 */
+.page-content {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/*****提交表单的样式，根据id*****/
+#fm, #editFm {
+	margin: 0;
+	padding: 5px 5px;
+}
+
+/***********************
+输入框text的属性:边框颜色\宽度,需要调用
+***********************/
+INPUT.str {
+	width: 98%;
+	border-color: #bebebe;
+	*height: 20px !important;
+	_height: 2px !important; /*ie6*/
+	height: 100%;
+	FONT-FAMILY: 宋体, Times New Roman, Times, serif;
+	color: #000000;
+	FONT-SIZE: 14px;
+	LINE-HEIGHT: 120%;
+}
+/***********************
+页面缺省风格：<input></input>(输入框)的样式
+***********************/
+INPUT.str, button, textarea, text {
+	BORDER-RIGHT: #c4c4c4 1px solid;
+	BORDER-TOP: #999999 1px solid;
+	BORDER-LEFT: #999999 1px solid;
+	BORDER-BOTTOM: #c4c4c4 1px solid;
+}
+/***********************
+表格黑框形成样式
+***********************/
+.tablebgcolor {
+	background-color: #bebebe;
+}
+
+.lefttdbgcolor, .lefttdbgcolor10 {
+	background-color: #ffffff;
+	color: #474747;
+	height: 28px;
+	font-size: 14px;
+	width: 15%;
+	text-align: right;
+}
+
+.lefttdbgcolor10 {
+	width: 10%;
+}
+
+.tdbgcolor, .tdbgcolor15, .tdbgcolor20, .tdbgcolor35 {
+	background-color: #ffffff;
+	padding-right: 5px;
+	height: 28px;
+	font-size: 14px;
+	padding: 1px;
+	width: 85%;
+}
+
+.tdbgcolor15 {
+	width: 15%;
+}
+
+.tdbgcolor20 {
+	width: 20%;
+}
+
+.tdbgcolor35 {
+	width: 35%;
+}
+/***********************
+页面显示iframe
+***********************/
+.jhoa-overlay-detail-iframe {
+	border: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	display: none;
+	background-color: rgb(255, 255, 255);
+}
+
+a:LINK, a:VISITED, a:HOVER, a:ACTIVE {
+	color: #000000;
+	TEXT-DECORATION: none
+}
+
+/***********************
+左侧导航页
+***********************/
+.main-item img, .main-item a {
+	vertical-align: middle;
+}
+
+/* 下拉框设置高度最大值 */
+.combo-panel {
+	max-height: 200px;
+}
+
+/* 列表样式 */
+
+/* 默认不显示列表菜单和列表 */
+#list_toolbar, #grid {
+	display: none;
+}
+
+/*****easyui的菜单栏样式*****/
+.datagrid-toolbar {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+/* 标题栏 */
+.searchbar-wrapper {
+	height: 30px;
+	background-color: #4f99f3;
+	color: #fff;
+}
+
+.searchbar-info {
+	float: left;
+	position: relative;
+	height: 30px;
+	line-height: 30px;
+}
+
+.searchbar-sw {
+	display: inline-block;
+	padding: 0 0 0 10px;
+}
+
+/* 标题栏 标题块 */
+.searchbar-title {
+	display: inline-block;
+	vertical-align: top;
+	min-width: 100px;
+	line-height: 30px;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0;
+	margin: 0 4px 0 30px;
+}
+
+/* 标题栏 图标块 */
+.searchbar-icon {
+	background: url('img/searchbar/rico01.gif') no-repeat center center;
+}
+
+.searchbar-icon {
+	display: inline-block;
+	width: 11px;
+	height: 11px;
+	line-height: 11px;
+	position: absolute;
+	left: 9px;
+	top: 50%;
+	margin-top: -6px;
+	font-size: 1px;
+}
+
+.toolbar-wrapper {
+	background: #ccc url(img/searchbar/tbg.gif) repeat-x top;
+	width: 100%;
+	min-height: 28px;
+	border: 1px solid #99bbe8;
+	border-top: 0px;
+	overflow: hidden;
+	vertical-align: middle;
+	display: block;
+}
+
+/* 菜单按钮 */
+.toolbar-wrapper .menu-button {
+	float: left;
+}
+
+/* 检索框DIV样式 */
+.datagrid-toolbar .div-searchbox {
+	float: right;
+	padding-right: 10px;
+	height: 28px;
+	line-height: 28px;
+}
+
+.searchbox-size {
+	width: 130px;
+	height: 20px;
+	text-align: center;
+	/* 	padding: auto 0px; */
+	/* 	margin: auto; */
+}
+
+/* 高级查询按钮 */
+a.advquery-btn {
+	color: #fff;
+}
+
+a.advquery-btn:hover {
+	color: #ff1e00;
+}
+
+/* 列表空行 */
+td.blank-line {
+	height: 25px;
+	text-align: left;
+	padding-left: 5px;
+	font-size: 12px;
+}
+
+/*****表单的输入聚焦*****/
+input:focus, textarea:focus {
+	border: 1px solid #808080;
+	background: rgb(246, 245, 245);
+}
+
+input[type=checkbox]:focus {
+	border: 0px;
+}
+
+/*****查看页的流程表单*****/
+.view-flow-th, .view-flow-th10, .view-flow-th35, .view-flow-th55 {
+	height: 28px;
+	text-align: center;
+/* 	background-image: url(../images/swflowbg.jpg); */
+}
+
+.view-flow-td10 {
+	text-align: center;
+}
+
+.view-flow-td35, .view-flow-td55 {
+	text-align: left;
+	vertical-align: top;
+	line-height: 150%;
+}
+
+.view-flow-th10, .view-flow-td10 {
+	width: 10%;
+}
+
+.view-flow-th35, .view-flow-td35 {
+	width: 35%;
+}
+
+.view-flow-th55, .view-flow-td55 {
+	width: 55%;
+}

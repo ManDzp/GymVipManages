@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+
+/* 选择器格式为：html #layui_layer_skin文件夹名stylecss，这一点非常重要 */
+html #layui_layer_skinflowpersonstylecss {
+	display: none;
+	position: absolute;
+	width: 1989px;
+}
+
+body .layer-ext-flowperson .layui-layer-title {
+	font-family: "Microsoft YaHei", "微软雅黑", "SimHei", "黑体";
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #DDDDDD;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	padding: 0;
+	border-bottom: 1px solid #eee;
+}
+
+body .layer-ext-flowperson .layui-layer-setwin {
+	top: 8px;
+}
+
+body .layer-ext-flowperson .layui-layer-close {
+	background: url(../img/close.png);
+	width: 14px;
+	height: 14px;
+	-webkit-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+	right: 10px;
+}
+
+body .layer-ext-flowperson iframe {
+	background-color: #EEEEEE;
+}

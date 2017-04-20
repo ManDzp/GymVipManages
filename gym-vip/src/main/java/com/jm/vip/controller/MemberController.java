@@ -1,0 +1,342 @@
+package com.jm.vip.controller;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
+import com.jm.base.controller.BaseController;
+import com.jm.common.ResultDTO;
+import com.jm.log.LogProxy;
+import com.jm.security.RegexHelper;
+import com.jm.utils.JSONUtils;
+import com.jm.vip.entity.MemberInfo;
+import com.jm.vip.menu.MemberInfoHelper;
+import com.jm.vip.service.MemberInfoService;
+
+@Controller
+@RequestMapping("/member")
+public class MemberController extends BaseController
+{
+	@Resource(name = "memberInfoService")
+	private MemberInfoService memberInfoService;
+
+	private static final String JSP_PATH = "member";
+
+	/**
+	 * 加载会员资料的列表页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String loadList(Model model)
+	{
+		// 加载列表菜单
+		MemberInfoHelper helper = new MemberInfoHelper();
+		model.addAttribute("menulist", helper.getListMenu());
+
+		model.addAttribute("listTitle", "会员资料");
+		model.addAttribute("mapperid", "MemberInfoMapper.selectListByPage");
+
+		return JSP_PATH + "/list";
+	}
+
+	/**
+	 * 打开会员资料的添加页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String loadAdd(Model model)
+	{
+		// 将菜单集合传给前台
+		MemberInfoHelper helper = new MemberInfoHelper();
+		model.addAttribute("menulist", helper.getAddMenu());
+
+		return JSP_PATH + "/add";
+	}
+
+	/**
+	 * 打开会员资料的查看页
+	 * @param model
+	 * @param guid 唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String loadView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		MemberInfo memberInfo = this.memberInfoService
+				.getMemberInfoByGuid(guid);
+		if (memberInfo == null)
+		{
+			model.addAttribute("errormessage", "会员资料不存在！");
+			return "error/error";
+		}
+
+		// 会员资料
+		model.addAttribute("memberInfo", memberInfo);
+
+		// 将菜单集合传给前台
+		MemberInfoHelper helper = new MemberInfoHelper();
+		model.addAttribute("menulist", helper.getViewMenu(guid));
+
+		return JSP_PATH + "/view";
+	}
+
+	/**
+	 * 打开会员资料的修改页
+	 * @param model
+	 * @param guid 唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String loadEdit(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		MemberInfo memberInfo = this.memberInfoService
+				.getMemberInfoByGuid(guid);
+		if (memberInfo == null)
+		{
+			model.addAttribute("errormessage", "会员资料不存在！");
+			return "error/error";
+		}
+
+		// 会员资料
+		model.addAttribute("memberInfo", memberInfo);
+
+		// 将菜单集合传给前台
+		MemberInfoHelper helper = new MemberInfoHelper();
+		model.addAttribute("menulist", helper.getEditMenu(guid));
+
+		return JSP_PATH + "/edit";
+	}
+
+	/**
+	 * 校验会员卡号是否存在
+	 * @param guid 会员资料唯一标识
+	 * @param cardnumber 会员卡号
+	 * @return
+	 */
+	@RequestMapping(value = "/isSameName", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO isSameName(@RequestParam(required = false) String guid,
+			@RequestParam String cardnumber)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			// boolean isSame = this.memberInfoService.isSameName(guid,
+			// cardnumber);
+			// result.setSuccess(isSame);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "校验会员卡号是否存在失败", ex.toString(), guid,
+					cardnumber);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 添加会员账号
+	 * @param memberInfo
+	 * @return
+	 */
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/html")
+	@ResponseBody
+	public ResultDTO insert(MemberInfo memberInfo)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			String guid = this.memberInfoService.insertMemberInfo(memberInfo,
+					super.getContextUser());
+
+			result.setSuccess(StringUtils.isNotEmpty(guid));
+			result.setMessage(guid);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "添加会员账号失败", ex.toString(), memberInfo);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 修改会员资料
+	 * @param memberInfo
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO update(MemberInfo memberInfo)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean isUpdate = this.memberInfoService
+					.updateMemberInfo(memberInfo);
+
+			result.setSuccess(isUpdate);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "修改会员资料失败", ex.toString(), memberInfo);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 会员资料列表封存
+	 * @param list JSON列表
+	 * @return
+	 */
+	@RequestMapping(value = "/deletelist", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO deleteList(@RequestBody List<JSONObject> list)
+	{
+		List<String> guidList = JSONUtils.getListByField(list, "guid");
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			if (guidList.size() > 0)
+			{
+				boolean isDelete = this.memberInfoService
+						.deleteMemberInfoList(guidList, getContextUser());
+				result.setSuccess(isDelete);
+			}
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "会员资料列表封存失败", ex.toString(), list);
+			result.setSuccess(false);
+		}
+		return result;
+	}
+
+	/**
+	 * 查看页封存
+	 * @param guid 会员资料唯一标识
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteOne", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO deleteOne(@RequestParam String guid)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean isDelete = this.memberInfoService.deleteMemberInfoList(
+					Arrays.asList(guid), getContextUser());
+			result.setSuccess(isDelete);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "封存会员资料失败", ex.toString(), guid);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 充值
+	 * @param guid 会员资料唯一标识
+	 * @param money 充值金额
+	 * @return
+	 */
+	@RequestMapping(value = "/charge", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO charge(@RequestParam String guid,
+			@RequestParam Integer money)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean success = this.memberInfoService.charge(guid, money);
+			result.setSuccess(success);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "充值失败", ex.toString(), guid);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 买卡
+	 * @param guid 会员资料唯一标识
+	 * @param money 消费金额
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/buyCard", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO buyCard(@RequestParam String guid,
+			@RequestParam Integer money, @RequestParam String content)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean success = this.memberInfoService.buyCard(guid, money,
+					content);
+			result.setSuccess(success);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "买卡失败", ex.toString(), guid, money,
+					content);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+}
