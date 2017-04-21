@@ -162,7 +162,7 @@ function openCharge(guid) {
 				layer.alert('充值金额必填！');
 				return;
 			} else if (!money.isPlus()) {
-				layer.alert('充值金额需要是正数！');
+				layer.alert('充值金额格式不正确！');
 				return;
 			}
 			if (content === "") {
@@ -188,8 +188,65 @@ function openCharge(guid) {
 	});
 }
 
+// 打开买卡页
+function openBuyCard(guid) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>消费金额：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-money" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '买卡',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '200px' ],
+		btn : [ '买卡', '关闭' ],
+		content : html,
+		success : function(layero, index) {
+			layero.find('.form-money').focus();
+		},
+		yes : function(index, layero) {
+			var money = layero.find('.form-money').val();
+			var content = layero.find('.form-content').val();
+
+			if (money === "") {
+				layer.alert('消费金额必填！');
+				return;
+			} else if (!money.isPlus()) {
+				layer.alert('消费金额格式不正确！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("buyCard", {
+				"guid" : guid,
+				"money" : money,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert('买卡失败！');
+				}
+
+				layer.close(index);
+			});
+		}
+	});
+}
+
 // 打开开卡页
-function openActiveCard(guid) {
+function openActiveCard(guid, nowExpireTime) {
 	var html = [
 			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
 			'<tbody>',
@@ -201,7 +258,8 @@ function openActiveCard(guid) {
 			'<tr>',
 			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
 			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-expiretime"',
-			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\' })" /></td>',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\', minDate: \''
+					+ nowExpireTime + '\' })" /></td>',
 			'</tr>',
 			'<tr>',
 			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
@@ -260,7 +318,7 @@ function openActiveCard(guid) {
 }
 
 // 打开续卡页
-function openContinueCard(guid) {
+function openContinueCard(guid, nowExpireTime) {
 	var html = [
 			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
 			'<tbody>',
@@ -271,7 +329,8 @@ function openContinueCard(guid) {
 			'<tr>',
 			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
 			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-expiretime"',
-			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\' })" /></td>',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\', minDate: \''
+					+ nowExpireTime + '\' })" /></td>',
 			'</tr>',
 			'<tr>',
 			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
@@ -293,10 +352,10 @@ function openContinueCard(guid) {
 			var content = layero.find('.form-content').val();
 
 			if (money === "") {
-				layer.alert('充值金额必填！');
+				layer.alert('消费金额必填！');
 				return;
 			} else if (!money.isPlus()) {
-				layer.alert('充值金额需要是正数！');
+				layer.alert('消费金额格式不正确！');
 				return;
 			}
 			if (expiretime === "") {

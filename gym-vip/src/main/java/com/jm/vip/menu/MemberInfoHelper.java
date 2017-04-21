@@ -1,9 +1,12 @@
 package com.jm.vip.menu;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jm.base.tool.MenuItem;
+import com.jm.utils.DateHelper;
+import com.jm.vip.entity.MemberInfo;
 
 /**
  * 
@@ -63,11 +66,14 @@ public class MemberInfoHelper
 
 	/**
 	 * 查看页菜单
-	 * @param guid
+	 * @param memberInfo
 	 * @return
 	 */
-	public List<MenuItem> getViewMenu(String guid)
+	public List<MenuItem> getViewMenu(MemberInfo memberInfo)
 	{
+		String guid = memberInfo.getGuid();
+		Integer status = memberInfo.getStatus();
+
 		List<MenuItem> menuList = new ArrayList<MenuItem>();
 
 		MenuItem menu = new MenuItem();
@@ -98,19 +104,45 @@ public class MemberInfoHelper
 		menu.setId("charge");
 		menuList.add(menu);
 
-		menu = new MenuItem();
-		menu.setDisplayName("开卡");
-		menu.setBclass("icon-add");
-		menu.setItemClick("openActiveCard('" + guid + "')");
-		menu.setId("activeCard");
-		menuList.add(menu);
+		// 初始姿态，需要先买卡
+		if (status == 0 || status == 1)
+		{
+			menu = new MenuItem();
+			menu.setDisplayName("买卡");
+			menu.setBclass("icon-add");
+			menu.setItemClick("openBuyCard('" + guid + "')");
+			menu.setId("activeCard");
+			menuList.add(menu);
+		}
 
-		menu = new MenuItem();
-		menu.setDisplayName("续卡");
-		menu.setBclass("icon-add");
-		menu.setItemClick("openContinueCard('" + guid + "')");
-		menu.setId("continueCard");
-		menuList.add(menu);
+		// 待开卡状态，需要开卡才会正常使用
+		if (status == 1)
+		{
+			String nowExpireTime = DateHelper.getCurrentStrDate();
+
+			menu = new MenuItem();
+			menu.setDisplayName("开卡");
+			menu.setBclass("icon-add");
+			menu.setItemClick(
+					"openActiveCard('" + guid + "', '" + nowExpireTime + "')");
+			menu.setId("activeCard");
+			menuList.add(menu);
+		}
+
+		// 正常状态、到期状态，可以进行续卡
+		if (status == 2 || status == 4)
+		{
+			Date expiretime = memberInfo.getExpiretime();
+			String nowExpireTime = DateHelper.getDateToShort(expiretime);
+
+			menu = new MenuItem();
+			menu.setDisplayName("续卡");
+			menu.setBclass("icon-add");
+			menu.setItemClick("openContinueCard('" + guid + "', '"
+					+ nowExpireTime + "')");
+			menu.setId("continueCard");
+			menuList.add(menu);
+		}
 
 		return menuList;
 	}

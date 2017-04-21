@@ -38,7 +38,7 @@
 						<td class="lefttdbgcolor">开卡日期：</td>
 						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberInfo.activetime}" /></label></td>
 						<td class="lefttdbgcolor">到期日期：</td>
-						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.expiretime}" /></label></td>
+						<td class="tdbgcolor35"><label class="view-info-important"><fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.expiretime}" /></label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">卡内余额：</td>
@@ -48,7 +48,15 @@
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">会员积分：</td>
-						<td class="tdbgcolor" colspan="3"><label>${memberInfo.points}</label></td>
+						<td class="tdbgcolor35"><label>${memberInfo.points}</label></td>
+						<td class="lefttdbgcolor">当前状态：</td>
+						<td class="tdbgcolor35"><label class="view-info-important">
+							<c:if test="${memberInfo.status==0}">初始状态</c:if>
+							<c:if test="${memberInfo.status==1}">待开卡</c:if>
+							<c:if test="${memberInfo.status==2}">正常</c:if>
+							<c:if test="${memberInfo.status==3}">请假</c:if>
+							<c:if test="${memberInfo.status==4}">到期</c:if>
+						</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">可用次数：</td>

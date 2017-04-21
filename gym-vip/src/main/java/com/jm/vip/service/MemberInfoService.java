@@ -69,7 +69,12 @@ public class MemberInfoService
 		{
 			memberInfo.setGuid(guid);
 			// memberInfo.setStatus(MemberStatus.DEFAULT.getValue());
-			memberInfo.setStatus((short) 0);
+			memberInfo.setStatus(0);// 状态，0：初始状态
+			memberInfo.setBalance(0d);
+			memberInfo.setConsumption(0d);
+			memberInfo.setPoints(0);
+			memberInfo.setTimes(0);
+			memberInfo.setUsedtimes(0);
 			memberInfo.setCreator(currentUser.getUserName());
 			memberInfo.setCreatorid(currentUser.getUserGuid());
 			memberInfo.setCreatetime(DateHelper.getCurrentDate());
@@ -174,7 +179,19 @@ public class MemberInfoService
 
 		try
 		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return false;
+
+			Double balance = memberInfo.getBalance();
+			if (balance == null)
+				balance = 0d;
+
 			// 更新会员资料
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setBalance(balance + money);
+			this.memberInfoDao.charge(updateMemberInfo);
 
 			// 保存充值记录
 
@@ -202,7 +219,7 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean buyCard(String guid, Integer money, String content)
+	public boolean buyCard(String guid, Double money, String content)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
@@ -211,7 +228,20 @@ public class MemberInfoService
 
 		try
 		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return false;
+
+			Double balance = memberInfo.getBalance();
+			if (balance == null || balance < money)
+				return false;
+
 			// 更新会员资料状态为待开卡
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setStatus(1);// 状态，1：待开卡
+			updateMemberInfo.setBalance(balance - money);
+			this.memberInfoDao.buyCard(updateMemberInfo);
 
 			// 保存买卡记录
 
@@ -249,6 +279,12 @@ public class MemberInfoService
 		try
 		{
 			// 更新会员资料
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setStatus(2);// 状态，2：正常
+			updateMemberInfo.setActivetime(activetime);
+			updateMemberInfo.setExpiretime(expiretime);
+			this.memberInfoDao.activeCard(updateMemberInfo);
 
 			// 保存开卡记录
 
@@ -278,15 +314,32 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean continueCard(String guid, Integer money, Date expiretime,
+	public boolean continueCard(String guid, Double money, Date expiretime,
 			String content)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
+		if (money == null || money <= 0)
+			return false;
+		if (expiretime == null)
+			return false;
 
 		try
 		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return false;
+
+			Double balance = memberInfo.getBalance();
+			if (balance == null || balance < money)
+				return false;
+
 			// 更新会员资料
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setBalance(balance - money);
+			updateMemberInfo.setExpiretime(expiretime);
+			this.memberInfoDao.continueCard(updateMemberInfo);
 
 			// 保存续卡记录
 

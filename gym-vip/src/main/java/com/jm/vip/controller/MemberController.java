@@ -98,7 +98,7 @@ public class MemberController extends BaseController
 
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();
-		model.addAttribute("menulist", helper.getViewMenu(guid));
+		model.addAttribute("menulist", helper.getViewMenu(memberInfo));
 
 		return JSP_PATH + "/view";
 	}
@@ -323,7 +323,7 @@ public class MemberController extends BaseController
 	@RequestMapping(value = "/buyCard", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultDTO buyCard(@RequestParam String guid,
-			@RequestParam Integer money, @RequestParam String content)
+			@RequestParam Double money, @RequestParam String content)
 	{
 		ResultDTO result = new ResultDTO();
 
@@ -389,7 +389,7 @@ public class MemberController extends BaseController
 	@RequestMapping(value = "/continueCard", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultDTO continueCard(@RequestParam String guid,
-			@RequestParam Integer money,
+			@RequestParam Double money,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
 			@RequestParam String content)
 	{

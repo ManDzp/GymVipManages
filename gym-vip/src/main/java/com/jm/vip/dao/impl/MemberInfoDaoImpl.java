@@ -30,4 +30,34 @@ public class MemberInfoDaoImpl extends BaseDaoImpl<MemberInfo>
 		return this.readSession.selectList(getMapperId() + ".selectListByPage",
 				pageSearch, rowBounds);
 	}
+
+	@Override
+	public int charge(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".charge", memberInfo);
+	}
+
+	@Override
+	public int buyCard(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".buyCard", memberInfo);
+	}
+
+	@Override
+	public int spend(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".spend", memberInfo);
+	}
+
+	@Override
+	public int activeCard(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".activeCard", memberInfo);
+	}
+
+	@Override
+	public int continueCard(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".continueCard", memberInfo);
+	}
 }

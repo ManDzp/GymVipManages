@@ -260,7 +260,7 @@ input[type=checkbox]:focus {
 .view-flow-th, .view-flow-th10, .view-flow-th35, .view-flow-th55 {
 	height: 28px;
 	text-align: center;
-/* 	background-image: url(../images/swflowbg.jpg); */
+	/* 	background-image: url(../images/swflowbg.jpg); */
 }
 
 .view-flow-td10 {
@@ -283,4 +283,8 @@ input[type=checkbox]:focus {
 
 .view-flow-th55, .view-flow-td55 {
 	width: 55%;
+}
+
+.view-info-important {
+	color: #ff0000;
 }

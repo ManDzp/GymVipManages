@@ -16,4 +16,40 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 	 */
 	public List<Object> getListByPage(PageSearch pageSearch, Integer pageNum,
 			Integer pageSize);
+
+	/**
+	 * 充值
+	 * @param memberInfo
+	 * @return
+	 */
+	public int charge(MemberInfo memberInfo);
+
+	/**
+	 * 买卡
+	 * @param memberInfo
+	 * @return
+	 */
+	public int buyCard(MemberInfo memberInfo);
+
+	/**
+	 * 消费
+	 * @param memberInfo
+	 * @return
+	 */
+	public int spend(MemberInfo memberInfo);
+
+	/**
+	 * 开卡
+	 * @param memberInfo
+	 * @return
+	 */
+	public int activeCard(MemberInfo memberInfo);
+
+	/**
+	 * 续卡
+	 * @param memberInfo
+	 * @return
+	 */
+	public int continueCard(MemberInfo memberInfo);
+
 }

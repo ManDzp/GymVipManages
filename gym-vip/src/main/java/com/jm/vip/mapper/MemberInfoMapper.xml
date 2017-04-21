@@ -114,6 +114,14 @@
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
+	<!-- 买卡 -->
+	<update id="buyCard" parameterType="MemberInfo">
+		update memberinfo
+		set status = #{status,jdbcType=SMALLINT},
+		balance = #{balance,jdbcType=DECIMAL}
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
 	<!-- 消费 -->
 	<update id="spend" parameterType="MemberInfo">
 		update memberinfo
@@ -124,7 +132,8 @@
 	<!-- 开卡 -->
 	<update id="activeCard" parameterType="MemberInfo">
 		update memberinfo
-		set activeTime = #{activetime,jdbcType=TIMESTAMP},
+		set status = #{status,jdbcType=SMALLINT},
+		activeTime = #{activetime,jdbcType=TIMESTAMP},
 		expireTime = #{expiretime,jdbcType=TIMESTAMP}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>

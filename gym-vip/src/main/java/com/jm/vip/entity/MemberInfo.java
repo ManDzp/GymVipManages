@@ -40,8 +40,10 @@ public class MemberInfo
 	private Date birthday;
 
 	private String mobile;
-
-	private Short status;// 状态 0：正常，1：删除
+	/**
+	 * 状态 0：初始，1：待开卡，2：正常，3：请假，4：到期
+	 */
+	private Integer status;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createtime;
@@ -210,12 +212,12 @@ public class MemberInfo
 		this.mobile = mobile == null ? null : mobile.trim();
 	}
 
-	public Short getStatus()
+	public Integer getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(Short status)
+	public void setStatus(Integer status)
 	{
 		this.status = status;
 	}
