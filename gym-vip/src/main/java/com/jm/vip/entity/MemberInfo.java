@@ -6,10 +6,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class MemberInfo
 {
+	/**
+	 * 会员唯一标识
+	 */
 	private String guid;
-
+	/**
+	 * 会员卡号
+	 */
 	private String cardnumber;
-
+	/**
+	 * 会员类型，0：时间卡，1：次卡
+	 */
 	private String cardtype;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

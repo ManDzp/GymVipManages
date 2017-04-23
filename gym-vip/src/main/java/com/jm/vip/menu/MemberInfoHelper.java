@@ -73,6 +73,7 @@ public class MemberInfoHelper
 	{
 		String guid = memberInfo.getGuid();
 		Integer status = memberInfo.getStatus();
+		String cardtype = memberInfo.getCardtype();// 会员类型，0：时间卡，1：次卡
 
 		List<MenuItem> menuList = new ArrayList<MenuItem>();
 
@@ -104,55 +105,59 @@ public class MemberInfoHelper
 		menu.setId("charge");
 		menuList.add(menu);
 
-		// 初始姿态，需要先买卡
-		if (status == 0 || status == 1)
+		// 时间卡才可以进行以下操作
+		if ("0".equals(cardtype))
 		{
-			menu = new MenuItem();
-			menu.setDisplayName("买卡");
-			menu.setBclass("icon-add");
-			menu.setItemClick("openBuyCard('" + guid + "')");
-			menu.setId("activeCard");
-			menuList.add(menu);
-		}
+			// 初始姿态，需要先买卡
+			if (status == 0 || status == 1)
+			{
+				menu = new MenuItem();
+				menu.setDisplayName("买卡");
+				menu.setBclass("icon-add");
+				menu.setItemClick("openBuyCard('" + guid + "')");
+				menu.setId("activeCard");
+				menuList.add(menu);
+			}
 
-		// 待开卡状态，需要开卡才会正常使用
-		if (status == 1)
-		{
-			String nowExpireTime = DateHelper.getCurrentStrDate();
+			// 待开卡状态，需要开卡才会正常使用
+			if (status == 1)
+			{
+				String nowExpireTime = DateHelper.getCurrentStrDate();
 
-			menu = new MenuItem();
-			menu.setDisplayName("开卡");
-			menu.setBclass("icon-add");
-			menu.setItemClick(
-					"openActiveCard('" + guid + "', '" + nowExpireTime + "')");
-			menu.setId("activeCard");
-			menuList.add(menu);
-		}
+				menu = new MenuItem();
+				menu.setDisplayName("开卡");
+				menu.setBclass("icon-add");
+				menu.setItemClick("openActiveCard('" + guid + "', '"
+						+ nowExpireTime + "')");
+				menu.setId("activeCard");
+				menuList.add(menu);
+			}
 
-		// 正常状态、到期状态，可以进行续卡
-		if (status == 2 || status == 4)
-		{
-			Date expiretime = memberInfo.getExpiretime();
-			String nowExpireTime = DateHelper.getDateToShort(expiretime);
+			// 正常状态、到期状态，可以进行续卡
+			if (status == 2 || status == 4)
+			{
+				Date expiretime = memberInfo.getExpiretime();
+				String nowExpireTime = DateHelper.getDateToShort(expiretime);
 
-			menu = new MenuItem();
-			menu.setDisplayName("续卡");
-			menu.setBclass("icon-add");
-			menu.setItemClick("openContinueCard('" + guid + "', '"
-					+ nowExpireTime + "')");
-			menu.setId("continueCard");
-			menuList.add(menu);
-		}
+				menu = new MenuItem();
+				menu.setDisplayName("续卡");
+				menu.setBclass("icon-add");
+				menu.setItemClick("openContinueCard('" + guid + "', '"
+						+ nowExpireTime + "')");
+				menu.setId("continueCard");
+				menuList.add(menu);
+			}
 
-		// 正常状态，可以进行签到
-		if (status == 2)
-		{
-			menu = new MenuItem();
-			menu.setDisplayName("签到");
-			menu.setBclass("icon-add");
-			menu.setItemClick("signRecord('" + guid + "')");
-			menu.setId("signRecord");
-			menuList.add(menu);
+			// 正常状态，可以进行签到
+			if (status == 2)
+			{
+				menu = new MenuItem();
+				menu.setDisplayName("签到");
+				menu.setBclass("icon-add");
+				menu.setItemClick("signRecord('" + guid + "')");
+				menu.setId("signRecord");
+				menuList.add(menu);
+			}
 		}
 
 		return menuList;

@@ -86,24 +86,12 @@
 
 	<update id="updateByGuid" parameterType="MemberInfo">
 		update memberinfo
-		set cardNumber = #{cardnumber,jdbcType=VARCHAR},
-		cardType = #{cardtype,jdbcType=VARCHAR},
-		activeTime = #{activetime,jdbcType=TIMESTAMP},
-		expireTime = #{expiretime,jdbcType=TIMESTAMP},
-		balance = #{balance,jdbcType=DECIMAL},
-		consumption = #{consumption,jdbcType=DECIMAL},
-		points = #{points,jdbcType=INTEGER},
-		times = #{times,jdbcType=INTEGER},
-		usedTimes = #{usedtimes,jdbcType=INTEGER},
-		fullName = #{fullname,jdbcType=VARCHAR},
+		set fullName = #{fullname,jdbcType=VARCHAR},
 		sex = #{sex,jdbcType=VARCHAR},
 		nationality = #{nationality,jdbcType=VARCHAR},
 		identityCard = #{identitycard,jdbcType=VARCHAR},
 		birthday = #{birthday,jdbcType=TIMESTAMP},
-		mobile = #{mobile,jdbcType=VARCHAR},
-		createTime = #{createtime,jdbcType=TIMESTAMP},
-		creator = #{creator,jdbcType=VARCHAR},
-		creatorId = #{creatorid,jdbcType=VARCHAR}
+		mobile = #{mobile,jdbcType=VARCHAR}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 

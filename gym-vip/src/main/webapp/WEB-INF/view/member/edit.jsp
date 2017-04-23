@@ -48,18 +48,13 @@
 						<td class="tdbgcolor" colspan="4">会员卡资料</td>
 					</tr>
 					<tr>
-						<td class="lefttdbgcolor"><font color="#ff0000">*</font>会员卡号：</td>
-						<td class="tdbgcolor35"><input id="cardnumber" name="cardnumber"
-							class="str" v_must="1" v_name="会员卡号" v_type="string"
-							value="${memberInfo.cardnumber}" /></td>
-						<td class="lefttdbgcolor"><font color="#ff0000">*</font>会员类型：</td>
-						<td class="tdbgcolor35">
-							<select id="cardtype" name="cardtype" class="easyui-combobox"
-								editable="false" panelHeight="auto" style="width: 70px;">
-								<option value="0">时间卡</option>
-								<option value="1">次卡</option>
-							</select>
-						</td>
+						<td class="lefttdbgcolor">会员卡号：</td>
+						<td class="tdbgcolor35"><label>${memberInfo.cardnumber}</label></td>
+						<td class="lefttdbgcolor">会员类型：</td>
+						<td class="tdbgcolor35"><label>
+							<c:if test="${memberInfo.cardtype==0}">时间卡</c:if>
+							<c:if test="${memberInfo.cardtype==1}">次卡</c:if>
+						</label></td>
 					</tr>
 					<tr>
 						<td class="tdbgcolor" colspan="4">会员资料</td>
