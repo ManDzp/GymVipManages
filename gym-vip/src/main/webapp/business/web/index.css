@@ -17,6 +17,20 @@ body {
 	background: url('../../deco/img/web/top.jpg') no-repeat;
 	float: left;
 }
+.web-top-header {
+	width:970px;
+	height:82px;
+	background: url('../../deco/img/web/top.jpg') no-repeat;
+	float: left;
+    position: relative;
+}
+.web-top-title {
+    position: absolute;
+    left: 100px;
+    top: 25px;
+    font-size: 40px;
+    font-weight: bold;
+}
 #nav {
 	width:970px;
 	height:37px;

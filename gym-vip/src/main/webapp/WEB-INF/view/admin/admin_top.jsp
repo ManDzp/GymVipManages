@@ -7,7 +7,10 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
 	style="background-repeat: repeat-x; background-image: url('${ctx}/deco/img/header9.jpg');">
 	<tr>
-		<td rowspan="2" width="70%"><img border="0" src="${ctx}/deco/img/header1.jpg"></td>
+		<td rowspan="2" width="70%">
+			<div class="admin-top-title"
+				style="font-size: 35px; font-weight: bold; padding-left: 30px;">${jsp_title}</div>
+		</td>
 		<td width="30%" height="45"></td>
 	</tr>
 	<tr width="100%">

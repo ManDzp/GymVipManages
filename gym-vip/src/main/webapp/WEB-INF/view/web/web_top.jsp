@@ -25,4 +25,6 @@
 	</div>
 </div>
 
-<div id="header"></div>
+<div class="web-top-header">
+	<div class="web-top-title">${jsp_title}</div>
+</div>
