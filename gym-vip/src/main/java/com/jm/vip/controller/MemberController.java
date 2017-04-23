@@ -412,4 +412,31 @@ public class MemberController extends BaseController
 		return result;
 	}
 
+	/**
+	 * 保存签到记录
+	 * @param guid 会员资料唯一标识
+	 * @return
+	 */
+	@RequestMapping(value = "/signRecord", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO signRecord(@RequestParam String guid)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean success = this.memberInfoService.saveSignRecord(guid,
+					getContextUser());
+			result.setSuccess(success);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "保存签到记录失败", ex.toString(), guid);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
 }

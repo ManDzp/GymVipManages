@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/member/list.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/business/member/member.js${res_v}"></script>
 </head>
 
@@ -22,11 +23,13 @@
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
 				<th data-options="field:'cardnumber',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="30">会员卡号</th>
+					width="20">会员卡号</th>
 				<th data-options="field:'fullname',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="30">会员名称</th>
+					width="20">会员名称</th>
 				<th data-options="field:'mobile',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="30">手机号</th>
+					width="40">手机号</th>
+				<th data-options="field:'status',align:'left',formatter:getStatusUrl,sortable:true,order:'desc'"
+					width="20">状态</th>
 			</tr>			
 		</thead>
 	</table>

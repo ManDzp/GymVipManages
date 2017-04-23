@@ -144,6 +144,17 @@ public class MemberInfoHelper
 			menuList.add(menu);
 		}
 
+		// 正常状态，可以进行签到
+		if (status == 2)
+		{
+			menu = new MenuItem();
+			menu.setDisplayName("签到");
+			menu.setBclass("icon-add");
+			menu.setItemClick("signRecord('" + guid + "')");
+			menu.setId("signRecord");
+			menuList.add(menu);
+		}
+
 		return menuList;
 	}
 

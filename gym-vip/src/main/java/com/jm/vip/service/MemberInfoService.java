@@ -18,7 +18,9 @@ import com.jm.utils.BaseUtils;
 import com.jm.utils.DateHelper;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
+import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.MemberInfo;
+import com.jm.vip.entity.SignRecord;
 
 @Service
 public class MemberInfoService
@@ -33,6 +35,9 @@ public class MemberInfoService
 
 	@Resource(name = "memberHistoryInfoDao")
 	private MemberHistoryInfoDao memberHistoryInfoDao;
+
+	@Resource(name = "signRecordDao")
+	private SignRecordDao signRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -356,6 +361,49 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "续卡异常", ex.toString(), guid, money,
 					expiretime, content);
+			return false;
+		}
+	}
+
+	/**
+	 * 保存签到记录
+	 * @param guid 会员资料唯一标识
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public boolean saveSignRecord(String guid, CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return false;
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return false;
+
+			// 保存签到记录
+			SignRecord signRecord = new SignRecord();
+			signRecord.setGuid(BaseUtils.getPrimaryKey());
+			signRecord.setMemberguid(guid);
+			signRecord.setCardtype(memberInfo.getCardtype());
+			signRecord.setCreator(currentUser.getUserName());
+			signRecord.setCreatorid(currentUser.getUserGuid());
+			signRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.signRecordDao.insert(signRecord);
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "保存签到记录成功", guid);
+			return true;
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "保存签到记录异常", ex.toString(), guid);
 			return false;
 		}
 	}

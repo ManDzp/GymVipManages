@@ -2,3 +2,5 @@ gym-vip/target/
 gym-vip/.classpath
 gym-vip/.project
 gym-vip/.settings/
+
+gym-vip/target/m2e-wtp/web-resources/META-INF/maven/com.jm.vip/gym-vip/pom.properties

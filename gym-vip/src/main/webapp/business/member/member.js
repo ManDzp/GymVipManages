@@ -1,11 +1,3 @@
-//点击查看页链接
-function getViewUrl(val, rec) {
-	var value = (val || "");// 选取内容
-	var clickFun = "openView('" + rec.guid + "');return false;";// 调用ONCLICK方法
-	return "<a href='javascript:void(0);' title='" + value + "' onclick=\""
-			+ clickFun + "\">" + value + "</a>";// 格式化内容
-}
-
 // 返回列表页面
 function doBack() {
 	closeIFrameDialog();
@@ -386,5 +378,23 @@ function openContinueCard(guid, nowExpireTime) {
 				layer.close(index);
 			});
 		}
+	});
+}
+
+// 查看页签到
+function signRecord(guid) {
+	layer.confirm('确定签到吗？', function(index) {
+		$.post("signRecord", {
+			"guid" : guid
+		}, function(data) {
+			var ret = eval('(' + data + ')');
+			if (ret.success) {
+				layer.alert('签到成功！');
+			} else {
+				layer.alert('签到失败！');
+			}
+		});
+
+		layer.close(index);
 	});
 }
