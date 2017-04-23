@@ -109,7 +109,7 @@ public class LoginController extends BaseController
 		}
 
 		// 跳转到网站首页
-		return new ModelAndView("redirect:/webindex/web_index");
+		return new ModelAndView("redirect:/index");
 	}
 
 }
