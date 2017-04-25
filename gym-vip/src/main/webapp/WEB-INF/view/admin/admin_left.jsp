@@ -15,6 +15,14 @@
 					</a>
 				</div>
 			</li>
+			<li>
+				<div class="main-item">
+					<img src='${ctx}/deco/img/iconlf01.gif' align="absmiddle" width='5' height='5' />
+					<a href="javascript:void(0);" onclick="menuClick('${ctx}/member/historylist', 'iframepage')">
+						<span>会员封存资料</span>
+					</a>
+				</div>
+			</li>
 		</ul>
 	</div>
 </div>

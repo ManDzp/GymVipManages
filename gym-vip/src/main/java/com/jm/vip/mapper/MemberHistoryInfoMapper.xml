@@ -23,16 +23,36 @@
 		<result column="creatorId" property="creatorid" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
 	</resultMap>
+
 	<sql id="Base_Column_List">
-		guid, cardNumber, cardType, activeTime, expireTime,
-		balance, consumption,
-		points,
-		times, usedTimes, fullName, sex,
-		nationality, identityCard, birthday,
-		mobile, status,
-		creator, creatorId,
-		createTime
+		guid, cardNumber, cardType, activeTime, expireTime, balance, consumption,
+		points, times, usedTimes, fullName, sex, nationality, identityCard, birthday,
+		mobile, createTime, creator, creatorId, status
 	</sql>
+	<sql id="List_Column">
+		guid, cardNumber, fullName, mobile, status
+	</sql>
+
+	<!-- 获取分页数据 -->
+	<select id="selectListByPage" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="List_Column" />
+		FROM memberhistoryinfo
+		<where>
+			<if test="wheresql.advSql != null and wheresql.advSql != ''">
+				AND ${wheresql.advSql}
+			</if>
+		</where>
+
+		<if test="ordersql != null and ordersql != ''">
+			ORDER BY ${ordersql}
+		</if>
+		<if test="ordersql == null or ordersql == ''">
+			ORDER by createTime desc
+		</if>
+	</select>
+
 	<select id="selectByGuid" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select
@@ -40,36 +60,12 @@
 		from memberhistoryinfo
 		where guid = #{guid,jdbcType=BIGINT}
 	</select>
+
 	<delete id="deleteByGuid" parameterType="java.lang.String">
 		delete from
 		memberhistoryinfo
 		where guid = #{guid,jdbcType=BIGINT}
 	</delete>
-
-	<insert id="insert" parameterType="MemberHistoryInfo">
-		insert into memberhistoryinfo
-		(guid, cardNumber, cardType,
-		activeTime, expireTime, balance,
-		consumption, points, times,
-		usedTimes, fullName, sex,
-		nationality,
-		identityCard, birthday,
-		mobile, status, creator,
-		creatorId, createTime)
-		values (#{guid,jdbcType=BIGINT}, #{cardnumber,jdbcType=VARCHAR},
-		#{cardtype,jdbcType=VARCHAR},
-		#{activetime,jdbcType=TIMESTAMP},
-		#{expiretime,jdbcType=TIMESTAMP}, #{balance,jdbcType=DECIMAL},
-		#{consumption,jdbcType=DECIMAL}, #{points,jdbcType=INTEGER},
-		#{times,jdbcType=INTEGER},
-		#{usedtimes,jdbcType=INTEGER},
-		#{fullname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
-		#{nationality,jdbcType=VARCHAR}, #{identitycard,jdbcType=VARCHAR},
-		#{birthday,jdbcType=TIMESTAMP},
-		#{mobile,jdbcType=VARCHAR},
-		#{status,jdbcType=SMALLINT}, #{creator,jdbcType=VARCHAR},
-		#{creatorid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
-	</insert>
 
 	<insert id="backupData" parameterType="MemberInfo">
 		insert into memberhistoryinfo

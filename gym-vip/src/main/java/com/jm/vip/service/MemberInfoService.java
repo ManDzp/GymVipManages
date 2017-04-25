@@ -19,6 +19,7 @@ import com.jm.utils.DateHelper;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
+import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
 
@@ -54,6 +55,25 @@ public class MemberInfoService
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取会员资料信息异常", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取会员封存资料信息
+	 * @param guid 会员唯一标识
+	 * @return
+	 */
+	public MemberHistoryInfo getMemberHistoryInfoByGuid(String guid)
+	{
+		try
+		{
+			return this.memberHistoryInfoDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取会员封存资料信息异常", e.toString(), guid);
 			return null;
 		}
 	}

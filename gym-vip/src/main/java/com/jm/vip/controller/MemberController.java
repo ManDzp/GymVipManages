@@ -22,6 +22,7 @@ import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
+import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.menu.MemberInfoHelper;
 import com.jm.vip.service.MemberInfoService;
@@ -51,6 +52,21 @@ public class MemberController extends BaseController
 		model.addAttribute("mapperid", "MemberInfoMapper.selectListByPage");
 
 		return JSP_PATH + "/list";
+	}
+
+	/**
+	 * 加载会员封存资料的列表页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/historylist", method = RequestMethod.GET)
+	public String loadHistoryList(Model model)
+	{
+		model.addAttribute("listTitle", "会员封存资料");
+		model.addAttribute("mapperid",
+				"MemberHistoryInfoMapper.selectListByPage");
+
+		return JSP_PATH + "/historylist";
 	}
 
 	/**
@@ -99,6 +115,41 @@ public class MemberController extends BaseController
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();
 		model.addAttribute("menulist", helper.getViewMenu(memberInfo));
+
+		return JSP_PATH + "/view";
+	}
+
+	/**
+	 * 打开会员封存资料的查看页
+	 * @param model
+	 * @param guid 唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/historyview", method = RequestMethod.GET)
+	public String loadHistoryView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		MemberHistoryInfo memberInfo = this.memberInfoService
+				.getMemberHistoryInfoByGuid(guid);
+		if (memberInfo == null)
+		{
+			model.addAttribute("errormessage", "会员资料不存在！");
+			return "error/error";
+		}
+
+		// 会员资料
+		model.addAttribute("memberInfo", memberInfo);
+
+		// 将菜单集合传给前台
+		MemberInfoHelper helper = new MemberInfoHelper();
+		model.addAttribute("menulist", helper.getHistoryViewMenu(memberInfo));
 
 		return JSP_PATH + "/view";
 	}

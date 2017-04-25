@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.jm.base.tool.MenuItem;
 import com.jm.utils.DateHelper;
+import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 
 /**
@@ -159,6 +160,25 @@ public class MemberInfoHelper
 				menuList.add(menu);
 			}
 		}
+
+		return menuList;
+	}
+
+	/**
+	 * 查看页菜单
+	 * @param memberInfo
+	 * @return
+	 */
+	public List<MenuItem> getHistoryViewMenu(MemberHistoryInfo memberInfo)
+	{
+		List<MenuItem> menuList = new ArrayList<MenuItem>();
+
+		MenuItem menu = new MenuItem();
+		menu.setDisplayName("返回");
+		menu.setBclass("icon-back");
+		menu.setItemClick("doBack()");
+		menu.setId("back");
+		menuList.add(menu);
 
 		return menuList;
 	}

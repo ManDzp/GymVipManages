@@ -13,6 +13,11 @@ function openView(guid) {
 	openIFrameDialog("view?guid=" + guid);
 }
 
+//打开查看页面
+function openHistoryView(guid) {
+	openIFrameDialog("historyview?guid=" + guid);
+}
+
 // 打开修改页面
 function openEdit(guid) {
 	window.location.href = "edit?guid=" + guid;
