@@ -58,7 +58,7 @@ public class MemberInfoHelper
 		menu = new MenuItem();
 		menu.setDisplayName("保存");
 		menu.setBclass("icon-save");
-		menu.setItemClick("saveAddUser()");
+		menu.setItemClick("saveAddMember()");
 		menu.setId("save");
 		menuList.add(menu);
 
@@ -200,7 +200,7 @@ public class MemberInfoHelper
 		menu = new MenuItem();
 		menu.setDisplayName("保存");
 		menu.setBclass("icon-save");
-		menu.setItemClick("saveUpdateUser('" + userguid + "')");
+		menu.setItemClick("saveUpdateMember('" + userguid + "')");
 		menu.setId("save");
 		menuList.add(menu);
 

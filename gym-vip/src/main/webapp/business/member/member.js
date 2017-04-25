@@ -13,7 +13,7 @@ function openView(guid) {
 	openIFrameDialog("view?guid=" + guid);
 }
 
-//打开查看页面
+// 打开查看页面
 function openHistoryView(guid) {
 	openIFrameDialog("historyview?guid=" + guid);
 }
@@ -29,24 +29,33 @@ function changeToView(guid) {
 }
 
 // 执行保存按钮
-function saveAddUser() {
+function saveAddMember() {
 	if (!check(fm)) {
 		return;
 	}
 
 	layer.confirm('确定保存信息吗？', function(index) {
-		// 添加操作
-		$('#fm').form('submit', {
-			url : 'insert',
-			contentType : 'application/json',
-			type : "POST",
-			success : function(data) {
-				var ret = eval('(' + data + ')');
-				if (ret.success) {
-					changeToView(ret.message);
-				} else {
-					layer.alert('添加失败！');
-				}
+		$.post("isExistCardNumber", {
+			"cardNumber" : $("#cardnumber").val()
+		}, function(data) {
+			var ret = eval('(' + data + ')');
+			if (ret.success) {
+				layer.alert('登陆账号已存在！');
+			} else {
+				// 添加操作
+				$('#fm').form('submit', {
+					url : 'insert',
+					contentType : 'application/json',
+					type : "POST",
+					success : function(data) {
+						var ret = eval('(' + data + ')');
+						if (ret.success) {
+							changeToView(ret.message);
+						} else {
+							layer.alert('添加失败！');
+						}
+					}
+				});
 			}
 		});
 
@@ -55,13 +64,13 @@ function saveAddUser() {
 }
 
 // 执行打开修改页后的保存按钮
-function saveUpdateUser(guid) {
+function saveUpdateMember(guid) {
 	if (!check(fm)) {
 		return;
 	}
 
 	layer.confirm('确定保存信息吗？', function(index) {
-		// 添加操作
+		// 修改操作
 		$('#fm').form('submit', {
 			url : 'update',
 			contentType : 'application/json',

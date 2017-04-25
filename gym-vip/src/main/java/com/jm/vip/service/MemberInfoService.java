@@ -79,6 +79,69 @@ public class MemberInfoService
 	}
 
 	/**
+	 * 查找会员卡号信息
+	 * @param cardNumber 会员卡号
+	 * @return
+	 */
+	public MemberInfo getMemberByCardNumber(String cardNumber)
+	{
+		try
+		{
+			return this.memberInfoDao.getMemberByCardNumber(cardNumber);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "查找会员卡号信息异常", e.toString(), cardNumber);
+			return null;
+		}
+	}
+
+	/**
+	 * 查找会员卡号信息
+	 * @param cardNumber 会员卡号
+	 * @param withoutGuid 排除的唯一标识
+	 * @return
+	 */
+	public MemberInfo getMemberByCardNumber(String cardNumber,
+			String withoutGuid)
+	{
+		try
+		{
+			return this.memberInfoDao.getMemberByCardNumber(cardNumber,
+					withoutGuid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "查找会员卡号信息异常", e.toString(), cardNumber,
+					withoutGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 校验会员卡号是否存在
+	 * @param cardNumber 会员卡号
+	 * @return
+	 */
+	public boolean isExistCardNumber(String cardNumber)
+	{
+		try
+		{
+			MemberInfo memberInfo = this.getMemberByCardNumber(cardNumber);
+			return memberInfo != null;
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "校验会员卡号是否存在异常", e.toString(),
+					cardNumber);
+			return false;
+		}
+	}
+
+	/**
 	 * 发放新会员卡
 	 * @param memberInfo 会员资料
 	 * @param currUser 当前用户

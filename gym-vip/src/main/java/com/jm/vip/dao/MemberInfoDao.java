@@ -18,6 +18,22 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 			Integer pageSize);
 
 	/**
+	 * 查找会员卡号信息
+	 * @param cardNumber 会员卡号
+	 * @return
+	 */
+	public MemberInfo getMemberByCardNumber(String cardNumber);
+
+	/**
+	 * 查找会员卡号信息
+	 * @param cardNumber 会员卡号
+	 * @param withoutGuid 排除的唯一标识
+	 * @return
+	 */
+	public MemberInfo getMemberByCardNumber(String cardNumber,
+			String withoutGuid);
+
+	/**
 	 * 充值
 	 * @param memberInfo
 	 * @return

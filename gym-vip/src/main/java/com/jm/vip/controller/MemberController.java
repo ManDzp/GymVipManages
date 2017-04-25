@@ -191,28 +191,26 @@ public class MemberController extends BaseController
 
 	/**
 	 * 校验会员卡号是否存在
-	 * @param guid 会员资料唯一标识
-	 * @param cardnumber 会员卡号
+	 * @param cardNumber 会员卡号
 	 * @return
 	 */
-	@RequestMapping(value = "/isSameName", method = RequestMethod.POST)
+	@RequestMapping(value = "/isExistCardNumber", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultDTO isSameName(@RequestParam(required = false) String guid,
-			@RequestParam String cardnumber)
+	public ResultDTO isExistCardNumber(@RequestParam String cardNumber)
 	{
 		ResultDTO result = new ResultDTO();
 
 		try
 		{
-			// boolean isSame = this.memberInfoService.isSameName(guid,
-			// cardnumber);
-			// result.setSuccess(isSame);
+			boolean isExist = this.memberInfoService
+					.isExistCardNumber(cardNumber);
+			result.setSuccess(isExist);
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
-			LogProxy.WriteLogError(log, "校验会员卡号是否存在失败", ex.toString(), guid,
-					cardnumber);
+			LogProxy.WriteLogError(log, "校验会员卡号是否存在失败", ex.toString(),
+					cardNumber);
 			result.setSuccess(false);
 		}
 
