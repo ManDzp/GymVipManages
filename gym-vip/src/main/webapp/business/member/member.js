@@ -403,7 +403,9 @@ function signRecord(guid) {
 		}, function(data) {
 			var ret = eval('(' + data + ')');
 			if (ret.success) {
-				layer.alert('签到成功！');
+				layer.alert('签到成功！', function() {
+					window.location.reload();
+				});
 			} else {
 				layer.alert('签到失败！');
 			}

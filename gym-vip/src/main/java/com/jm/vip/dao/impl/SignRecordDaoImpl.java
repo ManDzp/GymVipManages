@@ -1,10 +1,12 @@
 package com.jm.vip.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.collect.Maps;
 import com.jm.page.PageSearch;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.SignRecord;
@@ -24,10 +26,14 @@ public class SignRecordDaoImpl extends BaseDaoImpl<SignRecord>
 	}
 
 	@Override
-	public List<Object> getListByPage(PageSearch pageSearch, Integer pageNum,
-			Integer pageSize)
+	public List<SignRecord> getInfoList(Integer topNum, String memberGuid)
 	{
-		RowBounds rowBounds = new RowBounds(pageNum, pageSize);
+		PageSearch pageSearch = new PageSearch();
+		Map<String, Object> whereMap = Maps.newHashMap();
+		whereMap.put("memberguid", memberGuid);
+		pageSearch.setWheresql(whereMap);// where条件
+		
+		RowBounds rowBounds = new RowBounds(1, topNum);
 		return this.readSession.selectList(getMapperId() + ".selectListByPage",
 				pageSearch, rowBounds);
 	}

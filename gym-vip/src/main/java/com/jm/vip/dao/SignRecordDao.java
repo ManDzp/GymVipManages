@@ -2,7 +2,6 @@ package com.jm.vip.dao;
 
 import java.util.List;
 
-import com.jm.page.PageSearch;
 import com.jm.vip.entity.SignRecord;
 
 /**
@@ -11,12 +10,10 @@ import com.jm.vip.entity.SignRecord;
 public interface SignRecordDao extends BaseDao<SignRecord>
 {
 	/**
-	 * 获取分页数据
-	 * @param pageSearch
-	 * @param pageNum
-	 * @param pageSize
+	 * 获取前几项签到记录
+	 * @param topNum
+	 * @param memberGuid 会员资料
 	 * @return
 	 */
-	public List<Object> getListByPage(PageSearch pageSearch, Integer pageNum,
-			Integer pageSize);
+	public List<SignRecord> getInfoList(Integer topNum, String memberGuid);
 }

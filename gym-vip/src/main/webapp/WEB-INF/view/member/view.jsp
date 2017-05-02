@@ -8,6 +8,22 @@
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
+<style type="text/css">
+ul, li {
+	list-style: none;
+}
+
+.member-info-record {
+	padding-top: 20px;
+}
+
+.member-info-record-ul li {
+	float: left;
+	width: 33%;
+	padding: 5px;
+}
+</style>
+
 <script type="text/javascript" src="${ctx}/deco/DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${ctx}/deco/pubfunction.js"></script>
 <script type="text/javascript" src="${ctx}/business/member/member.js${res_v}"></script>
@@ -90,6 +106,49 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<div class="member-info-record">
+				<ul class="member-info-record-ul">
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">充值记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('../chargerecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<c:forEach items="${chargeRecordList}" var="chargeRecord">
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">${chargeRecord.money}</td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">签到记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('../signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+								<c:forEach items="${signRecordList}" var="signRecord">
+								<tr>
+									<td class="tdbgcolor" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${signRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+				</ul>
+			</div>
+
+			<ywtag:dialog/>
+
 		</form>
 	</div>
 </body>

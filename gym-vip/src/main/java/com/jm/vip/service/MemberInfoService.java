@@ -16,9 +16,11 @@ import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.BaseUtils;
 import com.jm.utils.DateHelper;
+import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
+import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
@@ -39,6 +41,9 @@ public class MemberInfoService
 
 	@Resource(name = "signRecordDao")
 	private SignRecordDao signRecordDao;
+
+	@Resource(name = "chargeRecordDao")
+	private ChargeRecordDao chargeRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -255,10 +260,12 @@ public class MemberInfoService
 	 * @param guid 会员资料唯一标识
 	 * @param money 充值金额
 	 * @param content 备注说明
+	 * @param currentUser
 	 * @return
 	 */
 	@Transactional
-	public boolean charge(String guid, Double money, String content)
+	public boolean charge(String guid, Double money, String content,
+			CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
@@ -282,6 +289,15 @@ public class MemberInfoService
 			this.memberInfoDao.charge(updateMemberInfo);
 
 			// 保存充值记录
+			ChargeRecord chargeRecord = new ChargeRecord();
+			chargeRecord.setGuid(BaseUtils.getPrimaryKey());
+			chargeRecord.setMemberguid(guid);
+			chargeRecord.setMoney(money);
+			chargeRecord.setRemark(content);
+			chargeRecord.setCreator(currentUser.getUserName());
+			chargeRecord.setCreatorid(currentUser.getUserGuid());
+			chargeRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.chargeRecordDao.insert(chargeRecord);
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "充值成功", guid, money, content);

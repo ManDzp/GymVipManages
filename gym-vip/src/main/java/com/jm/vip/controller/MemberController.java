@@ -22,10 +22,13 @@ import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
+import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
+import com.jm.vip.entity.SignRecord;
 import com.jm.vip.menu.MemberInfoHelper;
 import com.jm.vip.service.MemberInfoService;
+import com.jm.vip.service.RecordService;
 
 @Controller
 @RequestMapping("/member")
@@ -33,6 +36,9 @@ public class MemberController extends BaseController
 {
 	@Resource(name = "memberInfoService")
 	private MemberInfoService memberInfoService;
+
+	@Resource(name = "recordService")
+	private RecordService recordService;
 
 	private static final String JSP_PATH = "member";
 
@@ -111,6 +117,14 @@ public class MemberController extends BaseController
 
 		// 会员资料
 		model.addAttribute("memberInfo", memberInfo);
+
+		List<SignRecord> signRecordList = this.recordService
+				.getSignRecordList(5, guid);
+		model.addAttribute("signRecordList", signRecordList);
+
+		List<ChargeRecord> chargeRecordList = this.recordService
+				.getChargeRecordList(5, guid);
+		model.addAttribute("chargeRecordList", chargeRecordList);
 
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();
@@ -348,7 +362,7 @@ public class MemberController extends BaseController
 		try
 		{
 			boolean success = this.memberInfoService.charge(guid, money,
-					content);
+					content, getContextUser());
 			result.setSuccess(success);
 		}
 		catch (Exception ex)

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="SignRecordMapper">
 	<resultMap id="BaseResultMap" type="SignRecord">
-		<result column="guid" property="guid" jdbcType="BIGINT" />
+		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="cardType" property="cardtype" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
@@ -24,8 +24,8 @@
 		<include refid="Base_Column_List" />
 		FROM SignRecord
 		<where>
-			<if test="wheresql.guid != null and wheresql.guid != ''">
-				AND guid = #{guid,jdbcType=VARCHAR}
+			<if test="wheresql.memberguid != null and wheresql.memberguid != ''">
+				AND memberGuid = #{wheresql.memberguid,jdbcType=VARCHAR}
 			</if>
 		</where>
 
@@ -51,7 +51,7 @@
 	</delete>
 
 	<insert id="insert" parameterType="SignRecord">
-		insert into signrecord (guid,
+		insert into SignRecord (guid,
 		memberGuid, cardType, createTime,
 		creator, creatorId)
 		values
