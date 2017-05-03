@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -253,19 +254,25 @@ public class MemberController extends BaseController
 
 	/**
 	 * 添加会员账号
+	 * @param request
 	 * @param memberInfo
 	 * @return
 	 */
 	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/html")
 	@ResponseBody
-	public ResultDTO insert(MemberInfo memberInfo)
+	public ResultDTO insert(HttpServletRequest request, MemberInfo memberInfo)
 	{
 		ResultDTO result = new ResultDTO();
 
 		try
 		{
+			// 文件路径
+			String realPath = request.getSession().getServletContext()
+					.getRealPath("/");
+			String allFiles = request.getParameter("hdFiles");
+
 			String guid = this.memberInfoService.insertMemberInfo(memberInfo,
-					super.getContextUser());
+					realPath, allFiles, super.getContextUser());
 
 			result.setSuccess(StringUtils.isNotEmpty(guid));
 			result.setMessage(guid);
@@ -293,8 +300,13 @@ public class MemberController extends BaseController
 
 		try
 		{
+			// 文件路径
+			String realPath = request.getSession().getServletContext()
+					.getRealPath("/");
+			String allFiles = request.getParameter("hdFiles");
+
 			boolean isUpdate = this.memberInfoService
-					.updateMemberInfo(memberInfo);
+					.updateMemberInfo(memberInfo, realPath, allFiles);
 
 			result.setSuccess(isUpdate);
 		}

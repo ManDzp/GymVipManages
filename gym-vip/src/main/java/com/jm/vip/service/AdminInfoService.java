@@ -102,6 +102,7 @@ public class AdminInfoService
 	 * @param userInfo 注册用户信息
 	 * @return
 	 */
+	@Transactional
 	public String insertUserInfo(AdminInfo userInfo)
 	{
 		String userName = userInfo.getUsername();
@@ -138,6 +139,7 @@ public class AdminInfoService
 	 * @param userInfo 注册用户信息
 	 * @return
 	 */
+	@Transactional
 	public boolean updateUserInfo(AdminInfo userInfo)
 	{
 		try

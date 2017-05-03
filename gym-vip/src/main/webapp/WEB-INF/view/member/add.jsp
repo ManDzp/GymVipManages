@@ -13,7 +13,7 @@
 <script type="text/javascript" src="${ctx}/deco/uploadify/jquery.uploadify.js"></script>
 <script type="text/javascript" src="${ctx}/deco/DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${ctx}/deco/pubfunction.js"></script>
-<script type="text/javascript" src="${ctx}/business/fileupload.js"></script>
+<script type="text/javascript" src="${ctx}/business/imgupload.js"></script>
 <script type="text/javascript" src="${ctx}/business/member/member.js${res_v}"></script>
 
 <script type="text/javascript">

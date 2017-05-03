@@ -1,34 +1,47 @@
 package com.jm.vip.entity;
 
-public class BlobInfo {
-	
-    private String blobguid;//文件唯一标识
+public class BlobInfo
+{
+	/**
+	 * 文件唯一标识
+	 */
+	private String blobguid;
+	/**
+	 * 附件唯一标识
+	 */
+	private String guid;
+	/**
+	 * 附件内容
+	 */
+	private byte[] content;
 
-    private String guid;//附件唯一标识
+	public String getBlobguid()
+	{
+		return blobguid;
+	}
 
-    private String content;//内容
+	public void setBlobguid(String blobguid)
+	{
+		this.blobguid = blobguid == null ? null : blobguid.trim();
+	}
 
-    public String getBlobguid() {
-        return blobguid;
-    }
+	public String getGuid()
+	{
+		return guid;
+	}
 
-    public void setBlobguid(String blobguid) {
-        this.blobguid = blobguid == null ? null : blobguid.trim();
-    }
+	public void setGuid(String guid)
+	{
+		this.guid = guid == null ? null : guid.trim();
+	}
 
-    public String getGuid() {
-        return guid;
-    }
+	public byte[] getContent()
+	{
+		return content;
+	}
 
-    public void setGuid(String guid) {
-        this.guid = guid == null ? null : guid.trim();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+	public void setContent(byte[] content)
+	{
+		this.content = content;
+	}
 }

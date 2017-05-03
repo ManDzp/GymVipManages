@@ -39,6 +39,9 @@ public class MemberInfoService
 	 */
 	private Logger log = Logger.getLogger(MemberInfoService.class);
 
+	@Resource(name = "attachmentService")
+	private AttachmentService attachmentService;
+
 	@Resource(name = "memberInfoDao")
 	private MemberInfoDao memberInfoDao;
 
@@ -164,11 +167,14 @@ public class MemberInfoService
 	/**
 	 * 发放新会员卡
 	 * @param memberInfo 会员资料
+	 * @param realPath 地址
+	 * @param allFiles 附件
 	 * @param currUser 当前用户
 	 * @return
 	 */
-	public String insertMemberInfo(MemberInfo memberInfo,
-			CurrentUser currentUser)
+	@Transactional
+	public String insertMemberInfo(MemberInfo memberInfo, String realPath,
+			String allFiles, CurrentUser currentUser)
 	{
 		// 唯一标识
 		String guid = BaseUtils.getPrimaryKey();
@@ -186,8 +192,10 @@ public class MemberInfoService
 			memberInfo.setCreator(currentUser.getUserName());
 			memberInfo.setCreatorid(currentUser.getUserGuid());
 			memberInfo.setCreatetime(DateHelper.getCurrentDate());
-
 			this.memberInfoDao.insert(memberInfo);
+
+			// 添加附件
+			this.attachmentService.insertAttachment(guid, realPath, allFiles);
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "发卡", memberInfo.getCardnumber(),
@@ -208,13 +216,22 @@ public class MemberInfoService
 	/**
 	 * 修改会员资料
 	 * @param memberInfo 会员资料
+	 * @param realPath 地址
+	 * @param allFiles 附件
 	 * @return
 	 */
-	public boolean updateMemberInfo(MemberInfo memberInfo)
+	@Transactional
+	public boolean updateMemberInfo(MemberInfo memberInfo, String realPath,
+			String allFiles)
 	{
 		try
 		{
+			String guid = memberInfo.getGuid();
+
 			this.memberInfoDao.updateByGuid(memberInfo);
+
+			// 添加附件
+			this.attachmentService.insertAttachment(guid, realPath, allFiles);
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "修改会员资料", memberInfo.getGuid(),
