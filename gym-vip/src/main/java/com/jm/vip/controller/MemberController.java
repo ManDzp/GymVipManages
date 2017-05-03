@@ -25,6 +25,7 @@ import com.jm.utils.JSONUtils;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
+import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
@@ -134,6 +135,11 @@ public class MemberController extends BaseController
 		List<ActiveCardRecord> activeCardRecordList = this.recordService
 				.getActiveCardRecordList(5, guid);
 		model.addAttribute("activeCardRecordList", activeCardRecordList);
+
+		// 续卡记录
+		List<ContinueCardRecord> continueCardRecordList = this.recordService
+				.getContinueCardRecordList(5, guid);
+		model.addAttribute("continueCardRecordList", continueCardRecordList);
 
 		// 签到记录
 		List<SignRecord> signRecordList = this.recordService
@@ -475,7 +481,7 @@ public class MemberController extends BaseController
 		try
 		{
 			boolean success = this.memberInfoService.continueCard(guid, money,
-					expiretime, content);
+					expiretime, content, getContextUser());
 			result.setSuccess(success);
 		}
 		catch (Exception ex)

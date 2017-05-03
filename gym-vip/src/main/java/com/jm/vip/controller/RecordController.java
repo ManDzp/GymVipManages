@@ -22,6 +22,8 @@ public class RecordController
 
 	private static final String ACTIVE_CARD_RECORD_JSP_PATH = "activecardrecord";
 
+	private static final String CONTINUE_CARD_RECORD_JSP_PATH = "continuecardrecord";
+
 	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
 
 	/**
@@ -89,6 +91,29 @@ public class RecordController
 				"ActiveCardRecordMapper.selectListByPage");
 
 		return ACTIVE_CARD_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 加载续卡记录的列表页
+	 * @param model
+	 * @param memberguid 会员资料唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/continuecardrecord/list", method = RequestMethod.GET)
+	public String loadContinueCardRecordList(Model model,
+			@RequestParam(required = false) String memberguid)
+	{
+		model.addAttribute("memberguid", memberguid);
+
+		// 加载列表菜单
+		ChargeRecordHelper helper = new ChargeRecordHelper();
+		model.addAttribute("menulist", helper.getListMenu());
+
+		model.addAttribute("listTitle", "续卡记录");
+		model.addAttribute("mapperid",
+				"ContinueCardRecordMapper.selectListByPage");
+
+		return CONTINUE_CARD_RECORD_JSP_PATH + "/list";
 	}
 
 	/**

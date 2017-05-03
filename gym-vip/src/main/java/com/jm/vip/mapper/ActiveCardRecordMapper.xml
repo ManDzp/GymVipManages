@@ -45,12 +45,12 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM ActiveCardRecord
-		where guid = #{guid,jdbcType=VARCHAR}
+		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		delete from ActiveCardRecord
-		where guid = #{guid,jdbcType=VARCHAR}
+		DELETE FROM ActiveCardRecord
+		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</delete>
 
 	<insert id="insert" parameterType="ActiveCardRecord">

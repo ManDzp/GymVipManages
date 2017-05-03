@@ -73,7 +73,7 @@ INPUT.str, button, textarea, text {
 
 .lefttdbgcolor, .lefttdbgcolor10 {
 	background-color: #ffffff;
-	color: #474747;
+	/* color: #474747; */
 	height: 28px;
 	font-size: 14px;
 	width: 15%;

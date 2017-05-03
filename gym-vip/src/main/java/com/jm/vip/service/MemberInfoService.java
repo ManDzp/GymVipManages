@@ -19,12 +19,14 @@ import com.jm.utils.DateHelper;
 import com.jm.vip.dao.ActiveCardRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
+import com.jm.vip.dao.ContinueCardRecordDao;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
+import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
@@ -54,6 +56,9 @@ public class MemberInfoService
 
 	@Resource(name = "activeCardRecordDao")
 	private ActiveCardRecordDao activeCardRecordDao;
+
+	@Resource(name = "continueCardRecordDao")
+	private ContinueCardRecordDao continueCardRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -447,11 +452,12 @@ public class MemberInfoService
 	 * @param money 消费金额
 	 * @param expiretime 到期日期
 	 * @param content 备注说明
+	 * @param currentUser
 	 * @return
 	 */
 	@Transactional
 	public boolean continueCard(String guid, Double money, Date expiretime,
-			String content)
+			String content, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
@@ -478,6 +484,16 @@ public class MemberInfoService
 			this.memberInfoDao.continueCard(updateMemberInfo);
 
 			// 保存续卡记录
+			ContinueCardRecord continueCardRecord = new ContinueCardRecord();
+			continueCardRecord.setGuid(BaseUtils.getPrimaryKey());
+			continueCardRecord.setMemberguid(guid);
+			continueCardRecord.setMoney(money);
+			continueCardRecord.setExpiretime(expiretime);
+			continueCardRecord.setRemark(content);
+			continueCardRecord.setCreator(currentUser.getUserName());
+			continueCardRecord.setCreatorid(currentUser.getUserGuid());
+			continueCardRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.continueCardRecordDao.insert(continueCardRecord);
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "续卡成功", guid, money, expiretime,

@@ -11,10 +11,12 @@ import com.jm.log.LogProxy;
 import com.jm.vip.dao.ActiveCardRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
+import com.jm.vip.dao.ContinueCardRecordDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
+import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.SignRecord;
 
 /**
@@ -39,6 +41,9 @@ public class RecordService
 
 	@Resource(name = "activeCardRecordDao")
 	private ActiveCardRecordDao activeCardRecordDao;
+
+	@Resource(name = "continueCardRecordDao")
+	private ContinueCardRecordDao continueCardRecordDao;
 
 	/**
 	 * 获取前几项签到记录
@@ -122,6 +127,28 @@ public class RecordService
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取前几项开卡记录异常", e.toString(), topNum,
+					memberGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取前几项续卡记录
+	 * @param topNum
+	 * @param memberGuid 会员资料
+	 * @return
+	 */
+	public List<ContinueCardRecord> getContinueCardRecordList(Integer topNum,
+			String memberGuid)
+	{
+		try
+		{
+			return this.continueCardRecordDao.getInfoList(topNum, memberGuid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取前几项续卡记录异常", e.toString(), topNum,
 					memberGuid);
 			return null;
 		}

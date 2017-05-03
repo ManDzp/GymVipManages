@@ -42,12 +42,12 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SignRecord
-		where guid = #{guid,jdbcType=VARCHAR}
+		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		delete from SignRecord
-		where guid = #{guid,jdbcType=VARCHAR}
+		DELETE FROM SignRecord
+		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</delete>
 
 	<insert id="insert" parameterType="SignRecord">

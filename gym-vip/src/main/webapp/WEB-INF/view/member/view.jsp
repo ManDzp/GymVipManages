@@ -197,6 +197,36 @@ ul, li {
 						</table>
 					</li>
 					</c:if>
+
+					<c:if test="${memberInfo.status > 1}">
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">续卡记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">消费金额</td>
+									<td class="tdbgcolor35" style="text-align: center;">到期日期</td>
+									<td class="tdbgcolor35" style="text-align: center;">续卡时间</td>
+								</tr>
+								<c:forEach items="${continueCardRecordList}" var="continueCardRecord">
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">${continueCardRecord.money}</td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${continueCardRecord.expiretime}" /></td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${continueCardRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					</c:if>
 				</ul>
 			</div>
 
