@@ -22,9 +22,9 @@
 		<thead>	
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
-				<th data-options="field:'money',align:'left',formatter:getMoneyUrl,sortable:true,order:'desc'" width="40">消费金额</th>
-				<th data-options="field:'expiretime',align:'left',formatter:getShortDateUrl,sortable:true,order:'desc'"
-					width="50">到期日期</th>
+				<th data-options="field:'money',align:'left',formatter:getMoneyUrl,sortable:true,order:'desc'" width="30">消费金额</th>
+				<th data-options="field:'expiretime',align:'left',formatter:getShortDateUrl,sortable:true,order:'desc'" width="30">到期日期</th>
+				<th data-options="field:'createtime',align:'left',formatter:getDateUrl,sortable:true,order:'desc'" width="30">续卡时间</th>
 			</tr>
 		</thead>
 	</table>

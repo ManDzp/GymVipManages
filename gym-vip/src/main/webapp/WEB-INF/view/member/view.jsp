@@ -110,6 +110,29 @@ ul, li {
 
 			<div class="member-info-record">
 				<ul class="member-info-record-ul">
+					<c:if test="${memberInfo.status > 1}">
+					<!-- 签到记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">签到记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+								<tr>
+									<td class="tdbgcolor" colspan="2">签到时间</td>
+								</tr>
+								<c:forEach items="${signRecordList}" var="signRecord">
+								<tr>
+									<td class="tdbgcolor" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${signRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					</c:if>
+
+					<!-- 充值记录 -->
 					<li>
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
@@ -131,6 +154,39 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
+
+					<c:if test="${memberInfo.status > 1}">
+					<!-- 续卡记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">续卡记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/continuecardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">消费金额</td>
+									<td class="tdbgcolor35" style="text-align: center;">到期日期</td>
+									<td class="tdbgcolor35" style="text-align: center;">续卡时间</td>
+								</tr>
+								<c:forEach items="${continueCardRecordList}" var="continueCardRecord">
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">${continueCardRecord.money}</td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${continueCardRecord.expiretime}" /></td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${continueCardRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					</c:if>
+
+					<!-- 买卡记录 -->
 					<li>
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
@@ -152,6 +208,8 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
+
+					<!-- 开卡记录 -->
 					<li>
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
@@ -177,56 +235,7 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
-					<c:if test="${memberInfo.status > 1}">
-					<li>
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
-								<tr>
-									<td class="tdbgcolor view-info-important">签到记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
-								</tr>
-								<tr>
-									<td class="tdbgcolor" colspan="2">签到时间</td>
-								</tr>
-								<c:forEach items="${signRecordList}" var="signRecord">
-								<tr>
-									<td class="tdbgcolor" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${signRecord.createtime}" /></td>
-								</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</li>
-					</c:if>
 
-					<c:if test="${memberInfo.status > 1}">
-					<li>
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
-								<tr>
-									<td class="tdbgcolor view-info-important">续卡记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
-								</tr>
-							</tbody>
-						</table>
-
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
-								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">消费金额</td>
-									<td class="tdbgcolor35" style="text-align: center;">到期日期</td>
-									<td class="tdbgcolor35" style="text-align: center;">续卡时间</td>
-								</tr>
-								<c:forEach items="${continueCardRecordList}" var="continueCardRecord">
-								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">${continueCardRecord.money}</td>
-									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${continueCardRecord.expiretime}" /></td>
-									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${continueCardRecord.createtime}" /></td>
-								</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</li>
-					</c:if>
 				</ul>
 			</div>
 
