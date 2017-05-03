@@ -18,9 +18,9 @@ ul, li {
 }
 
 .member-info-record-ul li {
-	float: left;
-	width: 33%;
-	padding: 5px;
+    float: left;
+    width: 31%;
+    padding: 0 1%;
 }
 </style>
 
@@ -125,6 +125,27 @@ ul, li {
 								<tr>
 									<td class="lefttdbgcolor" style="text-align: center;">${chargeRecord.money}</td>
 									<td class="tdbgcolor35" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important" colspan="2">买卡记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">消费金额</td>
+									<td class="tdbgcolor35" style="text-align: center;" colspan="2">买卡时间</td>
+								</tr>
+								<c:forEach items="${buyCardRecordList}" var="buyCardRecord">
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">${buyCardRecord.money}</td>
+									<td class="tdbgcolor35" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>

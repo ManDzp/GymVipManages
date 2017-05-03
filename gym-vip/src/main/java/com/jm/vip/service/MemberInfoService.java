@@ -16,10 +16,12 @@ import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.BaseUtils;
 import com.jm.utils.DateHelper;
+import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
+import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
@@ -44,6 +46,9 @@ public class MemberInfoService
 
 	@Resource(name = "chargeRecordDao")
 	private ChargeRecordDao chargeRecordDao;
+
+	@Resource(name = "buyCardRecordDao")
+	private BuyCardRecordDao buyCardRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -320,10 +325,12 @@ public class MemberInfoService
 	 * @param guid 会员资料唯一标识
 	 * @param money 消费金额
 	 * @param content 备注说明
+	 * @param currentUser
 	 * @return
 	 */
 	@Transactional
-	public boolean buyCard(String guid, Double money, String content)
+	public boolean buyCard(String guid, Double money, String content,
+			CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
@@ -348,6 +355,15 @@ public class MemberInfoService
 			this.memberInfoDao.buyCard(updateMemberInfo);
 
 			// 保存买卡记录
+			BuyCardRecord buyCardRecord = new BuyCardRecord();
+			buyCardRecord.setGuid(BaseUtils.getPrimaryKey());
+			buyCardRecord.setMemberguid(guid);
+			buyCardRecord.setMoney(money);
+			buyCardRecord.setRemark(content);
+			buyCardRecord.setCreator(currentUser.getUserName());
+			buyCardRecord.setCreatorid(currentUser.getUserGuid());
+			buyCardRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.buyCardRecordDao.insert(buyCardRecord);
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "买卡成功", guid, money, content);

@@ -8,8 +8,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.jm.log.LogProxy;
+import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.SignRecordDao;
+import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.SignRecord;
 
@@ -29,6 +31,9 @@ public class RecordService
 
 	@Resource(name = "chargeRecordDao")
 	private ChargeRecordDao chargeRecordDao;
+
+	@Resource(name = "buyCardRecordDao")
+	private BuyCardRecordDao buyCardRecordDao;
 
 	/**
 	 * 获取前几项签到记录
@@ -68,6 +73,28 @@ public class RecordService
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取前几项充值记录异常", e.toString(), topNum,
+					memberGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取前几项买卡记录
+	 * @param topNum
+	 * @param memberGuid 会员资料
+	 * @return
+	 */
+	public List<BuyCardRecord> getBuyCardRecordList(Integer topNum,
+			String memberGuid)
+	{
+		try
+		{
+			return this.buyCardRecordDao.getInfoList(topNum, memberGuid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取前几项买卡记录异常", e.toString(), topNum,
 					memberGuid);
 			return null;
 		}

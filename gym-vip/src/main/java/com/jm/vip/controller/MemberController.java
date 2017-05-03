@@ -22,6 +22,7 @@ import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
+import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
@@ -118,13 +119,20 @@ public class MemberController extends BaseController
 		// 会员资料
 		model.addAttribute("memberInfo", memberInfo);
 
-		List<SignRecord> signRecordList = this.recordService
-				.getSignRecordList(5, guid);
-		model.addAttribute("signRecordList", signRecordList);
-
+		// 充值记录
 		List<ChargeRecord> chargeRecordList = this.recordService
 				.getChargeRecordList(5, guid);
 		model.addAttribute("chargeRecordList", chargeRecordList);
+
+		// 买卡记录
+		List<BuyCardRecord> buyCardRecordList = this.recordService
+				.getBuyCardRecordList(5, guid);
+		model.addAttribute("buyCardRecordList", buyCardRecordList);
+
+		// 签到记录
+		List<SignRecord> signRecordList = this.recordService
+				.getSignRecordList(5, guid);
+		model.addAttribute("signRecordList", signRecordList);
 
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();
@@ -393,7 +401,7 @@ public class MemberController extends BaseController
 		try
 		{
 			boolean success = this.memberInfoService.buyCard(guid, money,
-					content);
+					content, getContextUser());
 			result.setSuccess(success);
 		}
 		catch (Exception ex)
