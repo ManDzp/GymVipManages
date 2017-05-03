@@ -20,6 +20,7 @@ ul, li {
 .member-info-record-ul li {
     float: left;
     width: 31%;
+    height: 250px;
     padding: 0 1%;
 }
 </style>
@@ -155,6 +156,32 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
+									<td class="tdbgcolor view-info-important">开卡记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/activecardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor" style="width: 50%; text-align: center;">开卡日期</td>
+									<td class="tdbgcolor" style="width: 50%; text-align: center;">到期日期</td>
+								</tr>
+								<c:forEach items="${activeCardRecordList}" var="activeCardRecord">
+								<tr>
+									<td class="tdbgcolor" style="width: 50%; text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${activeCardRecord.activetime}" /></td>
+									<td class="tdbgcolor" style="width: 50%; text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${activeCardRecord.expiretime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					<c:if test="${memberInfo.status > 1}">
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
 									<td class="tdbgcolor view-info-important">签到记录</td>
 									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
@@ -169,6 +196,7 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
+					</c:if>
 				</ul>
 			</div>
 

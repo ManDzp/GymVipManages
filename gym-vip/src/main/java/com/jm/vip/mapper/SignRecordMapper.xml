@@ -14,7 +14,7 @@
 		guid, memberGuid, cardType, createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, cardType, createTime, creator, creatorId
+		guid, memberGuid, cardType, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->

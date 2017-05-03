@@ -18,10 +18,14 @@ public class MemberInfo
 	 * 会员类型，0：时间卡，1：次卡
 	 */
 	private String cardtype;
-
+	/**
+	 * 开卡日期
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date activetime;
-
+	/**
+	 * 到期日期
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiretime;
 

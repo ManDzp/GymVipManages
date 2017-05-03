@@ -16,11 +16,13 @@ import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.BaseUtils;
 import com.jm.utils.DateHelper;
+import com.jm.vip.dao.ActiveCardRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
+import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
@@ -49,6 +51,9 @@ public class MemberInfoService
 
 	@Resource(name = "buyCardRecordDao")
 	private BuyCardRecordDao buyCardRecordDao;
+
+	@Resource(name = "activeCardRecordDao")
+	private ActiveCardRecordDao activeCardRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -387,11 +392,12 @@ public class MemberInfoService
 	 * @param activetime 开卡时间
 	 * @param expiretime 到期日期
 	 * @param content 备注说明
+	 * @param currentUser
 	 * @return
 	 */
 	@Transactional
 	public boolean activeCard(String guid, Date activetime, Date expiretime,
-			String content)
+			String content, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
@@ -407,6 +413,16 @@ public class MemberInfoService
 			this.memberInfoDao.activeCard(updateMemberInfo);
 
 			// 保存开卡记录
+			ActiveCardRecord activeCardRecord = new ActiveCardRecord();
+			activeCardRecord.setGuid(BaseUtils.getPrimaryKey());
+			activeCardRecord.setMemberguid(guid);
+			activeCardRecord.setActivetime(activetime);
+			activeCardRecord.setExpiretime(expiretime);
+			activeCardRecord.setRemark(content);
+			activeCardRecord.setCreator(currentUser.getUserName());
+			activeCardRecord.setCreatorid(currentUser.getUserGuid());
+			activeCardRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.activeCardRecordDao.insert(activeCardRecord);
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "开卡成功", guid, activetime, expiretime,

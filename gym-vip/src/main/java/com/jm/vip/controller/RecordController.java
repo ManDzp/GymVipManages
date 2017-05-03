@@ -20,6 +20,8 @@ public class RecordController
 
 	private static final String BUY_CARD_RECORD_JSP_PATH = "buycardrecord";
 
+	private static final String ACTIVE_CARD_RECORD_JSP_PATH = "activecardrecord";
+
 	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
 
 	/**
@@ -64,6 +66,29 @@ public class RecordController
 		model.addAttribute("mapperid", "BuyCardRecordMapper.selectListByPage");
 
 		return BUY_CARD_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 加载开卡记录的列表页
+	 * @param model
+	 * @param memberguid 会员资料唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/activecardrecord/list", method = RequestMethod.GET)
+	public String loadActiveCardRecordList(Model model,
+			@RequestParam(required = false) String memberguid)
+	{
+		model.addAttribute("memberguid", memberguid);
+
+		// 加载列表菜单
+		ChargeRecordHelper helper = new ChargeRecordHelper();
+		model.addAttribute("menulist", helper.getListMenu());
+
+		model.addAttribute("listTitle", "开卡记录");
+		model.addAttribute("mapperid",
+				"ActiveCardRecordMapper.selectListByPage");
+
+		return ACTIVE_CARD_RECORD_JSP_PATH + "/list";
 	}
 
 	/**

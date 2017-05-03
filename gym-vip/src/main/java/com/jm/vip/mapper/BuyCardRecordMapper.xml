@@ -15,7 +15,7 @@
 		guid, memberGuid, money, remark, createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, money, remark, createTime, creator, creatorId
+		guid, memberGuid, money, remark, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->

@@ -22,6 +22,7 @@ import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
+import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
@@ -128,6 +129,11 @@ public class MemberController extends BaseController
 		List<BuyCardRecord> buyCardRecordList = this.recordService
 				.getBuyCardRecordList(5, guid);
 		model.addAttribute("buyCardRecordList", buyCardRecordList);
+
+		// 开卡记录
+		List<ActiveCardRecord> activeCardRecordList = this.recordService
+				.getActiveCardRecordList(5, guid);
+		model.addAttribute("activeCardRecordList", activeCardRecordList);
 
 		// 签到记录
 		List<SignRecord> signRecordList = this.recordService
@@ -435,7 +441,7 @@ public class MemberController extends BaseController
 		try
 		{
 			boolean success = this.memberInfoService.activeCard(guid,
-					activetime, expiretime, content);
+					activetime, expiretime, content, getContextUser());
 			result.setSuccess(success);
 		}
 		catch (Exception ex)
