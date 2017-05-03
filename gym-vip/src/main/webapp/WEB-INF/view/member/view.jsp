@@ -113,17 +113,18 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important">充值记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('../chargerecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor view-info-important" colspan="2">充值记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/chargerecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
-							</tbody>
-						</table>
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
+
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">充值金额</td>
+									<td class="tdbgcolor35" style="text-align: center;" colspan="2">充值时间</td>
+								</tr>
 								<c:forEach items="${chargeRecordList}" var="chargeRecord">
 								<tr>
 									<td class="lefttdbgcolor" style="text-align: center;">${chargeRecord.money}</td>
-									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></td>
+									<td class="tdbgcolor35" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -134,7 +135,10 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="tdbgcolor view-info-important">签到记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('../signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+								<tr>
+									<td class="tdbgcolor" colspan="2">签到时间</td>
 								</tr>
 								<c:forEach items="${signRecordList}" var="signRecord">
 								<tr>
