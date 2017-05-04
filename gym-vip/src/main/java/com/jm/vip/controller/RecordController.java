@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jm.vip.menu.ChargeRecordHelper;
-import com.jm.vip.menu.SignRecordHelper;
+import com.jm.vip.menu.RecordHelper;
 
 /**
  * 查看记录控制器
@@ -41,7 +40,7 @@ public class RecordController
 		model.addAttribute("memberguid", memberguid);
 
 		// 加载列表菜单
-		ChargeRecordHelper helper = new ChargeRecordHelper();
+		RecordHelper helper = new RecordHelper();
 		model.addAttribute("menulist", helper.getListMenu());
 
 		model.addAttribute("listTitle", "充值记录");
@@ -63,7 +62,7 @@ public class RecordController
 		model.addAttribute("memberguid", memberguid);
 
 		// 加载列表菜单
-		ChargeRecordHelper helper = new ChargeRecordHelper();
+		RecordHelper helper = new RecordHelper();
 		model.addAttribute("menulist", helper.getListMenu());
 
 		model.addAttribute("listTitle", "买卡记录");
@@ -85,7 +84,7 @@ public class RecordController
 		model.addAttribute("memberguid", memberguid);
 
 		// 加载列表菜单
-		ChargeRecordHelper helper = new ChargeRecordHelper();
+		RecordHelper helper = new RecordHelper();
 		model.addAttribute("menulist", helper.getListMenu());
 
 		model.addAttribute("listTitle", "开卡记录");
@@ -108,7 +107,7 @@ public class RecordController
 		model.addAttribute("memberguid", memberguid);
 
 		// 加载列表菜单
-		ChargeRecordHelper helper = new ChargeRecordHelper();
+		RecordHelper helper = new RecordHelper();
 		model.addAttribute("menulist", helper.getListMenu());
 
 		model.addAttribute("listTitle", "续卡记录");
@@ -131,7 +130,7 @@ public class RecordController
 		model.addAttribute("memberguid", memberguid);
 
 		// 加载列表菜单
-		SignRecordHelper helper = new SignRecordHelper();
+		RecordHelper helper = new RecordHelper();
 		model.addAttribute("menulist", helper.getListMenu());
 
 		model.addAttribute("listTitle", "签到记录");
@@ -153,7 +152,7 @@ public class RecordController
 		model.addAttribute("memberguid", memberguid);
 
 		// 加载列表菜单
-		ChargeRecordHelper helper = new ChargeRecordHelper();
+		RecordHelper helper = new RecordHelper();
 		model.addAttribute("menulist", helper.getListMenu());
 
 		model.addAttribute("listTitle", "购买次数记录");

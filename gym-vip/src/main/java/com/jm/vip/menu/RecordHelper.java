@@ -6,12 +6,12 @@ import java.util.List;
 import com.jm.base.tool.MenuItem;
 
 /**
- * 充值记录菜单帮助类
+ * 查看记录菜单帮助类
  */
-public class ChargeRecordHelper
+public class RecordHelper
 {
 	/**
-	 * 充值记录列表菜单
+	 * 查看记录列表菜单
 	 * @return
 	 */
 	public List<MenuItem> getListMenu()
