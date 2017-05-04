@@ -31,6 +31,7 @@ import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
 import com.jm.vip.menu.MemberInfoHelper;
+import com.jm.vip.service.AttachmentService;
 import com.jm.vip.service.MemberInfoService;
 import com.jm.vip.service.RecordService;
 
@@ -43,6 +44,9 @@ public class MemberController extends BaseController
 
 	@Resource(name = "recordService")
 	private RecordService recordService;
+
+	@Resource(name = "attachmentService")
+	protected AttachmentService attachmentService;
 
 	private static final String JSP_PATH = "member";
 
@@ -121,6 +125,15 @@ public class MemberController extends BaseController
 
 		// 会员资料
 		model.addAttribute("memberInfo", memberInfo);
+
+		// 查看页会员图片
+		String imgUrl = attachmentService.getFirstImageUrl(request, guid);
+		if (StringUtils.isNotEmpty(imgUrl))
+		{
+			String imgHtml = "<img class='member-info-img' src='" + imgUrl
+					+ "'>";
+			model.addAttribute("imgHtml", imgHtml);
+		}
 
 		// 充值记录
 		List<ChargeRecord> chargeRecordList = this.recordService

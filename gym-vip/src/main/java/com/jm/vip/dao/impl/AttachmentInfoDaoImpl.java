@@ -1,5 +1,7 @@
 package com.jm.vip.dao.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -25,6 +27,15 @@ public class AttachmentInfoDaoImpl extends BaseDaoImpl<AttachmentInfo>
 		param.put("blobguid", blobGuid);
 
 		return this.session.delete(getMapperId() + ".deleteByMap", param);
+	}
+
+	@Override
+	public List<AttachmentInfo> listByGuid(String guid)
+	{
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("guid", guid);
+
+		return this.session.selectList(getMapperId() + ".listByGuid", param);
 	}
 
 }

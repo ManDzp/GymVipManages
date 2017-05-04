@@ -3,10 +3,13 @@ package com.jm.vip.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -57,6 +60,114 @@ public class AttachmentService
 			LogProxy.WriteLogError(log, "删除附件", e.toString(), blobGuid);
 			return false;
 		}
+	}
+
+	/**
+	 * 获取第一个图片地址
+	 * @param request 页面请求
+	 * @param guid 发文唯一标识
+	 * @return
+	 */
+	public String getFirstImageUrl(HttpServletRequest request, String guid)
+	{
+		String siteUrl = request.getContextPath();
+		String sitePath = request.getSession().getServletContext()
+				.getRealPath("/");
+
+		// 附件列表
+		List<AttachmentInfo> attachments = getAttachmentsInfoByGuid(guid,
+				siteUrl, sitePath);
+
+		if (CollectionUtils.isEmpty(attachments))
+		{
+			return "";
+		}
+
+		for (AttachmentInfo attachment : attachments)
+		{
+			if (Arrays.asList("gif", "jpg")
+					.contains(attachment.getFileext().toLowerCase()))
+			{
+				return attachment.getFileurl();
+			}
+		}
+
+		return "";
+	}
+
+	/**
+	 * 根据文件标识获取文件多个附件，包含附件地址信息
+	 * @param guid 文件标识
+	 * @param siteUrl 网络地址
+	 * @param sitePath 物理地址
+	 * @return 附件列表
+	 */
+	public List<AttachmentInfo> getAttachmentsInfoByGuid(String guid,
+			String siteUrl, String sitePath)
+	{
+		try
+		{
+			List<AttachmentInfo> attachments = this.attachmentInfoDao
+					.listByGuid(guid);
+
+			setAttachmentUrl(attachments, siteUrl, sitePath);
+
+			return attachments;
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "根据文件标识获取附件", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
+	 * @Description: 设置附件信息
+	 * @param attachments 附件列表
+	 * @param siteUrl 网络地址
+	 * @param sitePath 物理地址
+	 */
+	private void setAttachmentUrl(List<AttachmentInfo> attachments,
+			String siteUrl, String sitePath)
+	{
+		for (AttachmentInfo attachment : attachments)
+		{
+			String blobGuid = attachment.getBlobguid();
+			BlobInfo blob = this.blobInfoDao.getByGuid(blobGuid);
+			if (blob != null)
+			{
+				String[] urlArr = getAttachmentUrl(attachment.getTitle(),
+						blobGuid, siteUrl, sitePath);
+				attachment.setDirpath(urlArr[0]);
+				attachment.setFilepath(urlArr[1]);
+				attachment.setFileurl(urlArr[2]);
+				attachment.setBlobcontent(blob.getContent());
+			}
+		}
+	}
+
+	/**
+	 * 根据传递过来的附件唯一标识、文件名、附件存放路径生成文件
+	 * @param fileName 附件中文名
+	 * @param blobGuid 附件唯一标识
+	 * @param siteUrl
+	 * @param sitePath
+	 * @return [0]附件所在的文件夹；[1]附件存放物理路径\\ftemp\\；[2]附件访问路径 /ftemp/
+	 */
+	public String[] getAttachmentUrl(String fileName, String blobGuid,
+			String siteUrl, String sitePath)
+	{
+		String[] file = new String[3];
+
+		// 附件文件夹路径 dirpath
+		file[0] = sitePath + "\\ftemp\\" + blobGuid;
+		// 附件物理路径 filepath
+		file[1] = sitePath + "\\ftemp\\" + blobGuid + "\\" + fileName;
+		// 附件访问全路径 fileurl
+		file[2] = siteUrl + "/ftemp/" + blobGuid + "/" + fileName;
+
+		return file;
 	}
 
 	/**

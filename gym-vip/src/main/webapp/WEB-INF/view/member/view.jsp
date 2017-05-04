@@ -18,10 +18,15 @@ ul, li {
 }
 
 .member-info-record-ul li {
-    float: left;
-    width: 31%;
-    height: 250px;
-    padding: 0 1%;
+	float: left;
+	width: 31%;
+	height: 250px;
+	padding: 0 1%;
+}
+
+.member-info-img {
+	width: 150px;
+	height: 200px;
 }
 </style>
 
@@ -87,6 +92,9 @@ ul, li {
 					<tr>
 						<td class="lefttdbgcolor">会员名称：</td>
 						<td class="tdbgcolor35"><label>${memberInfo.fullname}</label></td>
+						<td class="tdbgcolor" colspan="2" rowspan="6" style="text-align: center;">${imgHtml}</td>
+					</tr>
+					<tr>
 						<td class="lefttdbgcolor">会员性别：</td>
 						<td class="tdbgcolor35"><label>
 							<c:if test="${memberInfo.sex==0}">男</c:if>
@@ -96,12 +104,16 @@ ul, li {
 					<tr>
 						<td class="lefttdbgcolor">国　　籍：</td>
 						<td class="tdbgcolor35"><label>${memberInfo.nationality}</label></td>
+					</tr>
+					<tr>
 						<td class="lefttdbgcolor">证件号码：</td>
 						<td class="tdbgcolor35"><label>${memberInfo.identitycard}</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">生　　日：</td>
 						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.birthday}" /></label></td>
+					</tr>
+					<tr>
 						<td class="lefttdbgcolor">手 机 号：</td>
 						<td class="tdbgcolor35"><label>${memberInfo.mobile}</label></td>
 					</tr>
