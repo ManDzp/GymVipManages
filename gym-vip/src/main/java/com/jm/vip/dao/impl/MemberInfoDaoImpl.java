@@ -91,4 +91,11 @@ public class MemberInfoDaoImpl extends BaseDaoImpl<MemberInfo>
 		return this.session.update(getMapperId() + ".buyCardPoints",
 				memberInfo);
 	}
+
+	@Override
+	public int pointSignRecord(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".pointSignRecord",
+				memberInfo);
+	}
 }

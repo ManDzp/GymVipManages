@@ -160,6 +160,13 @@
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
+	<!-- 次卡签到 -->
+	<update id="pointSignRecord" parameterType="MemberInfo">
+		update memberinfo
+		set points = #{points,jdbcType=INTEGER}
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
 	<!-- 请假 -->
 	<update id="leave" parameterType="MemberInfo">
 		update memberinfo

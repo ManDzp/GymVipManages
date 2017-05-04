@@ -499,3 +499,23 @@ function openBuyCardPoints(guid, nowExpireTime) {
 		}
 	});
 }
+
+// 查看页签到
+function pointSignRecord(guid) {
+	layer.confirm('确定签到吗？', function(index) {
+		$.post("pointSignRecord", {
+			"guid" : guid
+		}, function(data) {
+			var ret = eval('(' + data + ')');
+			if (ret.success) {
+				layer.alert('签到成功！', function() {
+					window.location.reload();
+				});
+			} else {
+				layer.alert(ret.message);
+			}
+		});
+
+		layer.close(index);
+	});
+}

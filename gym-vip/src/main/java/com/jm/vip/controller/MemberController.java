@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jm.base.controller.BaseController;
+import com.jm.common.CommonUtil;
 import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
@@ -141,6 +142,11 @@ public class MemberController extends BaseController
 				.getChargeRecordList(5, guid);
 		model.addAttribute("chargeRecordList", chargeRecordList);
 
+		// 签到记录
+		List<SignRecord> signRecordList = this.recordService
+				.getSignRecordList(5, guid);
+		model.addAttribute("signRecordList", signRecordList);
+
 		String cardtype = memberInfo.getCardtype();// 会员类型，0：时间卡，1：次卡
 
 		if ("0".equals(cardtype))
@@ -160,11 +166,6 @@ public class MemberController extends BaseController
 					.getContinueCardRecordList(5, guid);
 			model.addAttribute("continueCardRecordList",
 					continueCardRecordList);
-
-			// 签到记录
-			List<SignRecord> signRecordList = this.recordService
-					.getSignRecordList(5, guid);
-			model.addAttribute("signRecordList", signRecordList);
 		}
 		else if ("1".equals(cardtype))
 		{
@@ -603,6 +604,29 @@ public class MemberController extends BaseController
 		}
 
 		return result;
+	}
+
+	/**
+	 * 保存签到记录
+	 * @param guid 会员资料唯一标识
+	 * @return
+	 */
+	@RequestMapping(value = "/pointSignRecord", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO pointSignRecord(@RequestParam String guid)
+	{
+		try
+		{
+			ResultDTO result = this.memberInfoService.pointSignRecord(guid,
+					getContextUser());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "次卡保存签到记录失败", ex.toString(), guid);
+			return CommonUtil.newFailedDTO("次卡保存签到记录失败！");
+		}
 	}
 
 }

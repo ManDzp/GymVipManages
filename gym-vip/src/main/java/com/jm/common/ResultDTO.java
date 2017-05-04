@@ -9,7 +9,25 @@ public class ResultDTO
 	private boolean success;
 	// 返回结果说明
 	private String message;
-	
+
+	public ResultDTO()
+	{
+		super();
+	}
+
+	public ResultDTO(boolean success)
+	{
+		super();
+		this.success = success;
+	}
+
+	public ResultDTO(boolean success, String message)
+	{
+		super();
+		this.success = success;
+		this.message = message;
+	}
+
 	public boolean isSuccess()
 	{
 		return success;
@@ -29,7 +47,5 @@ public class ResultDTO
 	{
 		this.message = message;
 	}
-
-
 
 }

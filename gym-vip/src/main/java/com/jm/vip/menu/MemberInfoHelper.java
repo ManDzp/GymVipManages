@@ -181,7 +181,7 @@ public class MemberInfoHelper
 			menu = new MenuItem();
 			menu.setDisplayName("签到");
 			menu.setBclass("icon-add");
-			menu.setItemClick("signRecordWithPoint('" + guid + "')");
+			menu.setItemClick("pointSignRecord('" + guid + "')");
 			menu.setId("signRecord");
 			menuList.add(menu);
 		}

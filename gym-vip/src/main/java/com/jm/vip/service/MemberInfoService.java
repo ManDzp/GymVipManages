@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.jm.base.tool.CurrentUser;
+import com.jm.common.CommonUtil;
+import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.BaseUtils;
@@ -648,6 +650,65 @@ public class MemberInfoService
 			LogProxy.WriteLogError(log, "购买次数异常", ex.toString(), guid, money,
 					points, expiretime, content);
 			return false;
+		}
+	}
+
+	/**
+	 * 次卡保存签到记录
+	 * @param guid 会员资料唯一标识
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public ResultDTO pointSignRecord(String guid, CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return CommonUtil.newFailedDTO("会员信息不正确！");
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			// 如果不是次卡，则返回失败
+			String cardtype = memberInfo.getCardtype();
+			if (!"1".equals(cardtype))
+				return CommonUtil.newFailedDTO("会员卡不是次卡！");
+
+			// 如果没有可用次数
+			Integer oldPoints = memberInfo.getPoints();
+			if (oldPoints == null || oldPoints <= 0)
+				return CommonUtil.newFailedDTO("会员卡没有可用次数！");
+
+			// 更新会员使用次数
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setPoints(oldPoints - 1);
+			this.memberInfoDao.pointSignRecord(updateMemberInfo);
+
+			// 保存签到记录
+			SignRecord signRecord = new SignRecord();
+			signRecord.setGuid(BaseUtils.getPrimaryKey());
+			signRecord.setMemberguid(guid);
+			signRecord.setCardtype(cardtype);
+			signRecord.setCreator(currentUser.getUserName());
+			signRecord.setCreatorid(currentUser.getUserGuid());
+			signRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.signRecordDao.insert(signRecord);
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "次卡保存签到记录成功", guid);
+			return CommonUtil.newSuccessedDTO();
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "次卡保存签到记录异常", ex.toString(), guid);
+			return CommonUtil.newFailedDTO("次卡保存签到记录异常！");
 		}
 	}
 
