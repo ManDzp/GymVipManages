@@ -303,19 +303,19 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean charge(String guid, Double money, String content,
+	public ResultDTO charge(String guid, Double money, String content,
 			CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
-			return false;
+			return CommonUtil.newFailedDTO("会员信息不正确！");
 		if (money == null || money <= 0)
-			return false;
+			return CommonUtil.newFailedDTO("充值金额需要为正数！");
 
 		try
 		{
 			MemberInfo memberInfo = getMemberInfoByGuid(guid);
 			if (memberInfo == null)
-				return false;
+				return CommonUtil.newFailedDTO("会员信息不存在！");
 
 			Double balance = memberInfo.getBalance();
 			if (balance == null)
@@ -340,7 +340,7 @@ public class MemberInfoService
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "充值成功", guid, money, content);
-			return true;
+			return CommonUtil.newSuccessedDTO();
 		}
 		catch (Exception ex)
 		{
@@ -350,7 +350,7 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "充值异常", ex.toString(), guid, money,
 					content);
-			return false;
+			return CommonUtil.newFailedDTO("充值异常！");
 		}
 	}
 

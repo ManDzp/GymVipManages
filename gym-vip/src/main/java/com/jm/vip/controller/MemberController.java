@@ -426,23 +426,19 @@ public class MemberController extends BaseController
 	public ResultDTO charge(@RequestParam String guid,
 			@RequestParam Double money, @RequestParam String content)
 	{
-		ResultDTO result = new ResultDTO();
-
 		try
 		{
-			boolean success = this.memberInfoService.charge(guid, money,
+			ResultDTO result = this.memberInfoService.charge(guid, money,
 					content, getContextUser());
-			result.setSuccess(success);
+			return result;
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "充值失败", ex.toString(), guid, money,
 					content);
-			result.setSuccess(false);
+			return CommonUtil.newFailedDTO("充值失败！");
 		}
-
-		return result;
 	}
 
 	/**

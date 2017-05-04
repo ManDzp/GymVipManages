@@ -185,10 +185,8 @@ function openCharge(guid) {
 				if (ret.success) {
 					window.location.reload();
 				} else {
-					layer.alert('充值失败！');
+					layer.alert(ret.message);
 				}
-
-				layer.close(index);
 			});
 		}
 	});
@@ -244,8 +242,6 @@ function openBuyCard(guid) {
 				} else {
 					layer.alert('买卡失败！');
 				}
-
-				layer.close(index);
 			});
 		}
 	});
@@ -316,8 +312,6 @@ function openActiveCard(guid, nowExpireTime) {
 				} else {
 					layer.alert('开卡失败！');
 				}
-
-				layer.close(index);
 			});
 		}
 	});
@@ -388,8 +382,6 @@ function openContinueCard(guid, nowExpireTime) {
 				} else {
 					layer.alert('续卡失败！');
 				}
-
-				layer.close(index);
 			});
 		}
 	});
@@ -493,8 +485,6 @@ function openBuyCardPoints(guid, nowExpireTime) {
 				} else {
 					layer.alert('买卡失败！');
 				}
-
-				layer.close(index);
 			});
 		}
 	});
