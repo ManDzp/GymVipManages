@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.jm.log.LogProxy;
 import com.jm.vip.dao.ActiveCardRecordDao;
+import com.jm.vip.dao.BuyCardPointsRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.ContinueCardRecordDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
+import com.jm.vip.entity.BuyCardPointsRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
@@ -44,6 +46,9 @@ public class RecordService
 
 	@Resource(name = "continueCardRecordDao")
 	private ContinueCardRecordDao continueCardRecordDao;
+
+	@Resource(name = "buyCardPointsRecordDao")
+	private BuyCardPointsRecordDao buyCardPointsRecordDao;
 
 	/**
 	 * 获取前几项签到记录
@@ -153,4 +158,27 @@ public class RecordService
 			return null;
 		}
 	}
+
+	/**
+	 * 获取前几项购买次数记录
+	 * @param topNum
+	 * @param memberGuid 会员资料
+	 * @return
+	 */
+	public List<BuyCardPointsRecord> getBuyCardPointsRecordList(Integer topNum,
+			String memberGuid)
+	{
+		try
+		{
+			return this.buyCardPointsRecordDao.getInfoList(topNum, memberGuid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取前几项购买次数记录异常", e.toString(), topNum,
+					memberGuid);
+			return null;
+		}
+	}
+
 }

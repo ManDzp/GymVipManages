@@ -150,6 +150,16 @@
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
+	<!-- 购买次数 -->
+	<update id="buyCardPoints" parameterType="MemberInfo">
+		update memberinfo
+		set status = #{status,jdbcType=SMALLINT},
+		expireTime = #{expiretime,jdbcType=TIMESTAMP},
+		points = #{points,jdbcType=INTEGER},
+		balance = #{balance,jdbcType=DECIMAL}
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
 	<!-- 请假 -->
 	<update id="leave" parameterType="MemberInfo">
 		update memberinfo

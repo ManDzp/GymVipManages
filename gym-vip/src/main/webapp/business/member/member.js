@@ -414,3 +414,88 @@ function signRecord(guid) {
 		layer.close(index);
 	});
 }
+
+// 打开购买次数页
+function openBuyCardPoints(guid, nowExpireTime) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>消费金额：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-money" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>购买次数：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-points" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-expiretime"',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\', minDate: \''
+					+ nowExpireTime + '\' })" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '购买次数',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '270px' ],
+		btn : [ '购买', '关闭' ],
+		content : html,
+		success : function(layero, index) {
+			layero.find('.form-money').focus();
+		},
+		yes : function(index, layero) {
+			var money = layero.find('.form-money').val();
+			var points = layero.find('.form-points').val();
+			var expiretime = layero.find('.form-expiretime').val();
+			var content = layero.find('.form-content').val();
+
+			if (money === "") {
+				layer.alert('消费金额必填！');
+				return;
+			} else if (!money.isPlus()) {
+				layer.alert('消费金额格式不正确！');
+				return;
+			}
+			if (points === "") {
+				layer.alert('购买次数必填！');
+				return;
+			} else if (!points.isPlusInt()) {
+				layer.alert('购买次数格式不正确！');
+				return;
+			}
+			if (expiretime === "") {
+				layer.alert('到期日期必填！');
+				return;
+			} else if (!expiretime.isDate()) {
+				layer.alert('到期日期格式不正确！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("buyCardPoints", {
+				"guid" : guid,
+				"money" : money,
+				"points" : points,
+				"expiretime" : expiretime,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert('买卡失败！');
+				}
+
+				layer.close(index);
+			});
+		}
+	});
+}

@@ -68,4 +68,11 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 	 */
 	public int continueCard(MemberInfo memberInfo);
 
+	/**
+	 * 购买次数
+	 * @param memberInfo
+	 * @return
+	 */
+	public int buyCardPoints(MemberInfo memberInfo);
+
 }

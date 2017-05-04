@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="BuyCardRecordMapper">
-	<resultMap id="BaseResultMap" type="BuyCardRecord">
+<mapper namespace="BuyCardPointsRecordMapper">
+	<resultMap id="BaseResultMap" type="BuyCardPointsRecord">
 		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="money" property="money" jdbcType="DECIMAL" />
+		<result column="points" property="points" jdbcType="INTEGER" />
+		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -12,18 +14,19 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, money, remark, createTime, creator, creatorId
+		guid, memberGuid, money, points, expireTime, remark,
+		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, money, remark, createTime
+		guid, memberGuid, money, points, expireTime, remark, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->
 	<select id="selectListByPage" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		SELECT
-		<include refid="Base_Column_List" />
-		FROM BuyCardRecord
+		<include refid="List_Column" />
+		FROM BuyCardPointsRecord
 		<where>
 			<if test="wheresql.memberguid != null and wheresql.memberguid != ''">
 				AND memberGuid = #{wheresql.memberguid,jdbcType=VARCHAR}
@@ -42,21 +45,25 @@
 		parameterType="java.lang.String">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM BuyCardRecord
+		FROM BuyCardPointsRecord
 		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		DELETE FROM BuyCardRecord
+		DELETE FROM BuyCardPointsRecord
 		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</delete>
 
-	<insert id="insert" parameterType="BuyCardRecord">
-		insert into BuyCardRecord (guid, memberGuid, money,
-		remark, createTime, creator, creatorId)
+	<insert id="insert" parameterType="BuyCardPointsRecord">
+		INSERT INTO BuyCardPointsRecord
+		(guid, memberGuid, money,
+		points, expireTime, remark,
+		createTime, creator, creatorId)
 		values (#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
 		#{money,jdbcType=DECIMAL},
-		#{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
+		#{points,jdbcType=INTEGER}, #{expiretime,jdbcType=TIMESTAMP},
+		#{remark,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
 		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})
 	</insert>
 </mapper>

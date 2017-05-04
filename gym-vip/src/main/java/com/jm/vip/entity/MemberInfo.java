@@ -32,7 +32,9 @@ public class MemberInfo
 	private Double balance;
 
 	private Double consumption;
-
+	/**
+	 * 可用次数
+	 */
 	private Integer points;
 
 	private Integer times;

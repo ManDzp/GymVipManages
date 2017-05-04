@@ -122,27 +122,6 @@ ul, li {
 
 			<div class="member-info-record">
 				<ul class="member-info-record-ul">
-					<c:if test="${memberInfo.status > 1}">
-					<!-- 签到记录 -->
-					<li>
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
-								<tr>
-									<td class="tdbgcolor view-info-important">签到记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
-								</tr>
-								<tr>
-									<td class="tdbgcolor" colspan="2">签到时间</td>
-								</tr>
-								<c:forEach items="${signRecordList}" var="signRecord">
-								<tr>
-									<td class="tdbgcolor" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${signRecord.createtime}" /></td>
-								</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</li>
-					</c:if>
 
 					<!-- 充值记录 -->
 					<li>
@@ -166,6 +145,29 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
+
+					<c:if test="${memberInfo.cardtype == '0'}">
+					<c:if test="${memberInfo.status > 1}">
+					<!-- 签到记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">签到记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+								<tr>
+									<td class="tdbgcolor" colspan="2">签到时间</td>
+								</tr>
+								<c:forEach items="${signRecordList}" var="signRecord">
+								<tr>
+									<td class="tdbgcolor" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${signRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+					</c:if>
 
 					<c:if test="${memberInfo.status > 1}">
 					<!-- 续卡记录 -->
@@ -247,7 +249,57 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
+					</c:if>
 
+					<c:if test="${memberInfo.cardtype == '1'}">
+					<!-- 签到记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">签到记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+								<tr>
+									<td class="tdbgcolor" colspan="2">签到时间</td>
+								</tr>
+								<c:forEach items="${signRecordList}" var="signRecord">
+								<tr>
+									<td class="tdbgcolor" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${signRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+
+					<!-- 购买次数记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important" colspan="3">购买次数记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardpointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+
+								<tr>
+									<td class="tdbgcolor20" style="text-align: center;">消费金额</td>
+									<td class="tdbgcolor20" style="text-align: center;">购买次数</td>
+									<td class="tdbgcolor20" style="text-align: center;">到期日期</td>
+									<td class="tdbgcolor20" style="text-align: center;" colspan="2">购买时间</td>
+								</tr>
+								<c:forEach items="${buyCardPointsRecordList}" var="buyCardPointsRecord">
+								<tr>
+									<td class="tdbgcolor20" style="text-align: center;">${buyCardPointsRecord.money}</td>
+									<td class="tdbgcolor20" style="text-align: center;">${buyCardPointsRecord.points}</td>
+									<td class="tdbgcolor20" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardPointsRecord.expiretime}" /></td>
+									<td class="tdbgcolor20" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardPointsRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+
+					</c:if>
 				</ul>
 			</div>
 

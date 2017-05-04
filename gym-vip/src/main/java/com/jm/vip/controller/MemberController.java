@@ -24,6 +24,7 @@ import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
 import com.jm.vip.entity.ActiveCardRecord;
+import com.jm.vip.entity.BuyCardPointsRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
@@ -140,25 +141,39 @@ public class MemberController extends BaseController
 				.getChargeRecordList(5, guid);
 		model.addAttribute("chargeRecordList", chargeRecordList);
 
-		// 买卡记录
-		List<BuyCardRecord> buyCardRecordList = this.recordService
-				.getBuyCardRecordList(5, guid);
-		model.addAttribute("buyCardRecordList", buyCardRecordList);
+		String cardtype = memberInfo.getCardtype();// 会员类型，0：时间卡，1：次卡
 
-		// 开卡记录
-		List<ActiveCardRecord> activeCardRecordList = this.recordService
-				.getActiveCardRecordList(5, guid);
-		model.addAttribute("activeCardRecordList", activeCardRecordList);
+		if ("0".equals(cardtype))
+		{
+			// 买卡记录
+			List<BuyCardRecord> buyCardRecordList = this.recordService
+					.getBuyCardRecordList(5, guid);
+			model.addAttribute("buyCardRecordList", buyCardRecordList);
 
-		// 续卡记录
-		List<ContinueCardRecord> continueCardRecordList = this.recordService
-				.getContinueCardRecordList(5, guid);
-		model.addAttribute("continueCardRecordList", continueCardRecordList);
+			// 开卡记录
+			List<ActiveCardRecord> activeCardRecordList = this.recordService
+					.getActiveCardRecordList(5, guid);
+			model.addAttribute("activeCardRecordList", activeCardRecordList);
 
-		// 签到记录
-		List<SignRecord> signRecordList = this.recordService
-				.getSignRecordList(5, guid);
-		model.addAttribute("signRecordList", signRecordList);
+			// 续卡记录
+			List<ContinueCardRecord> continueCardRecordList = this.recordService
+					.getContinueCardRecordList(5, guid);
+			model.addAttribute("continueCardRecordList",
+					continueCardRecordList);
+
+			// 签到记录
+			List<SignRecord> signRecordList = this.recordService
+					.getSignRecordList(5, guid);
+			model.addAttribute("signRecordList", signRecordList);
+		}
+		else if ("1".equals(cardtype))
+		{
+			// 购买次数记录
+			List<BuyCardPointsRecord> buyCardPointsRecordList = this.recordService
+					.getBuyCardPointsRecordList(5, guid);
+			model.addAttribute("buyCardPointsRecordList",
+					buyCardPointsRecordList);
+		}
 
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();
@@ -549,6 +564,41 @@ public class MemberController extends BaseController
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "保存签到记录失败", ex.toString(), guid);
+			result.setSuccess(false);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 购买次数
+	 * @param guid 会员资料唯一标识
+	 * @param money 消费金额
+	 * @param points 购买次数
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/buyCardPoints", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO buyCardPoints(@RequestParam String guid,
+			@RequestParam Double money, @RequestParam Integer points,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
+			@RequestParam String content)
+	{
+		ResultDTO result = new ResultDTO();
+
+		try
+		{
+			boolean success = this.memberInfoService.buyCardPoints(guid, money,
+					points, expiretime, content, getContextUser());
+			result.setSuccess(success);
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "购买次数失败", ex.toString(), guid, money,
+					points, expiretime, content);
 			result.setSuccess(false);
 		}
 

@@ -26,6 +26,8 @@ public class RecordController
 
 	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
 
+	private static final String BUY_CARD_POINTS_RECORD_JSP_PATH = "buycardpointsrecord";
+
 	/**
 	 * 加载充值记录的列表页
 	 * @param model
@@ -136,6 +138,29 @@ public class RecordController
 		model.addAttribute("mapperid", "SignRecordMapper.selectListByPage");
 
 		return SIGN_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 加载购买次数记录的列表页
+	 * @param model
+	 * @param memberguid 会员资料唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/buycardpointsrecord/list", method = RequestMethod.GET)
+	public String loadBuyCardPointsRecordList(Model model,
+			@RequestParam(required = false) String memberguid)
+	{
+		model.addAttribute("memberguid", memberguid);
+
+		// 加载列表菜单
+		ChargeRecordHelper helper = new ChargeRecordHelper();
+		model.addAttribute("menulist", helper.getListMenu());
+
+		model.addAttribute("listTitle", "购买次数记录");
+		model.addAttribute("mapperid",
+				"BuyCardPointsRecordMapper.selectListByPage");
+
+		return BUY_CARD_POINTS_RECORD_JSP_PATH + "/list";
 	}
 
 }

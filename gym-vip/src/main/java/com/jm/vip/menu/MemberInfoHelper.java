@@ -109,14 +109,14 @@ public class MemberInfoHelper
 		// 时间卡才可以进行以下操作
 		if ("0".equals(cardtype))
 		{
-			// 初始姿态，需要先买卡
+			// 初始状态，需要先买卡
 			if (status == 0 || status == 1)
 			{
 				menu = new MenuItem();
 				menu.setDisplayName("买卡");
 				menu.setBclass("icon-add");
 				menu.setItemClick("openBuyCard('" + guid + "')");
-				menu.setId("activeCard");
+				menu.setId("buyCard");
 				menuList.add(menu);
 			}
 
@@ -159,6 +159,31 @@ public class MemberInfoHelper
 				menu.setId("signRecord");
 				menuList.add(menu);
 			}
+		}
+		// 次卡才可以进行以下操作
+		else if ("1".equals(cardtype))
+		{
+			Date expiretime = memberInfo.getExpiretime();
+			String nowExpireTime = DateHelper.getCurrentStrDate();
+			if (expiretime != null)
+			{
+				nowExpireTime = DateHelper.getDateToShort(expiretime);
+			}
+
+			menu = new MenuItem();
+			menu.setDisplayName("购买次数");
+			menu.setBclass("icon-add");
+			menu.setItemClick("openBuyCardPoints('" + guid + "', '"
+					+ nowExpireTime + "')");
+			menu.setId("buyCardPoints");
+			menuList.add(menu);
+
+			menu = new MenuItem();
+			menu.setDisplayName("签到");
+			menu.setBclass("icon-add");
+			menu.setItemClick("signRecordWithPoint('" + guid + "')");
+			menu.setId("signRecord");
+			menuList.add(menu);
 		}
 
 		return menuList;
