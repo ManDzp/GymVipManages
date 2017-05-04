@@ -230,6 +230,14 @@ public class MemberController extends BaseController
 		// 会员资料
 		model.addAttribute("memberInfo", memberInfo);
 
+		// 附件信息列表
+		model.addAttribute("attachmentStr",
+				attachmentService.getAttachmentHtml(request, guid, true));
+
+		// 获取附件大小
+		model.addAttribute("totalSize",
+				this.attachmentService.getAttachmentTotalSize(guid));
+
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();
 		model.addAttribute("menulist", helper.getEditMenu(guid));

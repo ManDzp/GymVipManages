@@ -94,6 +94,11 @@
 							class="str" v_must="1" v_name="手机号" v_type="string"
 							value="${memberInfo.mobile}" /></td>
 					</tr>
+
+					<tr>
+						<td class="lefttdbgcolor">原有照片：</td>
+						<td class="tdbgcolor" colspan="3">${attachmentStr}</td>
+					</tr>
 					<tr>
 						<td class="lefttdbgcolor"><input id="custom_file_upload" name="Filedata" type="file" /></td>
 						<td class="tdbgcolor" colspan="3">
@@ -109,7 +114,7 @@
 			<div style="display: none;">
 				<input type="hidden" id="guid" name="guid" value="${memberInfo.guid}" />
 				<input type="hidden" id="hdFiles" name="hdFiles" />
-				<input type="hidden" id="hdFilesSize" name="hdFilesSize" value="0" />
+				<input type="hidden" id="hdFilesSize" name="hdFilesSize" value="${totalSize}" />
 			</div>
 		</form>
 	</div>

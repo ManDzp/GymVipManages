@@ -37,18 +37,17 @@ function setUpload(swfUrl, uploaderUrl, fileuploadID, queueID, buttonText,
 				$('#' + hdfileSizeID).val(totalSize);
 
 			} else {
-				$.messager.alert('错误', "上传失败！");
+				layer.alert('上传失败！');
 			}
 		},
 		'onUploadStart' : function(file) {
-			var totalSize = parseInt($('#' + hdfileSizeID)
-					.val())
-					+ parseInt(file.size);
-			if (totalSize > 8 * 1024 * 1024) {
-				alert("您上传的文件总大小超过了最大限制8M");
-				$('#' + fileuploadID).uploadify("cancel",
-						file.id);
-			}
+//			var totalSize = parseInt($('#' + hdfileSizeID).val())
+//					+ parseInt(file.size);
+//			if (totalSize > 8 * 1024 * 1024) {
+//				layer.alert('您上传的文件总大小超过了最大限制8M！');
+//				$('#' + fileuploadID).uploadify("cancel",
+//						file.id);
+//			}
 		}
 	});
 }
@@ -78,27 +77,27 @@ function ovCancelUpload(fileID, fileLen, fileuploadID, hdFilesID, hdfileSizeID) 
 /** *******************************附件删除 begin******************************** */
 // 删除附件
 function removeFile(baseUrl, blobGuid, fileSize) {
-	$.messager.confirm('确认', '确定删除此附件吗？', function(r) {
-		if (r) {
-			$.post(baseUrl + "/upload/delete", {
-				"blobGuid" : blobGuid
-			}, function(data) {
-				var ret = eval('(' + data + ')');
-				if (ret.success) {
-					// 将{36}总共38位的guid改为去掉大括号的36位的guid
-					var object = "#" + blobGuid.replace("{", "").replace("}", "");
-					$(object).remove();
-					var totalSize = parseInt($('#hdFilesSize').val())
-							- parseInt(fileSize);
-					if (totalSize < 0) {
-						totalSize = 0;
-					}
-					$('#hdFilesSize').val(totalSize);
-				} else {
-					$.messager.alert('错误', "删除失败！");
+	layer.confirm('确定删除此附件吗？', function(index) {
+		$.post(baseUrl + "/upload/delete", {
+			"blobGuid" : blobGuid
+		}, function(data) {
+			var ret = eval('(' + data + ')');
+			if (ret.success) {
+				// 将{36}总共38位的guid改为去掉大括号的36位的guid
+				var object = "#" + blobGuid.replace("{", "").replace("}", "");
+				$(object).remove();
+				var totalSize = parseInt($('#hdFilesSize').val())
+						- parseInt(fileSize);
+				if (totalSize < 0) {
+					totalSize = 0;
 				}
-			});
-		}
+				$('#hdFilesSize').val(totalSize);
+			} else {
+				layer.alert('删除失败');
+			}
+		});
+
+		layer.close(index);
 	});
 }
 /** *******************************附件删除 end********************************** */

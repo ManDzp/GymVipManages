@@ -2,6 +2,8 @@ package com.jm.vip.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +20,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.google.common.collect.Lists;
 import com.jm.log.LogProxy;
+import com.jm.utils.BaseUtils;
 import com.jm.utils.DateHelper;
 import com.jm.vip.dao.AttachmentInfoDao;
 import com.jm.vip.dao.BlobInfoDao;
@@ -60,6 +63,291 @@ public class AttachmentService
 			LogProxy.WriteLogError(log, "删除附件", e.toString(), blobGuid);
 			return false;
 		}
+	}
+
+	/**
+	 * 获取附件信息展现列表
+	 * @param request 页面请求
+	 * @param guid 发文唯一标识
+	 * @param isDelete 是否显示删除按钮
+	 * @param attachmentService 附件业务类
+	 * @return
+	 */
+	public String getAttachmentHtml(HttpServletRequest request, String guid,
+			boolean isDelete)
+	{
+		String siteUrl = request.getContextPath();
+		String sitePath = request.getSession().getServletContext()
+				.getRealPath("/");
+
+		// 附件列表
+		List<AttachmentInfo> attachments = getAttachmentsInfoByGuid(guid,
+				siteUrl, sitePath);
+
+		String attachmentStr = getAttachmentShowHtml(attachments, guid, siteUrl,
+				sitePath, isDelete, false);
+
+		if (StringUtils.isNotEmpty(attachmentStr))
+		{
+			attachmentStr = "<span class=\"mh_info_nick\">" + attachmentStr
+					+ "</span>";
+		}
+
+		return attachmentStr;
+	}
+
+	/**
+	 * 附件显示html
+	 * @param attachments 包含路径和附件内容的附件实体列表
+	 * @param guid 文件标识
+	 * @param siteUrl 应用程序访问根路径
+	 * @param sitePath
+	 * @param isDelete 是否显示删除按钮
+	 * @param showdate 是否显示时间
+	 * @return 显示的附件html
+	 */
+	public String getAttachmentShowHtml(List<AttachmentInfo> attachments,
+			String guid, String siteUrl, String sitePath, boolean isDelete,
+			boolean showdate)
+	{
+		StringBuilder sb = new StringBuilder();
+		if (attachments == null || attachments.size() == 0)
+			return "";
+
+		sb.append("<table border='0' width='100%'>");
+
+		for (int index = 0; index < attachments.size(); index++)
+		{
+			AttachmentInfo attachment = attachments.get(index);
+			// 如果附件路径为空或附件没有信息，则不展现该附件
+			if (StringUtils.isEmpty(attachment.getFilepath())
+					|| attachment.getBlobcontent() == null
+					|| attachment.getBlobcontent().length == 0)
+			{
+				continue;
+			}
+			sb.append("<tr id=\""
+					+ attachment.getBlobguid().replace("{", "").replace("}", "")
+					+ "\"><td align='left'>");
+
+			// 给每个文件分配一个图标
+			sb.append(getAttachmentIcon(siteUrl, attachment.getFileext()));
+
+			// 判断目录是否存在，如果存在则直接显示附件链接。
+			// 如果没有则需要导向附件读取页面
+			String attachmentPath = attachment.getFilepath();
+
+			// 附件不存在，第一次查看需要生成附件
+			File attachmentFile = new File(attachmentPath);
+			if (!attachmentFile.exists())// 不存在附件
+			{
+				// 落地附件，不重新落地
+				groundAttachmentFile(attachment.getDirpath(),
+						attachment.getFilepath(), attachment.getBlobcontent(),
+						false);
+			}
+			String fileUrl = attachment.getFileurl();
+			sb.append(
+					"<a href=\"javascript:void(0);\" onclick=\"viewDownloadFile('");
+			sb.append(fileUrl);
+			sb.append("')\">");
+			sb.append(attachment.getTitle());
+			sb.append("</a>");
+			sb.append("(");
+			sb.append(BaseUtils.getFileSize(attachment.getFilelength()));
+			sb.append(")");
+
+			if (isDelete)
+			{
+				// 添加删除按钮
+				sb.append("<a href=\"javascript:void(0);\"");
+				sb.append(" onclick=\"removeFile('" + siteUrl + "','"
+						+ attachment.getBlobguid() + "','"
+						+ attachment.getFilelength() + "');\"");
+				sb.append(
+						" style=\"margin-left:15px; color:#0e5cbb;text-decoration:underline;\">删除</a>");
+			}
+
+			int tempCount = index + 1;
+			if (tempCount != attachments.size())
+			{
+				sb.append("<br/>");
+			}
+			sb.append("</td></tr>");
+		}
+		sb.append("</table>");
+
+		return sb.toString();
+	}
+
+	/**
+	 * 获取附件图标
+	 * 
+	 * @param siteUrl 应用程序访问根路径
+	 * @param fileExt 附件扩展名
+	 * @return
+	 */
+	public String getAttachmentIcon(String siteUrl, String fileExt)
+	{
+		StringBuilder sb = new StringBuilder();
+
+		// 给每个文件分配一个图标
+		switch (fileExt.toLowerCase())
+		{
+		case "doc":
+		case "docx":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/word.gif' alt='' />");
+			break;
+		case "xls":
+		case "xlsx":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/excel.gif' alt='' />");
+			break;
+		case "ppt":
+		case "pptx":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/ppt.gif' alt='' />");
+			break;
+		case "pdf":
+		case "ceb":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/pdf.gif' alt='' />");
+			break;
+		case "s2":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/s2.gif' alt='' />");
+			break;
+		case "txt":
+		case "cs":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/txt.gif' alt='' />");
+			break;
+		case "wps":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/wps.gif' alt='' />");
+			break;
+		case "gif":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/gif.gif' alt='' />");
+			break;
+		case "jpg":
+		case "jpeg":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/jpg.gif' alt='' />");
+			break;
+		case "png":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/pic.gif' alt='' />");
+			break;
+		case "rar":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/rar.gif' alt='' />");
+			break;
+		case "zip":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/zip.gif' alt='' />");
+			break;
+		case "html":
+		case "htm":
+		case "aspx":
+		case "jsp":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/html.gif' alt='' />");
+			break;
+		case "avi":
+		case "flv":
+		case "mp3":
+		case "wav":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/avi.gif' alt='' />");
+			break;
+		case "exe":
+		case "msi":
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/exe.gif' alt='' />");
+			break;
+		default:
+			sb.append("&nbsp;<img src='" + siteUrl
+					+ "/deco/img/fileIcon/unknown.gif' alt='' />");
+			break;
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * 落地附件
+	 * @param dirPath 附件文件夹路径
+	 * @param filePath 附件物理路径
+	 * @param content 附件内容
+	 * @param isRebulid 对于已落地的附件是否重新生成
+	 */
+	public void groundAttachmentFile(String dirPath, String filePath,
+			byte[] content, boolean isRebulid)
+	{
+		File dirFile = new File(dirPath);
+		File attachmentFile = new File(filePath);
+
+		if (!dirFile.exists())
+		{
+			dirFile.mkdirs();
+		}
+		else
+		{
+			if (!isRebulid)
+			{
+				// 判断是否存在该文件，如果存在则直接导向到已存在的文件
+				if (attachmentFile.exists())
+				{
+					return;
+				}
+			}
+		}
+
+		try
+		{
+			// 创建输出文件
+			FileOutputStream fos = new FileOutputStream(attachmentFile);
+			fos.write(content);
+			content = null;
+			// 关闭输出文件
+			fos.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "落地附件失败", e.toString(), filePath);
+		}
+		catch (IOException e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "落地附件失败", e.toString(), filePath);
+		}
+	}
+
+	/**
+	 * 获取文章下附件的总大小
+	 * @param guid 文件唯一标识
+	 * @return
+	 */
+	public String getAttachmentTotalSize(String guid)
+	{
+		List<AttachmentInfo> attachments = this.attachmentInfoDao
+				.listByGuid(guid);
+
+		if (CollectionUtils.isEmpty(attachments))
+		{
+			return "0";
+		}
+
+		long totalSize = 0;
+		for (AttachmentInfo attachment : attachments)
+		{
+			totalSize += attachment.getFilelength();
+		}
+
+		return Long.toString(totalSize);
 	}
 
 	/**
