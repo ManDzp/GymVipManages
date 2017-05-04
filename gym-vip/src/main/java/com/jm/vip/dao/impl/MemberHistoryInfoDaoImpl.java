@@ -1,6 +1,8 @@
 package com.jm.vip.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,16 @@ public class MemberHistoryInfoDaoImpl extends BaseDaoImpl<MemberHistoryInfo>
 		RowBounds rowBounds = new RowBounds(pageNum, pageSize);
 		return this.readSession.selectList(getMapperId() + ".selectListByPage",
 				pageSearch, rowBounds);
+	}
+
+	@Override
+	public MemberHistoryInfo getMemberHistoryByCardNumber(String cardNumber)
+	{
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("cardnumber", cardNumber);
+
+		return this.session.selectOne(getMapperId() + ".selectByCardNumber",
+				param);
 	}
 
 	@Override

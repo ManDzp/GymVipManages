@@ -38,7 +38,7 @@
 		parameterType="java.util.Map">
 		SELECT
 		<include refid="List_Column" />
-		FROM memberhistoryinfo
+		FROM MemberHistoryInfo
 		<where>
 			<if test="wheresql.advSql != null and wheresql.advSql != ''">
 				AND ${wheresql.advSql}
@@ -55,20 +55,35 @@
 
 	<select id="selectByGuid" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
-		select
+		SELECT
 		<include refid="Base_Column_List" />
-		from memberhistoryinfo
-		where guid = #{guid,jdbcType=BIGINT}
+		FROM MemberHistoryInfo
+		WHERE guid = #{guid,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查找会员卡号信息 -->
+	<select id="selectByCardNumber" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MemberHistoryInfo
+		<where>
+			<if test="cardnumber != null and cardnumber != ''">
+				AND cardNumber = #{cardnumber,jdbcType=VARCHAR}
+			</if>
+			<if test="withoutguid != null and withoutguid != ''">
+				<![CDATA[ AND guid <> #{withoutguid,jdbcType=VARCHAR} ]]>
+			</if>
+		</where>
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		delete from
-		memberhistoryinfo
-		where guid = #{guid,jdbcType=BIGINT}
+		DELETE FROM MemberHistoryInfo
+		WHERE guid = #{guid,jdbcType=BIGINT}
 	</delete>
 
 	<insert id="backupData" parameterType="MemberInfo">
-		insert into memberhistoryinfo
+		INSERT INTO MemberHistoryInfo
 		(guid, cardNumber, cardType,
 		activeTime, expireTime, balance,
 		consumption, points, times,

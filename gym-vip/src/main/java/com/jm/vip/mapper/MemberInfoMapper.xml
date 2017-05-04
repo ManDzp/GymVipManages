@@ -38,7 +38,7 @@
 		parameterType="java.util.Map">
 		SELECT
 		<include refid="List_Column" />
-		FROM memberinfo
+		FROM MemberInfo
 		<where>
 			<if test="wheresql.advSql != null and wheresql.advSql != ''">
 				AND ${wheresql.advSql}
@@ -55,18 +55,18 @@
 
 	<select id="selectByGuid" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
-		select
+		SELECT
 		<include refid="Base_Column_List" />
-		from memberinfo
-		where guid = #{guid,jdbcType=VARCHAR}
+		FROM MemberInfo
+		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</select>
 
 	<!-- 查找会员卡号信息 -->
 	<select id="selectByCardNumber" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
-		select
+		SELECT
 		<include refid="Base_Column_List" />
-		from memberinfo
+		FROM MemberInfo
 		<where>
 			<if test="cardnumber != null and cardnumber != ''">
 				AND cardNumber = #{cardnumber,jdbcType=VARCHAR}
@@ -78,12 +78,12 @@
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		delete from memberinfo
-		where guid = #{guid,jdbcType=VARCHAR}
+		DELETE FROM MemberInfo
+		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</delete>
 
 	<insert id="insert" parameterType="MemberInfo">
-		insert into memberinfo
+		INSERT INTO MemberInfo
 		(guid, cardNumber, cardType,
 		balance, consumption, points, times, usedTimes,
 		fullName, sex, nationality, identityCard, birthday, mobile,
@@ -101,7 +101,7 @@
 	</insert>
 
 	<update id="updateByGuid" parameterType="MemberInfo">
-		update memberinfo
+		update MemberInfo
 		set fullName = #{fullname,jdbcType=VARCHAR},
 		sex = #{sex,jdbcType=VARCHAR},
 		nationality = #{nationality,jdbcType=VARCHAR},

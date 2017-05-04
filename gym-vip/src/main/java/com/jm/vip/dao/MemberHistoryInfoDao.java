@@ -19,6 +19,13 @@ public interface MemberHistoryInfoDao extends BaseDao<MemberHistoryInfo>
 			Integer pageSize);
 
 	/**
+	 * 查找会员卡号信息
+	 * @param cardNumber 会员卡号
+	 * @return
+	 */
+	public MemberHistoryInfo getMemberHistoryByCardNumber(String cardNumber);
+
+	/**
 	 * 备份数据
 	 * @param memberInfo
 	 * @return

@@ -40,7 +40,7 @@ function saveAddMember() {
 		}, function(data) {
 			var ret = eval('(' + data + ')');
 			if (ret.success) {
-				layer.alert('登陆账号已存在！');
+				layer.alert('会员卡号已存在！');
 			} else {
 				// 添加操作
 				$('#fm').form('submit', {

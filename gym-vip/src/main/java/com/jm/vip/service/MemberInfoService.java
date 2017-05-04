@@ -151,6 +151,26 @@ public class MemberInfoService
 	}
 
 	/**
+	 * 查找会员卡号信息
+	 * @param cardNumber 会员卡号
+	 * @return
+	 */
+	public MemberHistoryInfo getMemberHistoryByCardNumber(String cardNumber)
+	{
+		try
+		{
+			return this.memberHistoryInfoDao
+					.getMemberHistoryByCardNumber(cardNumber);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "查找会员卡号信息异常", e.toString(), cardNumber);
+			return null;
+		}
+	}
+
+	/**
 	 * 校验会员卡号是否存在
 	 * @param cardNumber 会员卡号
 	 * @return
@@ -160,7 +180,9 @@ public class MemberInfoService
 		try
 		{
 			MemberInfo memberInfo = this.getMemberByCardNumber(cardNumber);
-			return memberInfo != null;
+			MemberHistoryInfo memberHistoryInfo = this
+					.getMemberHistoryByCardNumber(cardNumber);
+			return memberInfo != null || memberHistoryInfo != null;
 		}
 		catch (Exception e)
 		{
