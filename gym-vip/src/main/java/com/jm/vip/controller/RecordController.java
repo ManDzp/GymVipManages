@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jm.security.RegexHelper;
+import com.jm.vip.entity.ActiveCardRecord;
+import com.jm.vip.entity.BuyCardNumberRecord;
+import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
+import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.menu.RecordHelper;
 import com.jm.vip.service.RecordService;
@@ -118,6 +122,40 @@ public class RecordController
 	}
 
 	/**
+	 * 获取买卡记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/buycardrecord/view", method = RequestMethod.GET)
+	public String loadBuyCardRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		BuyCardRecord buyCardRecord = this.recordService.getBuyCardRecord(guid);
+		if (buyCardRecord == null)
+		{
+			model.addAttribute("errormessage", "买卡记录不存在！");
+			return "error/error";
+		}
+
+		// 买卡记录
+		model.addAttribute("buyCardRecord", buyCardRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return BUY_CARD_RECORD_JSP_PATH + "/view";
+	}
+
+	/**
 	 * 加载开卡记录的列表页
 	 * @param model
 	 * @param memberguid 会员资料唯一标示
@@ -141,6 +179,41 @@ public class RecordController
 	}
 
 	/**
+	 * 获取开卡记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/activecardrecord/view", method = RequestMethod.GET)
+	public String loadActiveCardRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		ActiveCardRecord activeCardRecord = this.recordService
+				.getActiveCardRecord(guid);
+		if (activeCardRecord == null)
+		{
+			model.addAttribute("errormessage", "开卡记录不存在！");
+			return "error/error";
+		}
+
+		// 开卡记录
+		model.addAttribute("activeCardRecord", activeCardRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return ACTIVE_CARD_RECORD_JSP_PATH + "/view";
+	}
+
+	/**
 	 * 加载续卡记录的列表页
 	 * @param model
 	 * @param memberguid 会员资料唯一标示
@@ -161,6 +234,41 @@ public class RecordController
 				"ContinueCardRecordMapper.selectListByPage");
 
 		return CONTINUE_CARD_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 获取续卡记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/continuecardrecord/view", method = RequestMethod.GET)
+	public String loadContinueCardRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		ContinueCardRecord continueCardRecord = this.recordService
+				.getContinueCardRecord(guid);
+		if (continueCardRecord == null)
+		{
+			model.addAttribute("errormessage", "续卡记录不存在！");
+			return "error/error";
+		}
+
+		// 续卡记录
+		model.addAttribute("continueCardRecord", continueCardRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return CONTINUE_CARD_RECORD_JSP_PATH + "/view";
 	}
 
 	/**
@@ -262,6 +370,41 @@ public class RecordController
 				"BuyCardNumberRecordMapper.selectListByPage");
 
 		return BUY_CARD_NUMBER_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 获取购买次数记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/buycardnumberrecord/view", method = RequestMethod.GET)
+	public String loadBuyCardNumberRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		BuyCardNumberRecord buyCardNumberRecord = this.recordService
+				.getBuyCardNumberRecord(guid);
+		if (buyCardNumberRecord == null)
+		{
+			model.addAttribute("errormessage", "购买次数记录不存在！");
+			return "error/error";
+		}
+
+		// 购买次数记录
+		model.addAttribute("buyCardNumberRecord", buyCardNumberRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return BUY_CARD_NUMBER_RECORD_JSP_PATH + "/view";
 	}
 
 }

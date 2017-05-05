@@ -11,6 +11,7 @@
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/business/continuecardrecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/continuecardrecord/continuecardrecord.js${res_v}"></script>
 </head>
 
 <body>

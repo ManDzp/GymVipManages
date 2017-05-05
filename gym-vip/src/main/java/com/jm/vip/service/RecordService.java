@@ -140,6 +140,25 @@ public class RecordService
 	}
 
 	/**
+	 * 获取买卡记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public BuyCardRecord getBuyCardRecord(String guid)
+	{
+		try
+		{
+			return this.buyCardRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取买卡记录信息异常", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
 	 * 获取前几项开卡记录
 	 * @param topNum
 	 * @param memberGuid 会员资料
@@ -162,6 +181,25 @@ public class RecordService
 	}
 
 	/**
+	 * 获取开卡记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public ActiveCardRecord getActiveCardRecord(String guid)
+	{
+		try
+		{
+			return this.activeCardRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取开卡记录信息异常", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
 	 * 获取前几项续卡记录
 	 * @param topNum
 	 * @param memberGuid 会员资料
@@ -179,6 +217,25 @@ public class RecordService
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取前几项续卡记录异常", e.toString(), topNum,
 					memberGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取续卡记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public ContinueCardRecord getContinueCardRecord(String guid)
+	{
+		try
+		{
+			return this.continueCardRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取续卡记录信息异常", e.toString(), guid);
 			return null;
 		}
 	}
@@ -242,6 +299,25 @@ public class RecordService
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取前几项购买次数记录异常", e.toString(), topNum,
 					memberGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取购买次数记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public BuyCardNumberRecord getBuyCardNumberRecord(String guid)
+	{
+		try
+		{
+			return this.buyCardNumberRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取购买次数记录信息异常", e.toString(), guid);
 			return null;
 		}
 	}

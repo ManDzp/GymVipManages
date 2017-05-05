@@ -28,6 +28,7 @@ public class BuyCardNumberRecord
 	/**
 	 * 到期日期
 	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiretime;
 	/**
 	 * 备注说明
