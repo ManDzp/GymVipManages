@@ -151,19 +151,20 @@
 	</update>
 
 	<!-- 购买次数 -->
-	<update id="buyCardPoints" parameterType="MemberInfo">
+	<update id="buyCardNumber" parameterType="MemberInfo">
 		update memberinfo
 		set status = #{status,jdbcType=SMALLINT},
 		expireTime = #{expiretime,jdbcType=TIMESTAMP},
-		points = #{points,jdbcType=INTEGER},
+		times = #{times,jdbcType=INTEGER},
 		balance = #{balance,jdbcType=DECIMAL}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
 	<!-- 次卡签到 -->
-	<update id="pointSignRecord" parameterType="MemberInfo">
+	<update id="numberSignRecord" parameterType="MemberInfo">
 		update memberinfo
-		set points = #{points,jdbcType=INTEGER}
+		set times = #{times,jdbcType=INTEGER},
+		usedtimes = #{usedtimes,jdbcType=INTEGER}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 

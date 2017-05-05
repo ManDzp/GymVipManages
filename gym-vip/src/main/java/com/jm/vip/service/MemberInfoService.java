@@ -19,7 +19,7 @@ import com.jm.security.RegexHelper;
 import com.jm.utils.BaseUtils;
 import com.jm.utils.DateHelper;
 import com.jm.vip.dao.ActiveCardRecordDao;
-import com.jm.vip.dao.BuyCardPointsRecordDao;
+import com.jm.vip.dao.BuyCardNumberRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.ContinueCardRecordDao;
@@ -28,7 +28,7 @@ import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
-import com.jm.vip.entity.BuyCardPointsRecord;
+import com.jm.vip.entity.BuyCardNumberRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
@@ -72,8 +72,8 @@ public class MemberInfoService
 	@Resource(name = "continueCardRecordDao")
 	private ContinueCardRecordDao continueCardRecordDao;
 
-	@Resource(name = "buyCardPointsRecordDao")
-	private BuyCardPointsRecordDao buyCardPointsRecordDao;
+	@Resource(name = "buyCardNumberRecordDao")
+	private BuyCardNumberRecordDao buyCardNumberRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -726,19 +726,21 @@ public class MemberInfoService
 	 * 购买次数
 	 * @param guid 会员资料唯一标识
 	 * @param money 消费金额
+	 * @param times 购买次数
+	 * @param expiretime
 	 * @param content 备注说明
 	 * @param currentUser
 	 * @return
 	 */
 	@Transactional
-	public boolean buyCardPoints(String guid, Double money, Integer points,
+	public boolean buyCardNumber(String guid, Double money, Integer times,
 			Date expiretime, String content, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return false;
 		if (money == null || money <= 0)
 			return false;
-		if (points == null || points <= 0)
+		if (times == null || times <= 0)
 			return false;
 		if (expiretime == null)
 			return false;
@@ -753,34 +755,35 @@ public class MemberInfoService
 			if (balance == null || balance < money)
 				return false;
 
-			Integer oldPoints = memberInfo.getPoints();
-			if (oldPoints == null)
-				oldPoints = 0;
+			// 如果没有可用次数
+			Integer oldTimes = memberInfo.getTimes();
+			if (oldTimes == null)
+				oldTimes = 0;
 
 			// 更新会员资料状态为正常
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
 			updateMemberInfo.setStatus(2);// 状态，2：正常
 			updateMemberInfo.setBalance(balance - money);
-			updateMemberInfo.setPoints(oldPoints + points);
+			updateMemberInfo.setTimes(oldTimes + times);
 			updateMemberInfo.setExpiretime(expiretime);
-			this.memberInfoDao.buyCardPoints(updateMemberInfo);
+			this.memberInfoDao.buyCardNumber(updateMemberInfo);
 
 			// 保存购买次数记录
-			BuyCardPointsRecord buyCardPointsRecord = new BuyCardPointsRecord();
-			buyCardPointsRecord.setGuid(BaseUtils.getPrimaryKey());
-			buyCardPointsRecord.setMemberguid(guid);
-			buyCardPointsRecord.setMoney(money);
-			buyCardPointsRecord.setPoints(points);
-			buyCardPointsRecord.setExpiretime(expiretime);
-			buyCardPointsRecord.setRemark(content);
-			buyCardPointsRecord.setCreator(currentUser.getUserName());
-			buyCardPointsRecord.setCreatorid(currentUser.getUserGuid());
-			buyCardPointsRecord.setCreatetime(DateHelper.getCurrentDate());
-			this.buyCardPointsRecordDao.insert(buyCardPointsRecord);
+			BuyCardNumberRecord buyCardNumberRecord = new BuyCardNumberRecord();
+			buyCardNumberRecord.setGuid(BaseUtils.getPrimaryKey());
+			buyCardNumberRecord.setMemberguid(guid);
+			buyCardNumberRecord.setMoney(money);
+			buyCardNumberRecord.setNumber(times);
+			buyCardNumberRecord.setExpiretime(expiretime);
+			buyCardNumberRecord.setRemark(content);
+			buyCardNumberRecord.setCreator(currentUser.getUserName());
+			buyCardNumberRecord.setCreatorid(currentUser.getUserGuid());
+			buyCardNumberRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.buyCardNumberRecordDao.insert(buyCardNumberRecord);
 
 			// 记录操作日志
-			LogProxy.WriteLogOperate(log, "购买次数成功", guid, money, points,
+			LogProxy.WriteLogOperate(log, "购买次数成功", guid, money, times,
 					expiretime, content);
 			return true;
 		}
@@ -791,7 +794,7 @@ public class MemberInfoService
 					.setRollbackOnly();
 			// 记错误日志
 			LogProxy.WriteLogError(log, "购买次数异常", ex.toString(), guid, money,
-					points, expiretime, content);
+					times, expiretime, content);
 			return false;
 		}
 	}
@@ -803,7 +806,7 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public ResultDTO pointSignRecord(String guid, CurrentUser currentUser)
+	public ResultDTO numberSignRecord(String guid, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
 			return CommonUtil.newFailedDTO("会员信息不正确！");
@@ -820,15 +823,20 @@ public class MemberInfoService
 				return CommonUtil.newFailedDTO("会员卡不是次卡！");
 
 			// 如果没有可用次数
-			Integer oldPoints = memberInfo.getPoints();
-			if (oldPoints == null || oldPoints <= 0)
+			Integer oldTimes = memberInfo.getTimes();
+			if (oldTimes == null || oldTimes <= 0)
 				return CommonUtil.newFailedDTO("会员卡没有可用次数！");
+
+			Integer oldUsedTimes = memberInfo.getUsedtimes();
+			if (oldUsedTimes == null)
+				oldUsedTimes = 0;
 
 			// 更新会员使用次数
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
-			updateMemberInfo.setPoints(oldPoints - 1);
-			this.memberInfoDao.pointSignRecord(updateMemberInfo);
+			updateMemberInfo.setTimes(oldTimes - 1);
+			updateMemberInfo.setUsedtimes(oldUsedTimes + 1);
+			this.memberInfoDao.numberSignRecord(updateMemberInfo);
 
 			// 保存签到记录
 			SignRecord signRecord = new SignRecord();

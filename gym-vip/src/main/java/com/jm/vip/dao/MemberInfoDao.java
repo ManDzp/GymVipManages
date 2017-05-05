@@ -87,13 +87,13 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 	 * @param memberInfo
 	 * @return
 	 */
-	public int buyCardPoints(MemberInfo memberInfo);
+	public int buyCardNumber(MemberInfo memberInfo);
 
 	/**
 	 * 次卡签到
 	 * @param memberInfo
 	 * @return
 	 */
-	public int pointSignRecord(MemberInfo memberInfo);
+	public int numberSignRecord(MemberInfo memberInfo);
 
 }

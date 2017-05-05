@@ -199,15 +199,15 @@ public class MemberInfoHelper
 			menu = new MenuItem();
 			menu.setDisplayName("购买次数");
 			menu.setBclass("icon-add");
-			menu.setItemClick("openBuyCardPoints('" + guid + "', '"
+			menu.setItemClick("openBuyCardNumber('" + guid + "', '"
 					+ nowExpireTime + "')");
-			menu.setId("buyCardPoints");
+			menu.setId("buyCardNumber");
 			menuList.add(menu);
 
 			menu = new MenuItem();
 			menu.setDisplayName("签到");
 			menu.setBclass("icon-add");
-			menu.setItemClick("pointSignRecord('" + guid + "')");
+			menu.setItemClick("numberSignRecord('" + guid + "')");
 			menu.setId("signRecord");
 			menuList.add(menu);
 		}

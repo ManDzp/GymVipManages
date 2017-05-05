@@ -10,7 +10,7 @@
 
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/buycardpointsrecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/buycardnumberrecord/list.js${res_v}"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
 				<th data-options="field:'money',align:'left',formatter:getMoneyUrl,sortable:true,order:'desc'" width="25">消费金额</th>
-				<th data-options="field:'points',align:'left',formatter:getIntegerUrl,sortable:true,order:'desc'" width="25">购买次数</th>
+				<th data-options="field:'number',align:'left',formatter:getIntegerUrl,sortable:true,order:'desc'" width="25">购买次数</th>
 				<th data-options="field:'expiretime',align:'left',formatter:getShortDateUrl,sortable:true,order:'desc'" width="25">到期日期</th>
 				<th data-options="field:'createtime',align:'left',formatter:getDateUrl,sortable:true,order:'desc'" width="25">购买时间</th>
 			</tr>

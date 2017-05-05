@@ -313,7 +313,7 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="tdbgcolor view-info-important" colspan="3">购买次数记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardpointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardnumberrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 
 								<tr>
@@ -322,12 +322,12 @@ ul, li {
 									<td class="tdbgcolor20" style="text-align: center;">到期日期</td>
 									<td class="tdbgcolor20" style="text-align: center;" colspan="2">购买时间</td>
 								</tr>
-								<c:forEach items="${buyCardPointsRecordList}" var="buyCardPointsRecord">
+								<c:forEach items="${buyCardNumberRecordList}" var="buyCardNumberRecord">
 								<tr>
-									<td class="tdbgcolor20" style="text-align: center;">${buyCardPointsRecord.money}</td>
-									<td class="tdbgcolor20" style="text-align: center;">${buyCardPointsRecord.points}</td>
-									<td class="tdbgcolor20" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardPointsRecord.expiretime}" /></td>
-									<td class="tdbgcolor20" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardPointsRecord.createtime}" /></td>
+									<td class="tdbgcolor20" style="text-align: center;">${buyCardNumberRecord.money}</td>
+									<td class="tdbgcolor20" style="text-align: center;">${buyCardNumberRecord.number}</td>
+									<td class="tdbgcolor20" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardNumberRecord.expiretime}" /></td>
+									<td class="tdbgcolor20" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardNumberRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>

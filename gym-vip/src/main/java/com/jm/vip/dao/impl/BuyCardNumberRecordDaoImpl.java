@@ -8,25 +8,25 @@ import org.springframework.stereotype.Repository;
 
 import com.google.common.collect.Maps;
 import com.jm.page.PageSearch;
-import com.jm.vip.dao.BuyCardPointsRecordDao;
-import com.jm.vip.entity.BuyCardPointsRecord;
+import com.jm.vip.dao.BuyCardNumberRecordDao;
+import com.jm.vip.entity.BuyCardNumberRecord;
 
 /**
  * 购买次数记录DAO实现
  */
-@Repository("buyCardPointsRecordDao")
-public class BuyCardPointsRecordDaoImpl extends BaseDaoImpl<BuyCardPointsRecord>
-		implements BuyCardPointsRecordDao
+@Repository("buyCardNumberRecordDao")
+public class BuyCardNumberRecordDaoImpl extends BaseDaoImpl<BuyCardNumberRecord>
+		implements BuyCardNumberRecordDao
 {
 
 	@Override
 	public String getMapperId()
 	{
-		return "BuyCardPointsRecordMapper";
+		return "BuyCardNumberRecordMapper";
 	}
 
 	@Override
-	public List<BuyCardPointsRecord> getInfoList(Integer topNum,
+	public List<BuyCardNumberRecord> getInfoList(Integer topNum,
 			String memberGuid)
 	{
 		PageSearch pageSearch = new PageSearch();

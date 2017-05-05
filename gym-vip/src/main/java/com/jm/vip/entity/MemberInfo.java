@@ -28,17 +28,25 @@ public class MemberInfo
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiretime;
-
+	/**
+	 * 卡内余额
+	 */
 	private Double balance;
-
+	/**
+	 * 累计消费
+	 */
 	private Double consumption;
+	/**
+	 * 会员积分
+	 */
+	private Integer points;
 	/**
 	 * 可用次数
 	 */
-	private Integer points;
-
 	private Integer times;
-
+	/**
+	 * 已用次数
+	 */
 	private Integer usedtimes;
 
 	private String fullname;

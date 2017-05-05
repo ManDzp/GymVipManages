@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="BuyCardPointsRecordMapper">
-	<resultMap id="BaseResultMap" type="BuyCardPointsRecord">
+<mapper namespace="BuyCardNumberRecordMapper">
+	<resultMap id="BaseResultMap" type="BuyCardNumberRecord">
 		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="money" property="money" jdbcType="DECIMAL" />
-		<result column="points" property="points" jdbcType="INTEGER" />
+		<result column="number" property="number" jdbcType="INTEGER" />
 		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
@@ -14,11 +14,11 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, money, points, expireTime, remark,
+		guid, memberGuid, money, number, expireTime, remark,
 		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, money, points, expireTime, remark, createTime
+		guid, memberGuid, money, number, expireTime, remark, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->
@@ -26,7 +26,7 @@
 		parameterType="java.util.Map">
 		SELECT
 		<include refid="List_Column" />
-		FROM BuyCardPointsRecord
+		FROM BuyCardNumberRecord
 		<where>
 			<if test="wheresql.memberguid != null and wheresql.memberguid != ''">
 				AND memberGuid = #{wheresql.memberguid,jdbcType=VARCHAR}
@@ -45,23 +45,23 @@
 		parameterType="java.lang.String">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM BuyCardPointsRecord
+		FROM BuyCardNumberRecord
 		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		DELETE FROM BuyCardPointsRecord
+		DELETE FROM BuyCardNumberRecord
 		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</delete>
 
-	<insert id="insert" parameterType="BuyCardPointsRecord">
-		INSERT INTO BuyCardPointsRecord
+	<insert id="insert" parameterType="BuyCardNumberRecord">
+		INSERT INTO BuyCardNumberRecord
 		(guid, memberGuid, money,
-		points, expireTime, remark,
+		number, expireTime, remark,
 		createTime, creator, creatorId)
 		values (#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
 		#{money,jdbcType=DECIMAL},
-		#{points,jdbcType=INTEGER}, #{expiretime,jdbcType=TIMESTAMP},
+		#{number,jdbcType=INTEGER}, #{expiretime,jdbcType=TIMESTAMP},
 		#{remark,jdbcType=VARCHAR},
 		#{createtime,jdbcType=TIMESTAMP},
 		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})

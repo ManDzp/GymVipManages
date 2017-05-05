@@ -25,7 +25,7 @@ import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
 import com.jm.vip.entity.ActiveCardRecord;
-import com.jm.vip.entity.BuyCardPointsRecord;
+import com.jm.vip.entity.BuyCardNumberRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
@@ -176,10 +176,10 @@ public class MemberController extends BaseController
 		else if ("1".equals(cardtype))
 		{
 			// 购买次数记录
-			List<BuyCardPointsRecord> buyCardPointsRecordList = this.recordService
-					.getBuyCardPointsRecordList(5, guid);
-			model.addAttribute("buyCardPointsRecordList",
-					buyCardPointsRecordList);
+			List<BuyCardNumberRecord> buyCardNumberRecordList = this.recordService
+					.getBuyCardNumberRecordList(5, guid);
+			model.addAttribute("buyCardNumberRecordList",
+					buyCardNumberRecordList);
 		}
 
 		// 将菜单集合传给前台
@@ -630,15 +630,15 @@ public class MemberController extends BaseController
 	 * 购买次数
 	 * @param guid 会员资料唯一标识
 	 * @param money 消费金额
-	 * @param points 购买次数
+	 * @param times 购买次数
 	 * @param expiretime 到期日期
 	 * @param content 备注说明
 	 * @return
 	 */
-	@RequestMapping(value = "/buyCardPoints", method = RequestMethod.POST)
+	@RequestMapping(value = "/buyCardNumber", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultDTO buyCardPoints(@RequestParam String guid,
-			@RequestParam Double money, @RequestParam Integer points,
+	public ResultDTO buyCardNumber(@RequestParam String guid,
+			@RequestParam Double money, @RequestParam Integer times,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
 			@RequestParam String content)
 	{
@@ -646,15 +646,15 @@ public class MemberController extends BaseController
 
 		try
 		{
-			boolean success = this.memberInfoService.buyCardPoints(guid, money,
-					points, expiretime, content, getContextUser());
+			boolean success = this.memberInfoService.buyCardNumber(guid, money,
+					times, expiretime, content, getContextUser());
 			result.setSuccess(success);
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "购买次数失败", ex.toString(), guid, money,
-					points, expiretime, content);
+					times, expiretime, content);
 			result.setSuccess(false);
 		}
 
@@ -666,13 +666,13 @@ public class MemberController extends BaseController
 	 * @param guid 会员资料唯一标识
 	 * @return
 	 */
-	@RequestMapping(value = "/pointSignRecord", method = RequestMethod.POST)
+	@RequestMapping(value = "/numberSignRecord", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultDTO pointSignRecord(@RequestParam String guid)
+	public ResultDTO numberSignRecord(@RequestParam String guid)
 	{
 		try
 		{
-			ResultDTO result = this.memberInfoService.pointSignRecord(guid,
+			ResultDTO result = this.memberInfoService.numberSignRecord(guid,
 					getContextUser());
 			return result;
 		}

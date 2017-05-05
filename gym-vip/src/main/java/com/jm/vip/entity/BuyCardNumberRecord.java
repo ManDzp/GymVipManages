@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 买卡记录
  */
-public class BuyCardPointsRecord
+public class BuyCardNumberRecord
 {
 	/**
 	 * 买卡唯一标识
@@ -24,7 +24,7 @@ public class BuyCardPointsRecord
 	/**
 	 * 使用次数
 	 */
-	private Integer points;
+	private Integer number;
 	/**
 	 * 到期日期
 	 */
@@ -77,14 +77,14 @@ public class BuyCardPointsRecord
 		this.money = money;
 	}
 
-	public Integer getPoints()
+	public Integer getNumber()
 	{
-		return points;
+		return number;
 	}
 
-	public void setPoints(Integer points)
+	public void setNumber(Integer number)
 	{
-		this.points = points;
+		this.number = number;
 	}
 
 	public Date getExpiretime()

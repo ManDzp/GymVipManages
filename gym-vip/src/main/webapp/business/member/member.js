@@ -507,7 +507,7 @@ function leaveBack(guid, nowExpireTime) {
 }
 
 // 打开购买次数页
-function openBuyCardPoints(guid, nowExpireTime) {
+function openBuyCardNumber(guid, nowExpireTime) {
 	var html = [
 			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
 			'<tbody>',
@@ -517,7 +517,7 @@ function openBuyCardPoints(guid, nowExpireTime) {
 			'</tr>',
 			'<tr>',
 			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>购买次数：</td>',
-			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-points" /></td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-times" /></td>',
 			'</tr>',
 			'<tr>',
 			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
@@ -541,7 +541,7 @@ function openBuyCardPoints(guid, nowExpireTime) {
 		},
 		yes : function(index, layero) {
 			var money = layero.find('.form-money').val();
-			var points = layero.find('.form-points').val();
+			var times = layero.find('.form-times').val();
 			var expiretime = layero.find('.form-expiretime').val();
 			var content = layero.find('.form-content').val();
 
@@ -552,10 +552,10 @@ function openBuyCardPoints(guid, nowExpireTime) {
 				layer.alert('消费金额格式不正确！');
 				return;
 			}
-			if (points === "") {
+			if (times === "") {
 				layer.alert('购买次数必填！');
 				return;
-			} else if (!points.isPlusInt()) {
+			} else if (!times.isPlusInt()) {
 				layer.alert('购买次数格式不正确！');
 				return;
 			}
@@ -571,10 +571,10 @@ function openBuyCardPoints(guid, nowExpireTime) {
 				return;
 			}
 
-			$.post("buyCardPoints", {
+			$.post("buyCardNumber", {
 				"guid" : guid,
 				"money" : money,
-				"points" : points,
+				"times" : times,
 				"expiretime" : expiretime,
 				"content" : content
 			}, function(data) {
@@ -589,10 +589,10 @@ function openBuyCardPoints(guid, nowExpireTime) {
 	});
 }
 
-// 查看页签到
-function pointSignRecord(guid) {
+// 查看页次卡签到
+function numberSignRecord(guid) {
 	layer.confirm('确定签到吗？', function(index) {
-		$.post("pointSignRecord", {
+		$.post("numberSignRecord", {
 			"guid" : guid
 		}, function(data) {
 			var ret = eval('(' + data + ')');

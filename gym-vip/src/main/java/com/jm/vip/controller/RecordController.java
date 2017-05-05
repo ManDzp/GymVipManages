@@ -35,8 +35,8 @@ public class RecordController
 	private static final String LEAVE_RECORD_JSP_PATH = "leaverecord";
 
 	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
-
-	private static final String BUY_CARD_POINTS_RECORD_JSP_PATH = "buycardpointsrecord";
+	// CardNumberRecord
+	private static final String BUY_CARD_NUMBER_RECORD_JSP_PATH = "buycardnumberrecord";
 
 	/**
 	 * 加载充值记录的列表页
@@ -212,8 +212,8 @@ public class RecordController
 	 * @param memberguid 会员资料唯一标示
 	 * @return
 	 */
-	@RequestMapping(value = "/buycardpointsrecord/list", method = RequestMethod.GET)
-	public String loadBuyCardPointsRecordList(Model model,
+	@RequestMapping(value = "/buycardnumberrecord/list", method = RequestMethod.GET)
+	public String loadBuyCardNumberRecordList(Model model,
 			@RequestParam(required = false) String memberguid)
 	{
 		model.addAttribute("memberguid", memberguid);
@@ -224,9 +224,9 @@ public class RecordController
 
 		model.addAttribute("listTitle", "购买次数记录");
 		model.addAttribute("mapperid",
-				"BuyCardPointsRecordMapper.selectListByPage");
+				"BuyCardNumberRecordMapper.selectListByPage");
 
-		return BUY_CARD_POINTS_RECORD_JSP_PATH + "/list";
+		return BUY_CARD_NUMBER_RECORD_JSP_PATH + "/list";
 	}
 
 }
