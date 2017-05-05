@@ -28,4 +28,22 @@ public class RecordHelper
 
 		return menuList;
 	}
+
+	/**
+	 * 查看页菜单
+	 * @return
+	 */
+	public List<MenuItem> getViewMenu()
+	{
+		List<MenuItem> menuList = new ArrayList<MenuItem>();
+
+		MenuItem menu = new MenuItem();
+		menu.setDisplayName("返回");
+		menu.setBclass("icon-back");
+		menu.setItemClick("doBack()");
+		menu.setId("back");
+		menuList.add(menu);
+
+		return menuList;
+	}
 }

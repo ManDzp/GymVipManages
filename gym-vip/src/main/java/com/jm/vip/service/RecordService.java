@@ -187,6 +187,25 @@ public class RecordService
 	}
 
 	/**
+	 * 获取请销假记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public LeaveRecord getLeaveRecord(String guid)
+	{
+		try
+		{
+			return this.leaveRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取请销假记录信息异常", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
 	 * 获取前几项购买次数记录
 	 * @param topNum
 	 * @param memberGuid 会员资料

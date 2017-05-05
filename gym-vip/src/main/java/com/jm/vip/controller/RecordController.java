@@ -1,12 +1,18 @@
 package com.jm.vip.controller;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jm.security.RegexHelper;
+import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.menu.RecordHelper;
+import com.jm.vip.service.RecordService;
 
 /**
  * 查看记录控制器
@@ -15,6 +21,9 @@ import com.jm.vip.menu.RecordHelper;
 @RequestMapping("/record")
 public class RecordController
 {
+	@Resource(name = "recordService")
+	private RecordService recordService;
+
 	private static final String CHARGE_RECORD_JSP_PATH = "chargerecord";
 
 	private static final String BUY_CARD_RECORD_JSP_PATH = "buycardrecord";
@@ -161,6 +170,40 @@ public class RecordController
 		model.addAttribute("mapperid", "LeaveRecordMapper.selectListByPage");
 
 		return LEAVE_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 获取请销假记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/leaverecord/view", method = RequestMethod.GET)
+	public String loadLeaveRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		LeaveRecord leaveRecord = this.recordService.getLeaveRecord(guid);
+		if (leaveRecord == null)
+		{
+			model.addAttribute("errormessage", "请销假记录不存在！");
+			return "error/error";
+		}
+
+		// 会员资料
+		model.addAttribute("leaveRecord", leaveRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return LEAVE_RECORD_JSP_PATH + "/view";
 	}
 
 	/**

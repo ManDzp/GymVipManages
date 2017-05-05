@@ -268,7 +268,7 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="lefttdbgcolor" style="text-align: center;">类型</td>
-									<td class="tdbgcolor35" style="text-align: center;">申请时间</td>
+									<td class="tdbgcolor35" style="text-align: center;">操作时间</td>
 								</tr>
 								<c:forEach items="${leaveRecordList}" var="leaveRecord">
 								<tr>

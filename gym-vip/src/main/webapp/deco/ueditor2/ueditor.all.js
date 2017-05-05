@@ -17105,7 +17105,7 @@ UE.plugins['fiximgclick'] = (function () {
                                 me.selection.getRange().selectNode(target).select();
                             }
                         });
-                        //TODO 有iframe的情况，mousedown不能往下传。。
+                        // 有iframe的情况，mousedown不能往下传。。
                         domUtils.on(imageScale.resizer, 'mousedown', function (e) {
                             me.selection.getNative().removeAllRanges();
                             var ele = e.target || e.srcElement;
@@ -19746,7 +19746,7 @@ UE.plugins['video'] = function (){
             if (!table) return -1;
             var interlaced = table.getAttribute("interlaced");
             if (cmd == "interlacetable") {
-                //TODO 待定
+                // 待定
                 //是否需要待定，如果设置，则命令只能单次执行成功，但反射具备toggle效果；否则可以覆盖前次命令，但反射将不存在toggle效果
                 return (interlaced === "enabled") ? -1 : 0;
             } else {

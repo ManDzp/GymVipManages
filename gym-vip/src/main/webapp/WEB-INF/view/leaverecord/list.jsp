@@ -11,6 +11,7 @@
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/business/leaverecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/leaverecord/leaverecord.js${res_v}"></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
 				<th data-options="field:'leavetype',align:'left',formatter:getLeaveTypeUrl,sortable:true,order:'desc'"
 					width="20">类型</th>
 				<th data-options="field:'createtime',align:'left',formatter:getDateUrl,sortable:true,order:'desc'"
-					width="30">申请时间</th>
+					width="30">操作时间</th>
 			</tr>
 		</thead>
 	</table>
