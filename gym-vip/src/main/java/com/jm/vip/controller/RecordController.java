@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jm.security.RegexHelper;
+import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.menu.RecordHelper;
 import com.jm.vip.service.RecordService;
@@ -58,6 +59,40 @@ public class RecordController
 		model.addAttribute("mapperid", "ChargeRecordMapper.selectListByPage");
 
 		return CHARGE_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 获取充值记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/chargerecord/view", method = RequestMethod.GET)
+	public String loadChargeRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		ChargeRecord chargeRecord = this.recordService.getChargeRecord(guid);
+		if (chargeRecord == null)
+		{
+			model.addAttribute("errormessage", "充值记录不存在！");
+			return "error/error";
+		}
+
+		// 充值记录
+		model.addAttribute("chargeRecord", chargeRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return CHARGE_RECORD_JSP_PATH + "/view";
 	}
 
 	/**
@@ -196,7 +231,7 @@ public class RecordController
 			return "error/error";
 		}
 
-		// 会员资料
+		// 请销假记录
 		model.addAttribute("leaveRecord", leaveRecord);
 
 		// 加载列表菜单

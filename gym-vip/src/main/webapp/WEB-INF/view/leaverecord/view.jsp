@@ -48,9 +48,6 @@
 					</tr>
 				</tbody>
 			</table>
-
-			<ywtag:dialog/>
-
 		</form>
 	</div>
 </body>

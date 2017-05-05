@@ -11,6 +11,7 @@
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/business/chargerecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/chargerecord/chargerecord.js${res_v}"></script>
 </head>
 
 <body>

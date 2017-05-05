@@ -99,6 +99,25 @@ public class RecordService
 	}
 
 	/**
+	 * 获取充值记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public ChargeRecord getChargeRecord(String guid)
+	{
+		try
+		{
+			return this.chargeRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取充值记录信息异常", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
 	 * 获取前几项买卡记录
 	 * @param topNum
 	 * @param memberGuid 会员资料

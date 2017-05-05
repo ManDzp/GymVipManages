@@ -5,6 +5,7 @@ function getViewUrl(val, rec) {
 	return "<a href='javascript:void(0);' onclick=\"" + clickFun + "\">"
 			+ value + "</a>";
 }
+
 // 日期格式化
 function getDateUrl(val, rec) {
 	var value = getSmpFormatDateByLong(val, "yyyy-MM-dd hh:mm:ss");
