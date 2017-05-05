@@ -29,6 +29,7 @@ import com.jm.vip.entity.BuyCardPointsRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
+import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
@@ -166,6 +167,11 @@ public class MemberController extends BaseController
 					.getContinueCardRecordList(5, guid);
 			model.addAttribute("continueCardRecordList",
 					continueCardRecordList);
+
+			// 请销假记录
+			List<LeaveRecord> leaveRecordList = this.recordService
+					.getLeaveRecordList(5, guid);
+			model.addAttribute("leaveRecordList", leaveRecordList);
 		}
 		else if ("1".equals(cardtype))
 		{
@@ -565,6 +571,59 @@ public class MemberController extends BaseController
 		}
 
 		return result;
+	}
+
+	/**
+	 * 请假
+	 * @param guid 会员资料唯一标识
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/leaveApply", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO leaveApply(@RequestParam String guid,
+			@RequestParam String content)
+	{
+		try
+		{
+			ResultDTO result = this.memberInfoService.leaveApply(guid, content,
+					getContextUser());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "请假失败", ex.toString(), guid, content);
+			return CommonUtil.newFailedDTO("请假失败！");
+		}
+	}
+
+	/**
+	 * 销假
+	 * @param guid 会员资料唯一标识
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/leaveBack", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO leaveBack(@RequestParam String guid,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
+			@RequestParam String content)
+	{
+		try
+		{
+			ResultDTO result = this.memberInfoService.leaveBack(guid,
+					expiretime, content, getContextUser());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "销假失败", ex.toString(), guid, expiretime,
+					content);
+			return CommonUtil.newFailedDTO("销假失败！");
+		}
 	}
 
 	/**

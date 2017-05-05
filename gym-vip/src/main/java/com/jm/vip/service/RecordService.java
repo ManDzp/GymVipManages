@@ -13,12 +13,14 @@ import com.jm.vip.dao.BuyCardPointsRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.ContinueCardRecordDao;
+import com.jm.vip.dao.LeaveRecordDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardPointsRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
+import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.entity.SignRecord;
 
 /**
@@ -43,6 +45,9 @@ public class RecordService
 
 	@Resource(name = "activeCardRecordDao")
 	private ActiveCardRecordDao activeCardRecordDao;
+
+	@Resource(name = "leaveRecordDao")
+	private LeaveRecordDao leaveRecordDao;
 
 	@Resource(name = "continueCardRecordDao")
 	private ContinueCardRecordDao continueCardRecordDao;
@@ -154,6 +159,28 @@ public class RecordService
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取前几项续卡记录异常", e.toString(), topNum,
+					memberGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取前几项请销假记录
+	 * @param topNum
+	 * @param memberGuid 会员资料
+	 * @return
+	 */
+	public List<LeaveRecord> getLeaveRecordList(Integer topNum,
+			String memberGuid)
+	{
+		try
+		{
+			return this.leaveRecordDao.getInfoList(topNum, memberGuid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取前几项请销假记录异常", e.toString(), topNum,
 					memberGuid);
 			return null;
 		}

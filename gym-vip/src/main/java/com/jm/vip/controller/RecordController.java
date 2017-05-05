@@ -23,6 +23,8 @@ public class RecordController
 
 	private static final String CONTINUE_CARD_RECORD_JSP_PATH = "continuecardrecord";
 
+	private static final String LEAVE_RECORD_JSP_PATH = "leaverecord";
+
 	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
 
 	private static final String BUY_CARD_POINTS_RECORD_JSP_PATH = "buycardpointsrecord";
@@ -137,6 +139,28 @@ public class RecordController
 		model.addAttribute("mapperid", "SignRecordMapper.selectListByPage");
 
 		return SIGN_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 加载请销假记录的列表页
+	 * @param model
+	 * @param memberguid 会员资料唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/leaverecord/list", method = RequestMethod.GET)
+	public String loadLeaveRecordList(Model model,
+			@RequestParam(required = false) String memberguid)
+	{
+		model.addAttribute("memberguid", memberguid);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getListMenu());
+
+		model.addAttribute("listTitle", "请销假记录");
+		model.addAttribute("mapperid", "LeaveRecordMapper.selectListByPage");
+
+		return LEAVE_RECORD_JSP_PATH + "/list";
 	}
 
 	/**

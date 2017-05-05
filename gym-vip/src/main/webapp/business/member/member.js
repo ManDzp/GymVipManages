@@ -407,6 +407,105 @@ function signRecord(guid) {
 	});
 }
 
+// 查看页请假
+function leaveApply(guid) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '请假',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '200px' ],
+		btn : [ '请假', '关闭' ],
+		content : html,
+		success : function(layero, index) {
+			layero.find('.form-content').focus();
+		},
+		yes : function(index, layero) {
+			var content = layero.find('.form-content').val();
+
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("leaveApply", {
+				"guid" : guid,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert(ret.message);
+				}
+			});
+		}
+	});
+}
+
+// 查看页销假
+function leaveBack(guid, nowExpireTime) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-expiretime"',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\', minDate: \''
+					+ nowExpireTime + '\' })" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '销假',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '200px' ],
+		btn : [ '销假', '关闭' ],
+		content : html,
+		success : function(layero, index) {
+			layero.find('.form-expiretime').focus();
+		},
+		yes : function(index, layero) {
+			var expiretime = layero.find('.form-expiretime').val();
+			var content = layero.find('.form-content').val();
+
+			if (expiretime === "") {
+				layer.alert('到期日期必填！');
+				return;
+			} else if (!expiretime.isDate()) {
+				layer.alert('到期日期格式不正确！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("leaveBack", {
+				"guid" : guid,
+				"expiretime" : expiretime,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert(ret.message);
+				}
+			});
+		}
+	});
+}
+
 // 打开购买次数页
 function openBuyCardPoints(guid, nowExpireTime) {
 	var html = [

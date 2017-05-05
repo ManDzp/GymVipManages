@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LeaveRecordMapper">
+	<resultMap id="BaseResultMap" type="LeaveRecord">
+		<id column="guid" property="guid" jdbcType="BIGINT" />
+		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
+		<result column="leaveType" property="leavetype" jdbcType="VARCHAR" />
+		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="creatorId" property="creatorid" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		guid, memberGuid, leaveType, expireTime, remark,
+		createTime, creator, creatorId
+	</sql>
+	<sql id="List_Column">
+		guid, memberGuid, leaveType, expireTime, remark, createTime,
+	</sql>
+
+	<!-- 获取分页数据 -->
+	<select id="selectListByPage" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM LeaveRecord
+		<where>
+			<if test="wheresql.memberguid != null and wheresql.memberguid != ''">
+				AND memberGuid = #{wheresql.memberguid,jdbcType=VARCHAR}
+			</if>
+		</where>
+
+		<if test="ordersql != null and ordersql != ''">
+			ORDER BY ${ordersql}
+		</if>
+		<if test="ordersql == null or ordersql == ''">
+			ORDER by createTime desc
+		</if>
+	</select>
+
+	<select id="selectByGuid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM LeaveRecord
+		WHERE guid = #{guid,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteByGuid" parameterType="java.lang.String">
+		DELETE FROM LeaveRecord
+		WHERE guid = #{guid,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="LeaveRecord">
+		INSERT INTO LeaveRecord
+		(guid, memberGuid, leaveType, expireTime, remark,
+		createTime, creator, creatorId)
+		values
+		(#{guid,jdbcType=BIGINT},
+		#{memberguid,jdbcType=BIGINT}, #{leavetype,jdbcType=VARCHAR},
+		#{expiretime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})
+	</insert>
+</mapper>

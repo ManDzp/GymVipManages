@@ -73,7 +73,7 @@ public class MemberInfoHelper
 	public List<MenuItem> getViewMenu(MemberInfo memberInfo)
 	{
 		String guid = memberInfo.getGuid();
-		Integer status = memberInfo.getStatus();
+		Integer status = memberInfo.getStatus();// 状态 0：初始，1：待开卡，2：正常，3：请假，4：到期
 		String cardtype = memberInfo.getCardtype();// 会员类型，0：时间卡，1：次卡
 
 		List<MenuItem> menuList = new ArrayList<MenuItem>();
@@ -157,6 +157,32 @@ public class MemberInfoHelper
 				menu.setBclass("icon-add");
 				menu.setItemClick("signRecord('" + guid + "')");
 				menu.setId("signRecord");
+				menuList.add(menu);
+			}
+
+			// 正常状态，可以进行请假
+			if (status == 2)
+			{
+				menu = new MenuItem();
+				menu.setDisplayName("请假");
+				menu.setBclass("icon-add");
+				menu.setItemClick("leaveApply('" + guid + "')");
+				menu.setId("leaveApply");
+				menuList.add(menu);
+			}
+
+			// 请假状态，可以进行销假
+			if (status == 3)
+			{
+				Date expiretime = memberInfo.getExpiretime();
+				String nowExpireTime = DateHelper.getDateToShort(expiretime);
+
+				menu = new MenuItem();
+				menu.setDisplayName("销假");
+				menu.setBclass("icon-add");
+				menu.setItemClick(
+						"leaveBack('" + guid + "', '" + nowExpireTime + "')");
+				menu.setId("leaveBack");
 				menuList.add(menu);
 			}
 		}

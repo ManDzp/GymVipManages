@@ -146,8 +146,10 @@ ul, li {
 						</table>
 					</li>
 
-					<c:if test="${memberInfo.cardtype == '0'}">
-					<c:if test="${memberInfo.status > 1}">
+			<c:if test="${memberInfo.cardtype == '0'}">
+			<!-- 时间卡 -->
+
+				<c:if test="${memberInfo.status > 1}">
 					<!-- 签到记录 -->
 					<li>
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
@@ -167,9 +169,9 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
-					</c:if>
+				</c:if>
 
-					<c:if test="${memberInfo.status > 1}">
+				<c:if test="${memberInfo.status > 1}">
 					<!-- 续卡记录 -->
 					<li>
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
@@ -198,7 +200,7 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
-					</c:if>
+				</c:if>
 
 					<!-- 买卡记录 -->
 					<li>
@@ -249,9 +251,42 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
-					</c:if>
 
-					<c:if test="${memberInfo.cardtype == '1'}">
+				<c:if test="${memberInfo.status > 1}">
+					<!-- 请销假记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">请销假记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/leaverecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">类型</td>
+									<td class="tdbgcolor35" style="text-align: center;">申请时间</td>
+								</tr>
+								<c:forEach items="${leaveRecordList}" var="leaveRecord">
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">
+										<c:if test="${leaveRecord.leavetype=='0'}">请假</c:if>
+										<c:if test="${leaveRecord.leavetype=='1'}">销假</c:if>
+									</td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${leaveRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+				</c:if>
+			</c:if>
+
+			<c:if test="${memberInfo.cardtype == '1'}">
+			<!-- 次卡 -->
 					<!-- 签到记录 -->
 					<li>
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
@@ -298,8 +333,8 @@ ul, li {
 							</tbody>
 						</table>
 					</li>
+			</c:if>
 
-					</c:if>
 				</ul>
 			</div>
 

@@ -168,16 +168,16 @@
 	</update>
 
 	<!-- 请假 -->
-	<update id="leave" parameterType="MemberInfo">
+	<update id="leaveApply" parameterType="MemberInfo">
 		update memberinfo
-		set status = '3'
+		set status = #{status,jdbcType=SMALLINT}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
 	<!-- 销假 -->
 	<update id="leaveBack" parameterType="MemberInfo">
 		update memberinfo
-		set status = '2',
+		set status = #{status,jdbcType=SMALLINT},
 		expireTime = #{expiretime,jdbcType=TIMESTAMP}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>

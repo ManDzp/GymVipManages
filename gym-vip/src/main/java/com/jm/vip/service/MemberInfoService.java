@@ -23,6 +23,7 @@ import com.jm.vip.dao.BuyCardPointsRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.ContinueCardRecordDao;
+import com.jm.vip.dao.LeaveRecordDao;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.dao.SignRecordDao;
@@ -31,6 +32,7 @@ import com.jm.vip.entity.BuyCardPointsRecord;
 import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
+import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.SignRecord;
@@ -63,6 +65,9 @@ public class MemberInfoService
 
 	@Resource(name = "activeCardRecordDao")
 	private ActiveCardRecordDao activeCardRecordDao;
+
+	@Resource(name = "leaveRecordDao")
+	private LeaveRecordDao leaveRecordDao;
 
 	@Resource(name = "continueCardRecordDao")
 	private ContinueCardRecordDao continueCardRecordDao;
@@ -598,6 +603,122 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "保存签到记录异常", ex.toString(), guid);
 			return false;
+		}
+	}
+
+	/**
+	 * 请假
+	 * @param guid 会员资料唯一标识
+	 * @param content 备注说明
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public ResultDTO leaveApply(String guid, String content,
+			CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return CommonUtil.newFailedDTO("会员信息不正确！");
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			Integer status = memberInfo.getStatus();
+			if (status != 2)
+				return CommonUtil.newFailedDTO("会员信息状态不正确！");
+
+			// 更新会员资料
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setStatus(3);// 状态，3：请假
+			this.memberInfoDao.leaveApply(updateMemberInfo);
+
+			// 保存请假记录
+			LeaveRecord leaveRecord = new LeaveRecord();
+			leaveRecord.setGuid(BaseUtils.getPrimaryKey());
+			leaveRecord.setMemberguid(guid);
+			leaveRecord.setLeavetype("0");
+			leaveRecord.setRemark(content);
+			leaveRecord.setCreator(currentUser.getUserName());
+			leaveRecord.setCreatorid(currentUser.getUserGuid());
+			leaveRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.leaveRecordDao.insert(leaveRecord);
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "请假成功", guid, content);
+			return CommonUtil.newSuccessedDTO();
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "请假异常", ex.toString(), guid, content);
+			return CommonUtil.newFailedDTO("请假异常！");
+		}
+	}
+
+	/**
+	 * 销假
+	 * @param guid 会员资料唯一标识
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public ResultDTO leaveBack(String guid, Date expiretime, String content,
+			CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return CommonUtil.newFailedDTO("会员信息不正确！");
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			Integer status = memberInfo.getStatus();
+			if (status != 3)
+				return CommonUtil.newFailedDTO("会员信息状态不正确！");
+
+			// 更新会员资料
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setStatus(2);// 状态，2：正常
+			updateMemberInfo.setExpiretime(expiretime);
+			this.memberInfoDao.leaveBack(updateMemberInfo);
+
+			// 保存销假记录
+			LeaveRecord leaveRecord = new LeaveRecord();
+			leaveRecord.setGuid(BaseUtils.getPrimaryKey());
+			leaveRecord.setMemberguid(guid);
+			leaveRecord.setLeavetype("1");
+			leaveRecord.setExpiretime(expiretime);
+			leaveRecord.setRemark(content);
+			leaveRecord.setCreator(currentUser.getUserName());
+			leaveRecord.setCreatorid(currentUser.getUserGuid());
+			leaveRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.leaveRecordDao.insert(leaveRecord);
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "销假成功", guid, expiretime, content);
+			return CommonUtil.newSuccessedDTO();
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "销假异常", ex.toString(), guid, expiretime,
+					content);
+			return CommonUtil.newFailedDTO("销假异常！");
 		}
 	}
 

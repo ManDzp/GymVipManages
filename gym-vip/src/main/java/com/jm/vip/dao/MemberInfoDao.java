@@ -69,6 +69,20 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 	public int continueCard(MemberInfo memberInfo);
 
 	/**
+	 * 请假
+	 * @param memberInfo
+	 * @return
+	 */
+	public int leaveApply(MemberInfo memberInfo);
+
+	/**
+	 * 销假
+	 * @param memberInfo
+	 * @return
+	 */
+	public int leaveBack(MemberInfo memberInfo);
+
+	/**
 	 * 购买次数
 	 * @param memberInfo
 	 * @return

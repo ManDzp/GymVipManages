@@ -86,6 +86,18 @@ public class MemberInfoDaoImpl extends BaseDaoImpl<MemberInfo>
 	}
 
 	@Override
+	public int leaveApply(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".leaveApply", memberInfo);
+	}
+
+	@Override
+	public int leaveBack(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".leaveBack", memberInfo);
+	}
+
+	@Override
 	public int buyCardPoints(MemberInfo memberInfo)
 	{
 		return this.session.update(getMapperId() + ".buyCardPoints",
