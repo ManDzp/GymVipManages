@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="ActiveCardRecordMapper">
-	<resultMap id="BaseResultMap" type="ActiveCardRecord">
+<mapper namespace="PointsRecordMapper">
+	<resultMap id="BaseResultMap" type="PointsRecord">
 		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
-		<result column="activeTime" property="activetime" jdbcType="TIMESTAMP" />
+		<result column="pointType" property="pointtype" jdbcType="VARCHAR" />
+		<result column="points" property="points" jdbcType="INTEGER" />
+		<result column="oldExpireTime" property="oldexpiretime" jdbcType="TIMESTAMP" />
 		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
@@ -13,11 +15,11 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, activeTime, expireTime, remark, createTime, creator,
-		creatorId
+		guid, memberGuid, pointType, points, oldExpireTime, expireTime, remark,
+		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, activeTime, expireTime, remark, createTime
+		guid, memberGuid, pointType, points, oldExpireTime, expireTime, remark, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->
@@ -25,7 +27,7 @@
 		parameterType="java.util.Map">
 		SELECT
 		<include refid="List_Column" />
-		FROM ActiveCardRecord
+		FROM PointsRecord
 		<where>
 			<if test="wheresql.memberguid != null and wheresql.memberguid != ''">
 				AND memberGuid = #{wheresql.memberguid,jdbcType=VARCHAR}
@@ -44,21 +46,25 @@
 		parameterType="java.lang.String">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM ActiveCardRecord
+		FROM PointsRecord
 		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</select>
 
 	<delete id="deleteByGuid" parameterType="java.lang.String">
-		DELETE FROM ActiveCardRecord
+		DELETE FROM PointsRecord
 		WHERE guid = #{guid,jdbcType=VARCHAR}
 	</delete>
 
-	<insert id="insert" parameterType="ActiveCardRecord">
-		insert into activecardrecord (guid, memberGuid, activeTime,
-		expireTime, remark, createTime, creator, creatorId)
-		values (#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
-		#{activetime,jdbcType=TIMESTAMP}, #{expiretime,jdbcType=TIMESTAMP},
-		#{remark,jdbcType=VARCHAR}, 
+	<insert id="insert" parameterType="PointsRecord">
+		INSERT INTO PointsRecord
+		(guid, memberGuid, pointType, points, oldExpireTime, expireTime, remark,
+		createTime, creator, creatorId)
+		values
+		(#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
+		#{pointtype,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER},
+		#{oldexpiretime,jdbcType=TIMESTAMP},
+		#{expiretime,jdbcType=TIMESTAMP},
+		#{remark,jdbcType=VARCHAR},
 		#{createtime,jdbcType=TIMESTAMP},
 		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})
 	</insert>

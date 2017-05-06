@@ -608,3 +608,128 @@ function numberSignRecord(guid) {
 		layer.close(index);
 	});
 }
+
+// 打开获取积分页
+function openSaveCardPoints(guid) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>积　　分：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-points" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '获取积分',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '200px' ],
+		btn : [ '保存', '关闭' ],
+		content : html,
+		success : function(layero, index) {
+			layero.find('.form-points').focus();
+		},
+		yes : function(index, layero) {
+			var points = layero.find('.form-points').val();
+			var content = layero.find('.form-content').val();
+
+			if (points === "") {
+				layer.alert('积分必填！');
+				return;
+			} else if (!points.isPlus()) {
+				layer.alert('积分格式不正确！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("saveCardPoints", {
+				"guid" : guid,
+				"points" : points,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert(ret.message);
+				}
+			});
+		}
+	});
+}
+
+// 打开积分兑换时间页
+function openPointsExchangeTime(guid, nowExpireTime) {
+	var html = [
+			'<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">',
+			'<tbody>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>积　　分：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="str form-points" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>到期日期：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><input class="Wdate form-expiretime"',
+			' onclick="WdatePicker({ dateFmt: \'yyyy-MM-dd\', minDate: \''
+					+ nowExpireTime + '\' })" /></td>',
+			'</tr>',
+			'<tr>',
+			'<td class="lefttdbgcolor" style="width: 30%;"><font color="#ff0000">*</font>备注说明：</td>',
+			'<td class="tdbgcolor" style="width: 70%;"><textarea class="form-content" style="width: 100%;" rows="4" cols="10"></textarea></td>',
+			'</tr>', '</tbody>', '</table>' ].join('');
+	layer.open({
+		type : 1,
+		title : '积分兑换时间',
+		shade : [ 0.6, '#F5F5F5' ],
+		area : [ '400px', '250px' ],
+		btn : [ '保存', '关闭' ],
+		content : html,
+		success : function(layero, index) {
+			layero.find('.form-points').focus();
+		},
+		yes : function(index, layero) {
+			var points = layero.find('.form-points').val();
+			var expiretime = layero.find('.form-expiretime').val();
+			var content = layero.find('.form-content').val();
+
+			if (points === "") {
+				layer.alert('积分必填！');
+				return;
+			} else if (!points.isPlus()) {
+				layer.alert('积分格式不正确！');
+				return;
+			}
+			if (expiretime === "") {
+				layer.alert('到期日期必填！');
+				return;
+			} else if (!expiretime.isDate()) {
+				layer.alert('到期日期格式不正确！');
+				return;
+			}
+			if (content === "") {
+				layer.alert('备注说明必填！');
+				return;
+			}
+
+			$.post("pointsExchangeTime", {
+				"guid" : guid,
+				"points" : points,
+				"expiretime" : expiretime,
+				"content" : content
+			}, function(data) {
+				var ret = eval('(' + data + ')');
+				if (ret.success) {
+					window.location.reload();
+				} else {
+					layer.alert(ret.message);
+				}
+			});
+		}
+	});
+}

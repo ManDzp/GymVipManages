@@ -16,6 +16,7 @@ import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.LeaveRecord;
+import com.jm.vip.entity.PointsRecord;
 import com.jm.vip.menu.RecordHelper;
 import com.jm.vip.service.RecordService;
 
@@ -40,8 +41,10 @@ public class RecordController
 	private static final String LEAVE_RECORD_JSP_PATH = "leaverecord";
 
 	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
-	// CardNumberRecord
+
 	private static final String BUY_CARD_NUMBER_RECORD_JSP_PATH = "buycardnumberrecord";
+
+	private static final String POINTS_RECORD_JSP_PATH = "pointsrecord";
 
 	/**
 	 * 加载充值记录的列表页
@@ -405,6 +408,62 @@ public class RecordController
 		model.addAttribute("menulist", helper.getViewMenu());
 
 		return BUY_CARD_NUMBER_RECORD_JSP_PATH + "/view";
+	}
+
+	/**
+	 * 加载积分记录的列表页
+	 * @param model
+	 * @param memberguid 会员资料唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/pointsrecord/list", method = RequestMethod.GET)
+	public String loadPointsRecordList(Model model,
+			@RequestParam(required = false) String memberguid)
+	{
+		model.addAttribute("memberguid", memberguid);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getListMenu());
+
+		model.addAttribute("listTitle", "积分记录");
+		model.addAttribute("mapperid", "PointsRecordMapper.selectListByPage");
+
+		return POINTS_RECORD_JSP_PATH + "/list";
+	}
+
+	/**
+	 * 获取积分记录信息
+	 * @param model
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	@RequestMapping(value = "/pointsrecord/view", method = RequestMethod.GET)
+	public String loadPointsRecordView(Model model,
+			@RequestParam(required = false) String guid)
+	{
+		// 入参校验
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+		{
+			model.addAttribute("errormessage", "参数校验不正确！");
+			return "error/error";
+		}
+
+		PointsRecord pointsRecord = this.recordService.getPointsRecord(guid);
+		if (pointsRecord == null)
+		{
+			model.addAttribute("errormessage", "积分记录不存在！");
+			return "error/error";
+		}
+
+		// 积分记录
+		model.addAttribute("pointsRecord", pointsRecord);
+
+		// 加载列表菜单
+		RecordHelper helper = new RecordHelper();
+		model.addAttribute("menulist", helper.getViewMenu());
+
+		return POINTS_RECORD_JSP_PATH + "/view";
 	}
 
 }

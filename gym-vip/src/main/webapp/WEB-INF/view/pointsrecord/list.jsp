@@ -4,35 +4,32 @@
 <html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 <c:import url="/WEB-INF/support/meta.jsp"></c:import>
-<title>会员资料管理</title>
+<title>积分记录管理</title>
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/member/list.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/member/member.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/pointsrecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/pointsrecord/pointsrecord.js${res_v}"></script>
 </head>
 
 <body>
 	<!-- 列表页菜单栏 -->
 	<ywbar:listBar/>
 
-    <!-- 办公用品类别列表页 -->
+    <!-- 积分记录列表页 -->
 	<table id="grid" style="width: getWidth(1); height: 100%" >
 		<thead>	
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
-				<th data-options="field:'cardnumber',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="20">会员卡号</th>
-				<th data-options="field:'cardtype',align:'left',formatter:getCardTypeUrl,sortable:true,order:'desc'"
-					width="20">会员类型</th>
-				<th data-options="field:'fullname',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="20">会员名称</th>
-				<th data-options="field:'mobile',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="20">手机号</th>
-				<th data-options="field:'status',align:'left',formatter:getStatusUrl,sortable:true,order:'desc'"
-					width="20">状态</th>
-			</tr>			
+				<th data-options="field:'pointtype',align:'left',formatter:getPointsTypeUrl,sortable:true,order:'desc'"
+					width="20">类型</th>
+				<th data-options="field:'points',align:'left',formatter:getPointsUrl,sortable:true,order:'desc'"
+					width="20">积分</th>
+				<th data-options="field:'createtime',align:'left',formatter:getDateUrl,sortable:true,order:'desc'"
+					width="30">操作时间</th>
+			</tr>
 		</thead>
 	</table>
 
@@ -44,7 +41,9 @@
 			var gridData = {};
 
 			// 默认的条件
-			gridData.defaultParam = {};
+			gridData.defaultParam = {
+				'memberguid' : '${memberguid}'
+			};
 			// 默认的查询参数
 			gridData.defaultQueryParams = {
 				"params" : JSON.stringify(gridData.defaultParam),
@@ -58,7 +57,7 @@
 		$(function() {
 			// 加载数据
 			ywGrid.loadGrid({
-				columnSize : 4
+				columnSize : 3
 			});
 		});
 	</script>

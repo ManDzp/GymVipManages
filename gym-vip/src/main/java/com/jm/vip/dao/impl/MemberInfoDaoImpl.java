@@ -110,4 +110,18 @@ public class MemberInfoDaoImpl extends BaseDaoImpl<MemberInfo>
 		return this.session.update(getMapperId() + ".numberSignRecord",
 				memberInfo);
 	}
+
+	@Override
+	public int saveCardPoints(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".saveCardPoints",
+				memberInfo);
+	}
+
+	@Override
+	public int pointsExchangeTime(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".pointsExchangeTime",
+				memberInfo);
+	}
 }

@@ -26,6 +26,7 @@ import com.jm.vip.dao.ContinueCardRecordDao;
 import com.jm.vip.dao.LeaveRecordDao;
 import com.jm.vip.dao.MemberHistoryInfoDao;
 import com.jm.vip.dao.MemberInfoDao;
+import com.jm.vip.dao.PointsRecordDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardNumberRecord;
@@ -35,6 +36,7 @@ import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
+import com.jm.vip.entity.PointsRecord;
 import com.jm.vip.entity.SignRecord;
 
 @Service
@@ -74,6 +76,9 @@ public class MemberInfoService
 
 	@Resource(name = "buyCardNumberRecordDao")
 	private BuyCardNumberRecordDao buyCardNumberRecordDao;
+
+	@Resource(name = "pointsRecordDao")
+	private PointsRecordDao pointsRecordDao;
 
 	/**
 	 * 获取会员资料信息
@@ -860,6 +865,141 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "次卡保存签到记录异常", ex.toString(), guid);
 			return CommonUtil.newFailedDTO("次卡保存签到记录异常！");
+		}
+	}
+
+	/**
+	 * 保存积分
+	 * @param guid 会员资料唯一标识
+	 * @param points 积分
+	 * @param content 备注说明
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public ResultDTO saveCardPoints(String guid, Integer points, String content,
+			CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return CommonUtil.newFailedDTO("会员信息不正确！");
+		if (points == null || points <= 0)
+			return CommonUtil.newFailedDTO("积分需要为正数！");
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			Integer oldPoints = memberInfo.getPoints();
+			if (oldPoints == null)
+				oldPoints = 0;
+
+			// 保存积分
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setPoints(oldPoints + points);
+			this.memberInfoDao.saveCardPoints(updateMemberInfo);
+
+			// 保存积分记录
+			PointsRecord pointsRecord = new PointsRecord();
+			pointsRecord.setGuid(BaseUtils.getPrimaryKey());
+			pointsRecord.setMemberguid(guid);
+			pointsRecord.setPointtype("0");
+			pointsRecord.setPoints(points);
+			pointsRecord.setRemark(content);
+			pointsRecord.setCreator(currentUser.getUserName());
+			pointsRecord.setCreatorid(currentUser.getUserGuid());
+			pointsRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.pointsRecordDao.insert(pointsRecord);
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "保存积分成功", guid, points, content);
+			return CommonUtil.newSuccessedDTO();
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "保存积分异常", ex.toString(), guid, points,
+					content);
+			return CommonUtil.newFailedDTO("保存积分异常！");
+		}
+	}
+
+	/**
+	 * 积分兑换时间
+	 * @param guid 会员资料唯一标识
+	 * @param points 兑换积分
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public ResultDTO pointsExchangeTime(String guid, Integer points,
+			Date expiretime, String content, CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return CommonUtil.newFailedDTO("会员信息不正确！");
+		if (points == null || points <= 0)
+			return CommonUtil.newFailedDTO("兑换积分需要为正数！");
+		if (expiretime == null)
+			return CommonUtil.newFailedDTO("到期日期格式不正确！");
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			// 如果不是时间卡，则返回失败
+			String cardtype = memberInfo.getCardtype();
+			if (!"0".equals(cardtype))
+				return CommonUtil.newFailedDTO("会员卡不是时间卡！");
+
+			Integer oldPoints = memberInfo.getPoints();
+			if (oldPoints == null || oldPoints < points)
+				return CommonUtil.newFailedDTO("会员卡没有可用积分！");
+
+			Date oldExpireTime = memberInfo.getExpiretime();
+
+			// 保存积分
+			MemberInfo updateMemberInfo = new MemberInfo();
+			updateMemberInfo.setGuid(guid);
+			updateMemberInfo.setPoints(oldPoints - points);
+			updateMemberInfo.setExpiretime(expiretime);
+			this.memberInfoDao.pointsExchangeTime(updateMemberInfo);
+
+			// 保存积分记录
+			PointsRecord pointsRecord = new PointsRecord();
+			pointsRecord.setGuid(BaseUtils.getPrimaryKey());
+			pointsRecord.setMemberguid(guid);
+			pointsRecord.setPointtype("1");
+			pointsRecord.setPoints(points);
+			pointsRecord.setOldexpiretime(oldExpireTime);
+			pointsRecord.setExpiretime(expiretime);
+			pointsRecord.setRemark(content);
+			pointsRecord.setCreator(currentUser.getUserName());
+			pointsRecord.setCreatorid(currentUser.getUserGuid());
+			pointsRecord.setCreatetime(DateHelper.getCurrentDate());
+			this.pointsRecordDao.insert(pointsRecord);
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "积分兑换时间成功", guid, points, content);
+			return CommonUtil.newSuccessedDTO();
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "积分兑换时间异常", ex.toString(), guid, points,
+					content);
+			return CommonUtil.newFailedDTO("积分兑换时间异常！");
 		}
 	}
 

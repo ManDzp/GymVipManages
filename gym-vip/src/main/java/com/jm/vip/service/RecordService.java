@@ -14,6 +14,7 @@ import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.dao.ChargeRecordDao;
 import com.jm.vip.dao.ContinueCardRecordDao;
 import com.jm.vip.dao.LeaveRecordDao;
+import com.jm.vip.dao.PointsRecordDao;
 import com.jm.vip.dao.SignRecordDao;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardNumberRecord;
@@ -21,6 +22,7 @@ import com.jm.vip.entity.BuyCardRecord;
 import com.jm.vip.entity.ChargeRecord;
 import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.LeaveRecord;
+import com.jm.vip.entity.PointsRecord;
 import com.jm.vip.entity.SignRecord;
 
 /**
@@ -54,6 +56,9 @@ public class RecordService
 
 	@Resource(name = "buyCardNumberRecordDao")
 	private BuyCardNumberRecordDao buyCardNumberRecordDao;
+
+	@Resource(name = "pointsRecordDao")
+	private PointsRecordDao pointsRecordDao;
 
 	/**
 	 * 获取前几项签到记录
@@ -318,6 +323,47 @@ public class RecordService
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "获取购买次数记录信息异常", e.toString(), guid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取前几项积分记录
+	 * @param topNum
+	 * @param memberGuid 会员资料
+	 * @return
+	 */
+	public List<PointsRecord> getPointsRecordList(Integer topNum,
+			String memberGuid)
+	{
+		try
+		{
+			return this.pointsRecordDao.getInfoList(topNum, memberGuid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取前几项积分记录异常", e.toString(), topNum,
+					memberGuid);
+			return null;
+		}
+	}
+
+	/**
+	 * 获取积分记录信息
+	 * @param guid 记录唯一标示
+	 * @return
+	 */
+	public PointsRecord getPointsRecord(String guid)
+	{
+		try
+		{
+			return this.pointsRecordDao.getByGuid(guid);
+		}
+		catch (Exception e)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "获取积分记录信息异常", e.toString(), guid);
 			return null;
 		}
 	}

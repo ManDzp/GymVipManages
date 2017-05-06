@@ -70,7 +70,11 @@ ul, li {
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">会员积分：</td>
-						<td class="tdbgcolor35"><label>${memberInfo.points}</label></td>
+						<td class="tdbgcolor35">
+							<label>${memberInfo.points}</label>
+							<a class="view-button" href="javascript:void(0);" onclick="openSaveCardPoints('${memberInfo.guid}')">获取积分</a>
+							<a class="view-button" href="javascript:void(0);" onclick="openPointsExchangeTime('${memberInfo.guid}', '<fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.expiretime}" />')">兑换时间</a>
+						</td>
 						<td class="lefttdbgcolor">当前状态：</td>
 						<td class="tdbgcolor35"><label class="view-info-important">
 							<c:if test="${memberInfo.status==0}">初始状态</c:if>
@@ -277,6 +281,38 @@ ul, li {
 										<c:if test="${leaveRecord.leavetype=='1'}">销假</c:if>
 									</td>
 									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${leaveRecord.createtime}" /></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</li>
+				</c:if>
+
+				<c:if test="${memberInfo.status > 1}">
+					<!-- 积分记录 -->
+					<li>
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="tdbgcolor view-info-important">积分记录</td>
+									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/pointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
+							<tbody>
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">操作</td>
+									<td class="tdbgcolor35" style="text-align: center;">操作时间</td>
+								</tr>
+								<c:forEach items="${pointsRecordList}" var="pointsRecord">
+								<tr>
+									<td class="lefttdbgcolor" style="text-align: center;">
+										<c:if test="${pointsRecord.pointtype=='0'}">获得${pointsRecord.points}积分</c:if>
+										<c:if test="${pointsRecord.pointtype=='1'}">兑换${pointsRecord.points}积分至<fmt:formatDate pattern="yyyy-MM-dd" value="${pointsRecord.expiretime}" /></c:if>
+									</td>
+									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${pointsRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>

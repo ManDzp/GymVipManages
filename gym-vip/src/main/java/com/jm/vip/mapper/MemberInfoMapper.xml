@@ -30,7 +30,7 @@
 		mobile, createTime, creator, creatorId, status
 	</sql>
 	<sql id="List_Column">
-		guid, cardNumber, fullName, mobile, status
+		guid, cardNumber, cardType, fullName, mobile, status
 	</sql>
 
 	<!-- 获取分页数据 -->
@@ -182,4 +182,20 @@
 		expireTime = #{expiretime,jdbcType=TIMESTAMP}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
+
+	<!-- 获取积分 -->
+	<update id="saveCardPoints" parameterType="MemberInfo">
+		update memberinfo
+		set points = #{points,jdbcType=INTEGER}
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 积分兑换时间 -->
+	<update id="pointsExchangeTime" parameterType="MemberInfo">
+		update memberinfo
+		set points = #{points,jdbcType=INTEGER},
+		expireTime = #{expiretime,jdbcType=TIMESTAMP}
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
 </mapper>

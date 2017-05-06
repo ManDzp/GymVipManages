@@ -32,6 +32,7 @@ import com.jm.vip.entity.ContinueCardRecord;
 import com.jm.vip.entity.LeaveRecord;
 import com.jm.vip.entity.MemberHistoryInfo;
 import com.jm.vip.entity.MemberInfo;
+import com.jm.vip.entity.PointsRecord;
 import com.jm.vip.entity.SignRecord;
 import com.jm.vip.menu.MemberInfoHelper;
 import com.jm.vip.service.AttachmentService;
@@ -172,6 +173,11 @@ public class MemberController extends BaseController
 			List<LeaveRecord> leaveRecordList = this.recordService
 					.getLeaveRecordList(5, guid);
 			model.addAttribute("leaveRecordList", leaveRecordList);
+
+			// 积分记录
+			List<PointsRecord> pointsRecordList = this.recordService
+					.getPointsRecordList(5, guid);
+			model.addAttribute("pointsRecordList", pointsRecordList);
 		}
 		else if ("1".equals(cardtype))
 		{
@@ -681,6 +687,63 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "次卡保存签到记录失败", ex.toString(), guid);
 			return CommonUtil.newFailedDTO("次卡保存签到记录失败！");
+		}
+	}
+
+	/**
+	 * 保存积分
+	 * @param guid 会员资料唯一标识
+	 * @param points 积分
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/saveCardPoints", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO saveCardPoints(@RequestParam String guid,
+			@RequestParam Integer points, @RequestParam String content)
+	{
+		try
+		{
+			ResultDTO result = this.memberInfoService.saveCardPoints(guid,
+					points, content, getContextUser());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "保存积分失败", ex.toString(), guid, points,
+					content);
+			return CommonUtil.newFailedDTO("保存积分失败！");
+		}
+	}
+
+	/**
+	 * 积分兑换时间
+	 * @param guid 会员资料唯一标识
+	 * @param points 兑换积分
+	 * @param expiretime 到期日期
+	 * @param content 备注说明
+	 * @return
+	 */
+	@RequestMapping(value = "/pointsExchangeTime", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO pointsExchangeTime(@RequestParam String guid,
+			@RequestParam Integer points,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
+			@RequestParam String content)
+	{
+		try
+		{
+			ResultDTO result = this.memberInfoService.pointsExchangeTime(guid,
+					points, expiretime, content, getContextUser());
+			return result;
+		}
+		catch (Exception ex)
+		{
+			// 记录错误日志
+			LogProxy.WriteLogError(log, "积分兑换时间失败", ex.toString(), guid, points,
+					expiretime, content);
+			return CommonUtil.newFailedDTO("积分兑换时间失败！");
 		}
 	}
 

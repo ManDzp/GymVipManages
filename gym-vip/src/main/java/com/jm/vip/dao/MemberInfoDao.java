@@ -96,4 +96,18 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 	 */
 	public int numberSignRecord(MemberInfo memberInfo);
 
+	/**
+	 * 获取积分
+	 * @param memberInfo
+	 * @return
+	 */
+	public int saveCardPoints(MemberInfo memberInfo);
+
+	/**
+	 * 积分兑换时间
+	 * @param memberInfo
+	 * @return
+	 */
+	public int pointsExchangeTime(MemberInfo memberInfo);
+
 }

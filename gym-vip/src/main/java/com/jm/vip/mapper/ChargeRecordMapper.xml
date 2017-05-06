@@ -22,7 +22,7 @@
 	<select id="selectListByPage" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		SELECT
-		<include refid="Base_Column_List" />
+		<include refid="List_Column" />
 		FROM ChargeRecord
 		<where>
 			<if test="wheresql.memberguid != null and wheresql.memberguid != ''">
