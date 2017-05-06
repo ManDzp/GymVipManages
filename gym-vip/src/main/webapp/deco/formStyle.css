@@ -71,7 +71,7 @@ INPUT.str, button, textarea, text {
 	background-color: #bebebe;
 }
 
-.lefttdbgcolor, .lefttdbgcolor10 {
+.lefttdbgcolor, .lefttdbgcolor10, .lefttdbgcolor30 {
 	background-color: #ffffff;
 	/* color: #474747; */
 	height: 28px;
@@ -84,7 +84,11 @@ INPUT.str, button, textarea, text {
 	width: 10%;
 }
 
-.tdbgcolor, .tdbgcolor15, .tdbgcolor20, .tdbgcolor35 {
+.lefttdbgcolor30 {
+	width: 30%;
+}
+
+.tdbgcolor, .tdbgcolor15, .tdbgcolor20, .tdbgcolor35, .tdbgcolor70 {
 	background-color: #ffffff;
 	padding-right: 5px;
 	height: 28px;
@@ -103,6 +107,10 @@ INPUT.str, button, textarea, text {
 
 .tdbgcolor35 {
 	width: 35%;
+}
+
+.tdbgcolor70 {
+	width: 70%;
 }
 /***********************
 页面显示iframe

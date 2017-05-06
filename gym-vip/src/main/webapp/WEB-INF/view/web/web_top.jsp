@@ -14,11 +14,10 @@
 		<span style="vertical-align: middle;">
 			<c:choose>
 			<c:when test="${empty contextUser}">
-				【访客】您好！<a href="${ctx}/login">【请登录】</a>
+				您好！<a href="${ctx}/login">【请登录】</a>
 			</c:when>
 			<c:otherwise>
 				【${contextUser.userName}】您好！<a href="${ctx}/logout">【注销】</a>
-				<c:if test="${contextUser.userType == 9}"><a href="${ctx}/admin/index" target="_blank">【管理后台】</a></c:if>
 			</c:otherwise>
 			</c:choose>
 		</span>

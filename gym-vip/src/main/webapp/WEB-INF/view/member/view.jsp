@@ -134,18 +134,18 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important" colspan="2">充值记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/chargerecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important" colspan="2">充值记录</td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/chargerecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">充值金额</td>
-									<td class="tdbgcolor35" style="text-align: center;" colspan="2">充值时间</td>
+									<td class="lefttdbgcolor30" style="text-align: center;">充值金额</td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2">充值时间</td>
 								</tr>
 								<c:forEach items="${chargeRecordList}" var="chargeRecord">
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">${chargeRecord.money}</td>
-									<td class="tdbgcolor35" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></td>
+									<td class="lefttdbgcolor30" style="text-align: center;">${chargeRecord.money}</td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -161,8 +161,8 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important">签到记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important">签到记录</td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 								<tr>
 									<td class="tdbgcolor" colspan="2">签到时间</td>
@@ -183,8 +183,8 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important">续卡记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/continuecardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important">续卡记录</td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/continuecardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -213,18 +213,18 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important" colspan="2">买卡记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important" colspan="2">买卡记录</td>
+									<td class="lefttdbgcolor30"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">消费金额</td>
-									<td class="tdbgcolor35" style="text-align: center;" colspan="2">买卡时间</td>
+									<td class="lefttdbgcolor30" style="text-align: center;">消费金额</td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2">买卡时间</td>
 								</tr>
 								<c:forEach items="${buyCardRecordList}" var="buyCardRecord">
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">${buyCardRecord.money}</td>
-									<td class="tdbgcolor35" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardRecord.createtime}" /></td>
+									<td class="lefttdbgcolor30" style="text-align: center;">${buyCardRecord.money}</td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -236,8 +236,8 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important">开卡记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/activecardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important">开卡记录</td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/activecardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -264,25 +264,21 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important">请销假记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/leaverecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important" colspan="2">请销假记录</td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/leaverecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
-							</tbody>
-						</table>
 
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">类型</td>
-									<td class="tdbgcolor35" style="text-align: center;">操作时间</td>
+									<td class="lefttdbgcolor30" style="text-align: center;">类型</td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2">操作时间</td>
 								</tr>
 								<c:forEach items="${leaveRecordList}" var="leaveRecord">
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">
+									<td class="lefttdbgcolor30" style="text-align: center;">
 										<c:if test="${leaveRecord.leavetype=='0'}">请假</c:if>
 										<c:if test="${leaveRecord.leavetype=='1'}">销假</c:if>
 									</td>
-									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${leaveRecord.createtime}" /></td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${leaveRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -296,25 +292,21 @@ ul, li {
 						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
 							<tbody>
 								<tr>
-									<td class="tdbgcolor view-info-important">积分记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/pointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="tdbgcolor70 view-info-important" colspan="2">积分记录</td>
+									<td class="lefttdbgcolor30"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/pointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
-							</tbody>
-						</table>
 
-						<table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
-							<tbody>
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">操作</td>
-									<td class="tdbgcolor35" style="text-align: center;">操作时间</td>
+									<td class="lefttdbgcolor30" style="text-align: center;">操作</td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2">操作时间</td>
 								</tr>
 								<c:forEach items="${pointsRecordList}" var="pointsRecord">
 								<tr>
-									<td class="lefttdbgcolor" style="text-align: center;">
+									<td class="lefttdbgcolor30" style="text-align: center;">
 										<c:if test="${pointsRecord.pointtype=='0'}">获得${pointsRecord.points}积分</c:if>
 										<c:if test="${pointsRecord.pointtype=='1'}">兑换${pointsRecord.points}积分至<fmt:formatDate pattern="yyyy-MM-dd" value="${pointsRecord.expiretime}" /></c:if>
 									</td>
-									<td class="tdbgcolor35" style="text-align: center;"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${pointsRecord.createtime}" /></td>
+									<td class="tdbgcolor70" style="text-align: center;" colspan="2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${pointsRecord.createtime}" /></td>
 								</tr>
 								</c:forEach>
 							</tbody>

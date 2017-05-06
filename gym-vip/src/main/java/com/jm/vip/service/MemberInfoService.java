@@ -978,7 +978,7 @@ public class MemberInfoService
 
 			Integer oldPoints = memberInfo.getPoints();
 			if (oldPoints == null || oldPoints < points)
-				return CommonUtil.newFailedDTO("会员卡没有可用积分！");
+				return CommonUtil.newFailedDTO("会员积分不足！");
 
 			Date oldExpireTime = memberInfo.getExpiretime();
 

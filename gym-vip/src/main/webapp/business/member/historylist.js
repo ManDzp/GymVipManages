@@ -6,6 +6,21 @@ function getViewUrl(val, rec) {
 			+ value + "</a>";
 }
 
+// 会员类型格式化
+function getCardTypeUrl(val, rec) {
+	var value = "";
+	switch (val) {
+	case "0":
+		value = "时间卡";
+		break;
+	case "1":
+		value = "次卡";
+		break;
+	}
+
+	return getViewUrl(value, rec);
+}
+
 // 点击查看页链接
 function getStatusUrl(val, rec) {
 	var value = "未知";
@@ -32,4 +47,3 @@ function getStatusUrl(val, rec) {
 
 	return getViewUrl(value, rec);
 }
-
