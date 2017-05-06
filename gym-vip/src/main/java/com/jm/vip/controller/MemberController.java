@@ -88,6 +88,21 @@ public class MemberController extends BaseController
 	}
 
 	/**
+	 * 加载查询会员资料的列表页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/searchlist", method = RequestMethod.GET)
+	public String loadSearchList(Model model)
+	{
+		model.addAttribute("listTitle", "查询会员资料");
+		model.addAttribute("mapperid",
+				"MemberSearchInfoMapper.selectListByPage");
+
+		return JSP_PATH + "/searchlist";
+	}
+
+	/**
 	 * 打开会员资料的添加页
 	 * @param model
 	 * @return
@@ -129,6 +144,9 @@ public class MemberController extends BaseController
 
 		// 会员资料
 		model.addAttribute("memberInfo", memberInfo);
+
+		// 封存状态，0：正常，1：封存
+		model.addAttribute("deletetype", "0");
 
 		// 查看页会员图片
 		String imgUrl = attachmentService.getFirstImageUrl(request, guid);
@@ -222,6 +240,9 @@ public class MemberController extends BaseController
 
 		// 会员资料
 		model.addAttribute("memberInfo", memberInfo);
+
+		// 封存状态，0：正常，1：封存
+		model.addAttribute("deletetype", "1");
 
 		// 将菜单集合传给前台
 		MemberInfoHelper helper = new MemberInfoHelper();

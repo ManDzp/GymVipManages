@@ -30,7 +30,7 @@
 		mobile, createTime, creator, creatorId, status
 	</sql>
 	<sql id="List_Column">
-		guid, cardNumber, fullName, mobile, status
+		guid, cardNumber, cardType, fullName, mobile, status
 	</sql>
 
 	<!-- 获取分页数据 -->

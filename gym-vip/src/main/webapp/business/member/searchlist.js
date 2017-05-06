@@ -2,6 +2,9 @@
 function getViewUrl(val, rec) {
 	var value = (val || "");
 	var clickFun = "openView('" + rec.guid + "');return false;";
+	if (rec.deletetype === "1") {
+		clickFun = "openHistoryView('" + rec.guid + "');return false;";
+	}
 	return "<a href='javascript:void(0);' onclick=\"" + clickFun + "\">"
 			+ value + "</a>";
 }
@@ -42,6 +45,21 @@ function getStatusUrl(val, rec) {
 		break;
 	default:
 		value = "未知";
+		break;
+	}
+
+	return getViewUrl(value, rec);
+}
+
+// 封存状态格式化
+function getDeleteTypeUrl(val, rec) {
+	var value = "";
+	switch (val) {
+	case "0":
+		value = "正常";
+		break;
+	case "1":
+		value = "封存";
 		break;
 	}
 

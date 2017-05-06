@@ -30,8 +30,6 @@ function getStatusUrl(val, rec) {
 		break;
 	}
 
-	var clickFun = "openHistoryView('" + rec.guid + "');return false;";
-	return "<a href='javascript:void(0);' title='" + value + "' onclick=\""
-			+ clickFun + "\">" + value + "</a>";
+	return getViewUrl(value, rec);
 }
 

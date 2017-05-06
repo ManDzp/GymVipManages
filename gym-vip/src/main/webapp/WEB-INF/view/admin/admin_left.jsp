@@ -5,6 +5,18 @@
 
 <div style="width: 240px; height: 100%; overflow: hidden;"
 	id="bbsAccrdion" border="true" fit="true" class="easyui-accordion">
+	<div title="查询会员资料">
+		<ul>
+			<li>
+				<div class="main-item">
+					<img src='${ctx}/deco/img/iconlf01.gif' align="absmiddle" width='5' height='5' />
+					<a href="javascript:void(0);" onclick="menuClick('${ctx}/member/searchlist', 'iframepage')">
+						<span>查询会员资料</span>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
 	<div title="系统管理">
 		<ul>
 			<li>

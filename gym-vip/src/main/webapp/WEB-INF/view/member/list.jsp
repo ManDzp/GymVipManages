@@ -17,9 +17,9 @@
 	<!-- 列表页菜单栏 -->
 	<ywbar:listBar/>
 
-    <!-- 办公用品类别列表页 -->
+    <!-- 会员资料列表页 -->
 	<table id="grid" style="width: getWidth(1); height: 100%" >
-		<thead>	
+		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
 				<th data-options="field:'cardnumber',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
@@ -58,7 +58,7 @@
 		$(function() {
 			// 加载数据
 			ywGrid.loadGrid({
-				columnSize : 4
+				columnSize : 6
 			});
 		});
 	</script>

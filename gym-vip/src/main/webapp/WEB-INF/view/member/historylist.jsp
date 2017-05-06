@@ -17,17 +17,19 @@
 	<!-- 列表页菜单栏 -->
 	<ywbar:titleListBar/>
 
-    <!-- 办公用品类别列表页 -->
+    <!-- 会员资料列表页 -->
 	<table id="grid" style="width: getWidth(1); height: 100%" >
-		<thead>	
+		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
 				<th data-options="field:'cardnumber',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
 					width="20">会员卡号</th>
+				<th data-options="field:'cardtype',align:'left',formatter:getCardTypeUrl,sortable:true,order:'desc'"
+					width="20">会员类型</th>
 				<th data-options="field:'fullname',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
 					width="20">会员名称</th>
 				<th data-options="field:'mobile',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
-					width="40">手机号</th>
+					width="20">手机号</th>
 				<th data-options="field:'status',align:'left',formatter:getStatusUrl,sortable:true,order:'desc'"
 					width="20">状态</th>
 			</tr>			
@@ -56,7 +58,7 @@
 		$(function() {
 			// 加载数据
 			ywGrid.loadGrid({
-				columnSize : 4
+				columnSize : 6
 			});
 		});
 	</script>

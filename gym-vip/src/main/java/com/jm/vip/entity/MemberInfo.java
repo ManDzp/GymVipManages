@@ -72,6 +72,10 @@ public class MemberInfo
 	private String creator;
 
 	private String creatorid;
+	/**
+	 * 封存状态，0：正常，1：封存
+	 */
+	private String deletetype;
 
 	public String getGuid()
 	{
@@ -272,4 +276,15 @@ public class MemberInfo
 	{
 		this.creatorid = creatorid == null ? null : creatorid.trim();
 	}
+
+	public String getDeletetype()
+	{
+		return deletetype;
+	}
+
+	public void setDeletetype(String deletetype)
+	{
+		this.deletetype = deletetype;
+	}
+
 }

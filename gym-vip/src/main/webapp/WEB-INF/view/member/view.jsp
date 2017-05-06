@@ -72,8 +72,10 @@ ul, li {
 						<td class="lefttdbgcolor">会员积分：</td>
 						<td class="tdbgcolor35">
 							<label>${memberInfo.points}</label>
+							<c:if test="${deletetype == '0'}">
 							<a class="view-button" href="javascript:void(0);" onclick="openSaveCardPoints('${memberInfo.guid}')">获取积分</a>
 							<a class="view-button" href="javascript:void(0);" onclick="openPointsExchangeTime('${memberInfo.guid}', '<fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.expiretime}" />')">兑换时间</a>
+							</c:if>
 						</td>
 						<td class="lefttdbgcolor">当前状态：</td>
 						<td class="tdbgcolor35"><label class="view-info-important">

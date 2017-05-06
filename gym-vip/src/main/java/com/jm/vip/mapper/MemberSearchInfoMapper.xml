@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MemberSearchInfoMapper">
+	<resultMap id="BaseResultMap" type="MemberInfo">
+		<id column="guid" property="guid" jdbcType="VARCHAR" />
+		<result column="cardNumber" property="cardnumber" jdbcType="VARCHAR" />
+		<result column="cardType" property="cardtype" jdbcType="VARCHAR" />
+		<result column="activeTime" property="activetime" jdbcType="TIMESTAMP" />
+		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
+		<result column="balance" property="balance" jdbcType="DECIMAL" />
+		<result column="consumption" property="consumption" jdbcType="DECIMAL" />
+		<result column="points" property="points" jdbcType="INTEGER" />
+		<result column="times" property="times" jdbcType="INTEGER" />
+		<result column="usedTimes" property="usedtimes" jdbcType="INTEGER" />
+		<result column="fullName" property="fullname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="nationality" property="nationality" jdbcType="VARCHAR" />
+		<result column="identityCard" property="identitycard" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="SMALLINT" />
+		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="creatorId" property="creatorid" jdbcType="VARCHAR" />
+		<result column="deleteType" property="deletetype" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="List_Column">
+		guid, cardNumber, cardType, fullName, mobile, status, deleteType
+	</sql>
+	<sql id="Now_List_Column">
+		guid, cardNumber, cardType, fullName, mobile, status, createTime, 0 as deleteType
+	</sql>
+	<sql id="History_List_Column">
+		guid, cardNumber, cardType, fullName, mobile, status, createTime, 1 as deleteType
+	</sql>
+
+	<!-- 获取分页数据 -->
+	<select id="selectListByPage" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT <include refid="List_Column" /> FROM
+		(
+			SELECT
+			<include refid="Now_List_Column" />
+			FROM MemberInfo
+			<where>
+				<if test="wheresql.cardnumber != null and wheresql.cardnumber != ''">
+					AND cardNumber = #{wheresql.cardnumber,jdbcType=VARCHAR}
+				</if>
+				<if test="wheresql.fullname != null and wheresql.fullname != ''">
+					AND fullName = #{wheresql.fullname,jdbcType=VARCHAR}
+				</if>
+				<if test="wheresql.mobile != null and wheresql.mobile != ''">
+					AND mobile = #{wheresql.mobile,jdbcType=VARCHAR}
+				</if>
+			</where>
+			UNION ALL
+			SELECT
+			<include refid="History_List_Column" />
+			FROM MemberHistoryInfo
+			<where>
+				<if test="wheresql.cardnumber != null and wheresql.cardnumber != ''">
+					AND cardNumber = #{wheresql.cardnumber,jdbcType=VARCHAR}
+				</if>
+				<if test="wheresql.fullname != null and wheresql.fullname != ''">
+					AND fullName = #{wheresql.fullname,jdbcType=VARCHAR}
+				</if>
+				<if test="wheresql.mobile != null and wheresql.mobile != ''">
+					AND mobile = #{wheresql.mobile,jdbcType=VARCHAR}
+				</if>
+			</where>
+		) MemberSearchInfo
+
+		<if test="ordersql != null and ordersql != ''">
+			ORDER BY ${ordersql}
+		</if>
+		<if test="ordersql == null or ordersql == ''">
+			ORDER by createTime desc
+		</if>
+	</select>
+
+</mapper>
