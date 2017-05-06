@@ -1,12 +1,15 @@
 //点击查看页链接
 function getViewUrl(val, rec) {
 	var value = (val || "");
-	var clickFun = "openView('" + rec.guid + "');return false;";
 	if (rec.deletetype === "1") {
-		clickFun = "openHistoryView('" + rec.guid + "');return false;";
+		var clickFun = "openHistoryView('" + rec.guid + "');return false;";
+		return "<a class='list-history' href='javascript:void(0);' onclick=\"" + clickFun + "\">"
+		+ value + "</a>";
+	} else {
+		var clickFun = "openView('" + rec.guid + "');return false;";
+		return "<a href='javascript:void(0);' onclick=\"" + clickFun + "\">"
+		+ value + "</a>";
 	}
-	return "<a href='javascript:void(0);' onclick=\"" + clickFun + "\">"
-			+ value + "</a>";
 }
 
 // 会员类型格式化

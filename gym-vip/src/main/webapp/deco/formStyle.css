@@ -129,6 +129,11 @@ a.view-button:LINK, a.view-button:VISITED, a.view-button:HOVER, a.view-button:AC
 	TEXT-DECORATION: none
 }
 
+a.list-history:LINK, a.list-history:VISITED, a.list-history:HOVER, a.list-history:ACTIVE {
+	color: #ff0000;
+	TEXT-DECORATION: none
+}
+
 /***********************
 左侧导航页
 ***********************/
