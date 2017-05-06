@@ -24,8 +24,9 @@ ul, li {
 	padding: 0 1%;
 }
 
+/* 会员照片大小 */
 .member-info-img {
-	width: 150px;
+	/* width: 150px; */
 	height: 200px;
 }
 </style>
