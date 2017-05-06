@@ -486,23 +486,19 @@ public class MemberController extends BaseController
 	public ResultDTO buyCard(@RequestParam String guid,
 			@RequestParam Double money, @RequestParam String content)
 	{
-		ResultDTO result = new ResultDTO();
-
 		try
 		{
-			boolean success = this.memberInfoService.buyCard(guid, money,
+			ResultDTO result = this.memberInfoService.buyCard(guid, money,
 					content, getContextUser());
-			result.setSuccess(success);
+			return result;
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "买卡失败", ex.toString(), guid, money,
 					content);
-			result.setSuccess(false);
+			return CommonUtil.newFailedDTO("买卡失败！");
 		}
-
-		return result;
 	}
 
 	/**
@@ -520,23 +516,19 @@ public class MemberController extends BaseController
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
 			@RequestParam String content)
 	{
-		ResultDTO result = new ResultDTO();
-
 		try
 		{
-			boolean success = this.memberInfoService.activeCard(guid,
+			ResultDTO result = this.memberInfoService.activeCard(guid,
 					activetime, expiretime, content, getContextUser());
-			result.setSuccess(success);
+			return result;
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "开卡失败", ex.toString(), guid, activetime,
 					expiretime, content);
-			result.setSuccess(false);
+			return CommonUtil.newFailedDTO("开卡失败！");
 		}
-
-		return result;
 	}
 
 	/**
@@ -554,23 +546,19 @@ public class MemberController extends BaseController
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
 			@RequestParam String content)
 	{
-		ResultDTO result = new ResultDTO();
-
 		try
 		{
-			boolean success = this.memberInfoService.continueCard(guid, money,
+			ResultDTO result = this.memberInfoService.continueCard(guid, money,
 					expiretime, content, getContextUser());
-			result.setSuccess(success);
+			return result;
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "续卡失败", ex.toString(), guid, money,
 					expiretime, content);
-			result.setSuccess(false);
+			return CommonUtil.newFailedDTO("续卡失败！");
 		}
-
-		return result;
 	}
 
 	/**
@@ -582,22 +570,18 @@ public class MemberController extends BaseController
 	@ResponseBody
 	public ResultDTO signRecord(@RequestParam String guid)
 	{
-		ResultDTO result = new ResultDTO();
-
 		try
 		{
-			boolean success = this.memberInfoService.saveSignRecord(guid,
+			ResultDTO result = this.memberInfoService.saveSignRecord(guid,
 					getContextUser());
-			result.setSuccess(success);
+			return result;
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "保存签到记录失败", ex.toString(), guid);
-			result.setSuccess(false);
+			return CommonUtil.newFailedDTO("保存签到记录失败！");
 		}
-
-		return result;
 	}
 
 	/**
@@ -669,23 +653,19 @@ public class MemberController extends BaseController
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expiretime,
 			@RequestParam String content)
 	{
-		ResultDTO result = new ResultDTO();
-
 		try
 		{
-			boolean success = this.memberInfoService.buyCardNumber(guid, money,
+			ResultDTO result = this.memberInfoService.buyCardNumber(guid, money,
 					times, expiretime, content, getContextUser());
-			result.setSuccess(success);
+			return result;
 		}
 		catch (Exception ex)
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "购买次数失败", ex.toString(), guid, money,
 					times, expiretime, content);
-			result.setSuccess(false);
+			return CommonUtil.newFailedDTO("购买次数失败！");
 		}
-
-		return result;
 	}
 
 	/**

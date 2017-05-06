@@ -395,23 +395,27 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean buyCard(String guid, Double money, String content,
+	public ResultDTO buyCard(String guid, Double money, String content,
 			CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
-			return false;
+			return CommonUtil.newFailedDTO("会员信息不正确！");
 		if (money == null || money <= 0)
-			return false;
+			return CommonUtil.newFailedDTO("消费金额需要为正数！");
 
 		try
 		{
 			MemberInfo memberInfo = getMemberInfoByGuid(guid);
 			if (memberInfo == null)
-				return false;
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			Integer status = memberInfo.getStatus();
+			if (status != 0 && status != 1)
+				return CommonUtil.newFailedDTO("会员信息状态不正确！");
 
 			Double balance = memberInfo.getBalance();
 			if (balance == null || balance < money)
-				return false;
+				return CommonUtil.newFailedDTO("卡内余额不足！");
 
 			// 更新会员资料状态为待开卡
 			MemberInfo updateMemberInfo = new MemberInfo();
@@ -433,7 +437,7 @@ public class MemberInfoService
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "买卡成功", guid, money, content);
-			return true;
+			return CommonUtil.newSuccessedDTO();
 		}
 		catch (Exception ex)
 		{
@@ -443,7 +447,7 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "买卡异常", ex.toString(), guid, money,
 					content);
-			return false;
+			return CommonUtil.newFailedDTO("买卡异常！");
 		}
 	}
 
@@ -457,14 +461,22 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean activeCard(String guid, Date activetime, Date expiretime,
+	public ResultDTO activeCard(String guid, Date activetime, Date expiretime,
 			String content, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
-			return false;
+			return CommonUtil.newFailedDTO("会员信息不正确！");
 
 		try
 		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			Integer status = memberInfo.getStatus();
+			if (status != 1)
+				return CommonUtil.newFailedDTO("会员信息状态不正确！");
+
 			// 更新会员资料
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
@@ -488,7 +500,7 @@ public class MemberInfoService
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "开卡成功", guid, activetime, expiretime,
 					content);
-			return true;
+			return CommonUtil.newSuccessedDTO();
 		}
 		catch (Exception ex)
 		{
@@ -498,7 +510,7 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "开卡异常", ex.toString(), guid, activetime,
 					expiretime, content);
-			return false;
+			return CommonUtil.newFailedDTO("开卡异常！");
 		}
 	}
 
@@ -512,25 +524,25 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean continueCard(String guid, Double money, Date expiretime,
+	public ResultDTO continueCard(String guid, Double money, Date expiretime,
 			String content, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
-			return false;
+			return CommonUtil.newFailedDTO("会员信息不正确！");
 		if (money == null || money <= 0)
-			return false;
+			return CommonUtil.newFailedDTO("消费金额需要为正数！");
 		if (expiretime == null)
-			return false;
+			return CommonUtil.newFailedDTO("到期日期格式不正确！");
 
 		try
 		{
 			MemberInfo memberInfo = getMemberInfoByGuid(guid);
 			if (memberInfo == null)
-				return false;
+				return CommonUtil.newFailedDTO("会员信息不存在！");
 
 			Double balance = memberInfo.getBalance();
 			if (balance == null || balance < money)
-				return false;
+				return CommonUtil.newFailedDTO("卡内余额不足！");
 
 			// 更新会员资料
 			MemberInfo updateMemberInfo = new MemberInfo();
@@ -554,7 +566,7 @@ public class MemberInfoService
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "续卡成功", guid, money, expiretime,
 					content);
-			return true;
+			return CommonUtil.newSuccessedDTO();
 		}
 		catch (Exception ex)
 		{
@@ -564,7 +576,7 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "续卡异常", ex.toString(), guid, money,
 					expiretime, content);
-			return false;
+			return CommonUtil.newFailedDTO("续卡异常！");
 		}
 	}
 
@@ -575,16 +587,20 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean saveSignRecord(String guid, CurrentUser currentUser)
+	public ResultDTO saveSignRecord(String guid, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
-			return false;
+			return CommonUtil.newFailedDTO("会员信息不正确！");
 
 		try
 		{
 			MemberInfo memberInfo = getMemberInfoByGuid(guid);
 			if (memberInfo == null)
-				return false;
+				return CommonUtil.newFailedDTO("会员信息不存在！");
+
+			Integer status = memberInfo.getStatus();
+			if (status != 2)
+				return CommonUtil.newFailedDTO("会员信息状态不正确！");
 
 			// 保存签到记录
 			SignRecord signRecord = new SignRecord();
@@ -598,7 +614,7 @@ public class MemberInfoService
 
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "保存签到记录成功", guid);
-			return true;
+			return CommonUtil.newSuccessedDTO();
 		}
 		catch (Exception ex)
 		{
@@ -607,7 +623,7 @@ public class MemberInfoService
 					.setRollbackOnly();
 			// 记错误日志
 			LogProxy.WriteLogError(log, "保存签到记录异常", ex.toString(), guid);
-			return false;
+			return CommonUtil.newFailedDTO("保存签到记录异常！");
 		}
 	}
 
@@ -738,27 +754,27 @@ public class MemberInfoService
 	 * @return
 	 */
 	@Transactional
-	public boolean buyCardNumber(String guid, Double money, Integer times,
+	public ResultDTO buyCardNumber(String guid, Double money, Integer times,
 			Date expiretime, String content, CurrentUser currentUser)
 	{
 		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
-			return false;
+			return CommonUtil.newFailedDTO("会员信息不正确！");
 		if (money == null || money <= 0)
-			return false;
+			return CommonUtil.newFailedDTO("消费金额需要为正数！");
 		if (times == null || times <= 0)
-			return false;
+			return CommonUtil.newFailedDTO("购买次数需要为正数！");
 		if (expiretime == null)
-			return false;
+			return CommonUtil.newFailedDTO("到期日期格式不正确！");
 
 		try
 		{
 			MemberInfo memberInfo = getMemberInfoByGuid(guid);
 			if (memberInfo == null)
-				return false;
+				return CommonUtil.newFailedDTO("会员信息不存在！");
 
 			Double balance = memberInfo.getBalance();
 			if (balance == null || balance < money)
-				return false;
+				return CommonUtil.newFailedDTO("卡内余额不足！");
 
 			// 如果没有可用次数
 			Integer oldTimes = memberInfo.getTimes();
@@ -790,7 +806,7 @@ public class MemberInfoService
 			// 记录操作日志
 			LogProxy.WriteLogOperate(log, "购买次数成功", guid, money, times,
 					expiretime, content);
-			return true;
+			return CommonUtil.newSuccessedDTO();
 		}
 		catch (Exception ex)
 		{
@@ -800,7 +816,7 @@ public class MemberInfoService
 			// 记错误日志
 			LogProxy.WriteLogError(log, "购买次数异常", ex.toString(), guid, money,
 					times, expiretime, content);
-			return false;
+			return CommonUtil.newFailedDTO("购买次数异常！");
 		}
 	}
 

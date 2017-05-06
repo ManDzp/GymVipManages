@@ -240,7 +240,7 @@ function openBuyCard(guid) {
 				if (ret.success) {
 					window.location.reload();
 				} else {
-					layer.alert('买卡失败！');
+					layer.alert(ret.message);
 				}
 			});
 		}
@@ -310,7 +310,7 @@ function openActiveCard(guid, nowExpireTime) {
 				if (ret.success) {
 					window.location.reload();
 				} else {
-					layer.alert('开卡失败！');
+					layer.alert(ret.message);
 				}
 			});
 		}
@@ -380,7 +380,7 @@ function openContinueCard(guid, nowExpireTime) {
 				if (ret.success) {
 					window.location.reload();
 				} else {
-					layer.alert('续卡失败！');
+					layer.alert(ret.message);
 				}
 			});
 		}
@@ -399,7 +399,7 @@ function signRecord(guid) {
 					window.location.reload();
 				});
 			} else {
-				layer.alert('签到失败！');
+				layer.alert(ret.message);
 			}
 		});
 
@@ -582,7 +582,7 @@ function openBuyCardNumber(guid, nowExpireTime) {
 				if (ret.success) {
 					window.location.reload();
 				} else {
-					layer.alert('买卡失败！');
+					layer.alert(ret.message);
 				}
 			});
 		}
