@@ -122,7 +122,8 @@
 	<update id="buyCard" parameterType="MemberInfo">
 		update memberinfo
 		set status = #{status,jdbcType=SMALLINT},
-		balance = #{balance,jdbcType=DECIMAL}
+		balance = #{balance,jdbcType=DECIMAL},
+		consumption = #{consumption,jdbcType=DECIMAL}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
@@ -146,7 +147,8 @@
 	<update id="continueCard" parameterType="MemberInfo">
 		update memberinfo
 		set expireTime = #{expiretime,jdbcType=TIMESTAMP},
-		balance = #{balance,jdbcType=DECIMAL}
+		balance = #{balance,jdbcType=DECIMAL},
+		consumption = #{consumption,jdbcType=DECIMAL}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
@@ -156,7 +158,8 @@
 		set status = #{status,jdbcType=SMALLINT},
 		expireTime = #{expiretime,jdbcType=TIMESTAMP},
 		times = #{times,jdbcType=INTEGER},
-		balance = #{balance,jdbcType=DECIMAL}
+		balance = #{balance,jdbcType=DECIMAL},
+		consumption = #{consumption,jdbcType=DECIMAL}
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 

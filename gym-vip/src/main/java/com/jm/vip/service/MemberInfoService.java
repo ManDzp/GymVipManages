@@ -417,11 +417,16 @@ public class MemberInfoService
 			if (balance == null || balance < money)
 				return CommonUtil.newFailedDTO("卡内余额不足！");
 
+			Double consumption = memberInfo.getConsumption();
+			if (consumption == null)
+				consumption = 0d;
+
 			// 更新会员资料状态为待开卡
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
 			updateMemberInfo.setStatus(1);// 状态，1：待开卡
 			updateMemberInfo.setBalance(balance - money);
+			updateMemberInfo.setConsumption(consumption + money);
 			this.memberInfoDao.buyCard(updateMemberInfo);
 
 			// 保存买卡记录
@@ -544,10 +549,15 @@ public class MemberInfoService
 			if (balance == null || balance < money)
 				return CommonUtil.newFailedDTO("卡内余额不足！");
 
+			Double consumption = memberInfo.getConsumption();
+			if (consumption == null)
+				consumption = 0d;
+
 			// 更新会员资料
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
 			updateMemberInfo.setBalance(balance - money);
+			updateMemberInfo.setConsumption(consumption + money);
 			updateMemberInfo.setExpiretime(expiretime);
 			this.memberInfoDao.continueCard(updateMemberInfo);
 
@@ -776,6 +786,10 @@ public class MemberInfoService
 			if (balance == null || balance < money)
 				return CommonUtil.newFailedDTO("卡内余额不足！");
 
+			Double consumption = memberInfo.getConsumption();
+			if (consumption == null)
+				consumption = 0d;
+
 			// 如果没有可用次数
 			Integer oldTimes = memberInfo.getTimes();
 			if (oldTimes == null)
@@ -786,6 +800,7 @@ public class MemberInfoService
 			updateMemberInfo.setGuid(guid);
 			updateMemberInfo.setStatus(2);// 状态，2：正常
 			updateMemberInfo.setBalance(balance - money);
+			updateMemberInfo.setConsumption(consumption + money);
 			updateMemberInfo.setTimes(oldTimes + times);
 			updateMemberInfo.setExpiretime(expiretime);
 			this.memberInfoDao.buyCardNumber(updateMemberInfo);
