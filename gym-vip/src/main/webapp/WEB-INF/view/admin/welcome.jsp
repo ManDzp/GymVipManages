@@ -4,7 +4,7 @@
 <html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 <c:import url="/WEB-INF/support/meta.jsp"></c:import>
-<title>欢迎来到${jsp_title}</title>
+<title>欢迎来到${systemConfig.systemTitle}</title>
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 </head>
@@ -13,7 +13,7 @@
 	<div class="page-content">
 		<div style="width:100%; height:200px; border:0px solid #000;">
 			<div style="margin-top: 220px; text-align: center;">
-				<span style="font-size: 30px;">欢迎来到${jsp_title}！</span>
+				<span style="font-size: 30px;">欢迎来到${systemConfig.systemTitle}！</span>
 				<div id="time"></div>
 			</div>
 		</div>

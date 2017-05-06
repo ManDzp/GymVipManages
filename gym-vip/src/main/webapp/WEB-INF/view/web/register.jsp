@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <c:import url="/WEB-INF/support/meta.jsp"></c:import>
-<title>${jsp_title}</title>
+<title>${systemConfig.systemTitle}</title>
 
 	<link rel="stylesheet" type="text/css" href="${ctx}/business/web/index.css${res_v}" />
 	<link rel="stylesheet" type="text/css" href="${ctx}/business/web/index2.css${res_v}" />

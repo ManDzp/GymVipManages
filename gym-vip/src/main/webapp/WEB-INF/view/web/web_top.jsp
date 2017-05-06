@@ -8,7 +8,7 @@
 		<img src="${ctx}/deco/img/web/topheadico.jpg" style="vertical-align: middle;" />
 	</div>
 	<div style="float: left; height: 25px;">
-		<span style="vertical-align: middle;">欢迎来到${jsp_title}！</span>
+		<span style="vertical-align: middle;">欢迎来到${systemConfig.systemTitle}！</span>
 	</div>
 	<div style="float: right; height: 25px;">
 		<span style="vertical-align: middle;">
@@ -26,5 +26,5 @@
 </div>
 
 <div class="web-top-header">
-	<div class="web-top-title">${jsp_title}</div>
+	<div class="web-top-title">${systemConfig.systemTitle}</div>
 </div>

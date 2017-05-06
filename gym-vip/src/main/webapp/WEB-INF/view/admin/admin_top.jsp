@@ -18,7 +18,7 @@
 	style="background-repeat: repeat-x; background-image: url('${ctx}/deco/img/header9.jpg');">
 	<tr>
 		<td rowspan="2" width="70%">
-			<div class="admin-top-title">${jsp_title}</div>
+			<div class="admin-top-title">${systemConfig.systemTitle}</div>
 		</td>
 		<td width="30%" height="45"></td>
 	</tr>

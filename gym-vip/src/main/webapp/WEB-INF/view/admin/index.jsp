@@ -4,7 +4,7 @@
 <html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 <c:import url="/WEB-INF/support/meta.jsp"></c:import>
-<title>${jsp_title}</title>
+<title>${systemConfig.systemTitle}</title>
 <%@ include file="/WEB-INF/support/common.jsp"%>
 </head>
 

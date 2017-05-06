@@ -1,17 +1,18 @@
 package com.jm.base.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.jm.base.tool.CurrentUser;
+import com.jm.base.tool.SystemConfig;
+import com.jm.base.tool.SystemVersion;
 import com.jm.interceptor.IdentityInterceptorDB;
-import com.jm.utils.BaseUtils;
 
 /**
  * 基础控制器
@@ -24,10 +25,11 @@ public class BaseController
 	@Autowired
 	protected HttpServletRequest request;
 
-	/**
-	 * 静态资源版本号，每更新一次，都要加1
-	 */
-	private static final String RESOURCES_VERSION = "5";
+	@Resource
+	protected SystemConfig systemConfig;
+
+	@Resource
+	protected SystemVersion systemVersion;
 
 	/** 
 	 * 记录日志
@@ -58,33 +60,23 @@ public class BaseController
 	}
 
 	/**
-	 * 系统名称，title显示名
+	 * 系统配置
 	 * 被@ModelAttribute注释的方法会在此controller每个方法执行前被执行
-	 * @param model
+	 * @return
 	 */
-	@ModelAttribute("jsp_title")
-	public String getSystemTitle()
+	@ModelAttribute("systemConfig")
+	public SystemConfig getSystemConfig()
 	{
-		return BaseUtils.getConfigValue("systemtitle");
+		return systemConfig;
 	}
 
 	/**
 	 * 静态资源请求版本
 	 */
 	@ModelAttribute("res_v")
-	public String getVersion(Model model)
+	public SystemVersion getSystemVersion()
 	{
-		return "?v=" + RESOURCES_VERSION;
-	}
-
-	/**
-	 * 注销页
-	 * @return
-	 */
-	@ModelAttribute("logoutUrl")
-	public String getLogoutUrl()
-	{
-		return BaseUtils.getConfigValue("logoutUrl");
+		return systemVersion;
 	}
 
 }
