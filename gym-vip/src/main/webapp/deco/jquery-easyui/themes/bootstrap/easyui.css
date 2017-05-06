@@ -147,11 +147,11 @@
 .panel-body {
 	background-color: #ffffff;
 	color: #333;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .panel-title {
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: bold;
 	color: #777;
 	height: 16px;
@@ -403,7 +403,7 @@
 	vertical-align: top;
 	width: auto;
 	line-height: 24px;
-	font-size: 12px;
+	font-size: 14px;
 	padding: 0;
 	margin: 0 4px;
 }
@@ -1583,7 +1583,7 @@
 	overflow: hidden;
 	height: 18px;
 	line-height: 18px;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .datagrid-header .datagrid-cell {
@@ -1591,7 +1591,7 @@
 }
 
 .datagrid-header .datagrid-cell span {
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .datagrid-cell-group {
@@ -1969,11 +1969,11 @@
 	padding: 0;
 	height: 30px;
 	line-height: 30px;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .pagination span {
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .pagination-link .l-btn-text {

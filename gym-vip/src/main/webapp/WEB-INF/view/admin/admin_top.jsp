@@ -24,9 +24,7 @@
 	</tr>
 	<tr width="100%">
 		<td align="right">
-			<font color="#000000" size="2">
-				<span style="white-space: nowrap; padding-right: 20px;">【${contextUser.userName}】您好！<a href="${ctx}/logout">【注销】</a></span>
-			</font>
+			<span style="white-space: nowrap; padding-right: 20px; font-size: 14px;">【${contextUser.userName}】您好！<a href="${ctx}/logout">【注销】</a></span>
 		</td>
 	</tr>
 </table>

@@ -51,16 +51,16 @@ SELECT {
 缺省链接风格：全为黑色
 **********************/
 A:link {
-	COLOR: #000000; FONT-SIZE: 13px; TEXT-DECORATION:none
+	COLOR: #000000; FONT-SIZE: 14px; TEXT-DECORATION: none;
 }
 A:hover {
-	COLOR: #000000; FONT-SIZE: 13px; TEXT-DECORATION: none
+	COLOR: #000000; FONT-SIZE: 14px; TEXT-DECORATION: none;
 }
 A:visited {
-	COLOR: #000000; FONT-SIZE: 13px; TEXT-DECORATION: none
+	COLOR: #000000; FONT-SIZE: 14px; TEXT-DECORATION: none;
 }
 A:active {
-	COLOR: #000000; FONT-SIZE: 13px; TEXT-DECORATION: none
+	COLOR: #000000; FONT-SIZE: 14px; TEXT-DECORATION: none;
 }
 
 /***********************

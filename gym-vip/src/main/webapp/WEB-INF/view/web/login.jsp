@@ -62,9 +62,7 @@
 <body>
 	<c:import url="web_top.jsp"></c:import>
 
-	<div id="nav">
-	    <div id="row1"><a href="${ctx}/index" style="color:#FFFFFF;">首页</a></div>
-	</div>
+	<div id="nav"></div>
 
 	<div class="clear"></div>
 	<!--头-->
