@@ -134,6 +134,9 @@ public class MemberController extends BaseController
 			return "error/error";
 		}
 
+		// 检验是否超期
+		this.memberInfoService.checkOverTime(guid, getContextUser());
+
 		MemberInfo memberInfo = this.memberInfoService
 				.getMemberInfoByGuid(guid);
 		if (memberInfo == null)

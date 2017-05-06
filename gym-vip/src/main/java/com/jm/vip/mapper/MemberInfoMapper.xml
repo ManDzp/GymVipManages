@@ -111,6 +111,13 @@
 		where guid = #{guid,jdbcType=VARCHAR}
 	</update>
 
+	<!-- 设置超期 -->
+	<update id="setOverTime" parameterType="MemberInfo">
+		update memberinfo
+		set status = #{status,jdbcType=SMALLINT}
+		where guid = #{guid,jdbcType=VARCHAR}
+	</update>
+
 	<!-- 充值 -->
 	<update id="charge" parameterType="MemberInfo">
 		update memberinfo

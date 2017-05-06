@@ -56,6 +56,12 @@ public class MemberInfoDaoImpl extends BaseDaoImpl<MemberInfo>
 	}
 
 	@Override
+	public int setOverTime(MemberInfo memberInfo)
+	{
+		return this.session.update(getMapperId() + ".setOverTime", memberInfo);
+	}
+
+	@Override
 	public int charge(MemberInfo memberInfo)
 	{
 		return this.session.update(getMapperId() + ".charge", memberInfo);

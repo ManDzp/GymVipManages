@@ -327,6 +327,59 @@ public class MemberInfoService
 	}
 
 	/**
+	 * 检验超期
+	 * @param guid 会员资料唯一标识
+	 * @param currentUser
+	 * @return
+	 */
+	@Transactional
+	public boolean checkOverTime(String guid, CurrentUser currentUser)
+	{
+		if (StringUtils.isEmpty(guid) || !RegexHelper.isPrimaryKey(guid))
+			return false;
+
+		try
+		{
+			MemberInfo memberInfo = getMemberInfoByGuid(guid);
+			if (memberInfo == null)
+				return false;
+
+			Date expiretime = memberInfo.getExpiretime();
+			if (expiretime == null)
+				return false;
+
+			// 正常状态下进行校验
+			Integer status = memberInfo.getStatus();
+			if (status == 2)
+			{
+				Date currentDate = DateHelper.getCurrentDateShort();
+
+				if (currentDate.getTime() > expiretime.getTime())
+				{
+					// 更新会员状态为超期
+					MemberInfo updateMemberInfo = new MemberInfo();
+					updateMemberInfo.setGuid(guid);
+					updateMemberInfo.setStatus(4);
+					this.memberInfoDao.setOverTime(updateMemberInfo);
+				}
+			}
+
+			// 记录操作日志
+			LogProxy.WriteLogOperate(log, "检验超期成功", guid);
+			return true;
+		}
+		catch (Exception ex)
+		{
+			// 回滚
+			TransactionAspectSupport.currentTransactionStatus()
+					.setRollbackOnly();
+			// 记错误日志
+			LogProxy.WriteLogError(log, "检验超期异常", ex.toString(), guid);
+			return false;
+		}
+	}
+
+	/**
 	 * 充值
 	 * @param guid 会员资料唯一标识
 	 * @param money 充值金额

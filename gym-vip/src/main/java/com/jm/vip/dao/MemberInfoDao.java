@@ -34,6 +34,13 @@ public interface MemberInfoDao extends BaseDao<MemberInfo>
 			String withoutGuid);
 
 	/**
+	 * 设置超期
+	 * @param memberInfo
+	 * @return
+	 */
+	public int setOverTime(MemberInfo memberInfo);
+
+	/**
 	 * 充值
 	 * @param memberInfo
 	 * @return
