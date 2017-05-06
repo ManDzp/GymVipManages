@@ -41,13 +41,12 @@ function setUpload(swfUrl, uploaderUrl, fileuploadID, queueID, buttonText,
 			}
 		},
 		'onUploadStart' : function(file) {
-//			var totalSize = parseInt($('#' + hdfileSizeID).val())
-//					+ parseInt(file.size);
-//			if (totalSize > 8 * 1024 * 1024) {
-//				layer.alert('您上传的文件总大小超过了最大限制8M！');
-//				$('#' + fileuploadID).uploadify("cancel",
-//						file.id);
-//			}
+			var totalSize = parseInt(file.size);
+			if (totalSize > 16 * 1024 * 1024) {
+				layer.alert('您上传的文件大小超过了最大限制16M！');
+				$('#' + fileuploadID).uploadify("cancel",
+						file.id);
+			}
 		}
 	});
 }

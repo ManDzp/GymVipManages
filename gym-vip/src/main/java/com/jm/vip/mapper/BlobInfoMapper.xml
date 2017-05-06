@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap" type="BlobInfo">
 		<id column="BLOBGUID" property="blobguid" jdbcType="VARCHAR" />
 		<result column="GUID" property="guid" jdbcType="VARCHAR" />
-		<result column="content" property="content" jdbcType="BLOB" />
+		<result column="content" property="content" jdbcType="LONGVARBINARY" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -30,6 +30,6 @@
 		values
 		(#{blobguid,jdbcType=VARCHAR},
 		#{guid,jdbcType=VARCHAR},
-		#{content,jdbcType=BLOB})
+		#{content,jdbcType=LONGVARBINARY})
 	</insert>
 </mapper>
