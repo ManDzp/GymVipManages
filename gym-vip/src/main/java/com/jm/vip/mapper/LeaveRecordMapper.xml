@@ -17,7 +17,7 @@
 		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, leaveType, expireTime, remark, createTime,
+		guid, memberGuid, leaveType, expireTime, remark, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->
