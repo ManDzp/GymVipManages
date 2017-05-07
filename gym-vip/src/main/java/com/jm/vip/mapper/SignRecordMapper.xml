@@ -5,13 +5,18 @@
 		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="cardType" property="cardtype" jdbcType="VARCHAR" />
+		<result column="oldTimes" property="oldtimes" jdbcType="INTEGER" />
+		<result column="newTimes" property="newtimes" jdbcType="INTEGER" />
+		<result column="oldUsedTimes" property="oldusedtimes" jdbcType="INTEGER" />
+		<result column="newUsedTimes" property="newusedtimes" jdbcType="INTEGER" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
 		<result column="creatorId" property="creatorid" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, cardType, createTime, creator, creatorId
+		guid, memberGuid, cardType, oldTimes, newTimes, oldUsedTimes, newUsedTimes,
+		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
 		guid, memberGuid, cardType, createTime
@@ -51,12 +56,15 @@
 	</delete>
 
 	<insert id="insert" parameterType="SignRecord">
-		insert into SignRecord (guid,
-		memberGuid, cardType, createTime,
-		creator, creatorId)
+		INSERT INTO SignRecord
+		(guid, memberGuid, cardType,
+		oldTimes, newTimes, oldUsedTimes, newUsedTimes,
+		createTime, creator, creatorId)
 		values
 		(#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
 		#{cardtype,jdbcType=VARCHAR},
+		#{oldtimes,jdbcType=INTEGER}, #{newtimes,jdbcType=INTEGER},
+		#{oldusedtimes,jdbcType=INTEGER}, #{newusedtimes,jdbcType=INTEGER},
 		#{createtime,jdbcType=TIMESTAMP},
 		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})
 	</insert>

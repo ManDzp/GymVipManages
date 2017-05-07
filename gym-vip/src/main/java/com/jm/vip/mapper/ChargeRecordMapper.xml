@@ -5,6 +5,8 @@
 		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="money" property="money" jdbcType="DECIMAL" />
+		<result column="oldBalance" property="oldbalance" jdbcType="DECIMAL" />
+		<result column="newBalance" property="newbalance" jdbcType="DECIMAL" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -12,7 +14,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, money, remark, createTime, creator, creatorId
+		guid, memberGuid, money, oldBalance, newBalance, remark, createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
 		guid, memberGuid, money, remark, createTime
@@ -53,9 +55,11 @@
 
 	<insert id="insert" parameterType="ChargeRecord">
 		insert into ChargeRecord
-		(guid, memberGuid, money, remark, createTime, creator, creatorId)
+		(guid, memberGuid, money, oldBalance, newBalance, remark, createTime, creator, creatorId)
 		values (#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
-		#{money,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR},
+		#{money,jdbcType=DECIMAL},
+		#{oldbalance,jdbcType=DECIMAL}, #{newbalance,jdbcType=DECIMAL},
+		#{remark,jdbcType=VARCHAR},
 		#{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
 		#{creatorid,jdbcType=VARCHAR})
 	</insert>

@@ -22,6 +22,11 @@ public class LeaveRecord
 	 */
 	private String leavetype;
 	/**
+	 * 原始到期日期
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date oldexpiretime;
+	/**
 	 * 到期日期
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -72,6 +77,16 @@ public class LeaveRecord
 	public void setLeavetype(String leavetype)
 	{
 		this.leavetype = leavetype == null ? null : leavetype.trim();
+	}
+
+	public Date getOldexpiretime()
+	{
+		return oldexpiretime;
+	}
+
+	public void setOldexpiretime(Date oldexpiretime)
+	{
+		this.oldexpiretime = oldexpiretime;
 	}
 
 	public Date getExpiretime()

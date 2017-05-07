@@ -22,15 +22,21 @@
 				<tbody>
 					<tr>
 						<td class="lefttdbgcolor">消费金额：</td>
-						<td class="tdbgcolor"><label>${buyCardRecord.money}</label></td>
+						<td class="tdbgcolor" colspan="3"><label>${buyCardRecord.money}</label></td>
+					</tr>
+					<tr>
+						<td class="lefttdbgcolor">卡内余额变更：</td>
+						<td class="tdbgcolor35"><label>${buyCardRecord.oldbalance} => ${buyCardRecord.newbalance}</label></td>
+						<td class="lefttdbgcolor">累计消费变更：</td>
+						<td class="tdbgcolor35"><label>${buyCardRecord.oldconsumption} => ${buyCardRecord.newconsumption}</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">买卡时间：</td>
-						<td class="tdbgcolor"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardRecord.createtime}" /></label></td>
+						<td class="tdbgcolor" colspan="3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardRecord.createtime}" /></label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">备注说明：</td>
-						<td class="tdbgcolor">
+						<td class="tdbgcolor" colspan="3">
 							<textarea style="width: 100%;" rows="4" cols="10" readonly="readonly">${buyCardRecord.remark}</textarea>
 						</td>
 					</tr>

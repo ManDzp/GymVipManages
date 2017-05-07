@@ -5,6 +5,7 @@
 		<id column="guid" property="guid" jdbcType="BIGINT" />
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="leaveType" property="leavetype" jdbcType="VARCHAR" />
+		<result column="oldExpireTime" property="oldexpiretime" jdbcType="TIMESTAMP" />
 		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
@@ -13,11 +14,11 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, leaveType, expireTime, remark,
+		guid, memberGuid, leaveType, oldExpireTime, expireTime, remark,
 		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
-		guid, memberGuid, leaveType, expireTime, remark, createTime
+		guid, memberGuid, leaveType, oldExpireTime, expireTime, remark, createTime
 	</sql>
 
 	<!-- 获取分页数据 -->
@@ -55,12 +56,13 @@
 
 	<insert id="insert" parameterType="LeaveRecord">
 		INSERT INTO LeaveRecord
-		(guid, memberGuid, leaveType, expireTime, remark,
+		(guid, memberGuid, leaveType, oldExpireTime, expireTime, remark,
 		createTime, creator, creatorId)
 		values
 		(#{guid,jdbcType=BIGINT},
 		#{memberguid,jdbcType=BIGINT}, #{leavetype,jdbcType=VARCHAR},
-		#{expiretime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+		#{oldexpiretime,jdbcType=TIMESTAMP}, #{expiretime,jdbcType=TIMESTAMP},
+		#{remark,jdbcType=VARCHAR},
 		#{createtime,jdbcType=TIMESTAMP},
 		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})
 	</insert>

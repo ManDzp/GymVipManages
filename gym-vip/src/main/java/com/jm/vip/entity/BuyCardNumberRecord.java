@@ -26,10 +26,39 @@ public class BuyCardNumberRecord
 	 */
 	private Integer number;
 	/**
+	 * 原始到期日期
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date oldexpiretime;
+	/**
 	 * 到期日期
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiretime;
+	/**
+	 * 原始卡内余额
+	 */
+	private Double oldbalance;
+	/**
+	 * 现在卡内余额
+	 */
+	private Double newbalance;
+	/**
+	 * 原始累计消费
+	 */
+	private Double oldconsumption;
+	/**
+	 * 现在累计消费
+	 */
+	private Double newconsumption;
+	/**
+	 * 原始可用次数
+	 */
+	private Integer oldtimes;
+	/**
+	 * 现在可用次数
+	 */
+	private Integer newtimes;
 	/**
 	 * 备注说明
 	 */
@@ -88,6 +117,16 @@ public class BuyCardNumberRecord
 		this.number = number;
 	}
 
+	public Date getOldexpiretime()
+	{
+		return oldexpiretime;
+	}
+
+	public void setOldexpiretime(Date oldexpiretime)
+	{
+		this.oldexpiretime = oldexpiretime;
+	}
+
 	public Date getExpiretime()
 	{
 		return expiretime;
@@ -96,6 +135,66 @@ public class BuyCardNumberRecord
 	public void setExpiretime(Date expiretime)
 	{
 		this.expiretime = expiretime;
+	}
+
+	public Double getOldbalance()
+	{
+		return oldbalance;
+	}
+
+	public void setOldbalance(Double oldbalance)
+	{
+		this.oldbalance = oldbalance;
+	}
+
+	public Double getNewbalance()
+	{
+		return newbalance;
+	}
+
+	public void setNewbalance(Double newbalance)
+	{
+		this.newbalance = newbalance;
+	}
+
+	public Double getOldconsumption()
+	{
+		return oldconsumption;
+	}
+
+	public void setOldconsumption(Double oldconsumption)
+	{
+		this.oldconsumption = oldconsumption;
+	}
+
+	public Double getNewconsumption()
+	{
+		return newconsumption;
+	}
+
+	public void setNewconsumption(Double newconsumption)
+	{
+		this.newconsumption = newconsumption;
+	}
+
+	public Integer getOldtimes()
+	{
+		return oldtimes;
+	}
+
+	public void setOldtimes(Integer oldtimes)
+	{
+		this.oldtimes = oldtimes;
+	}
+
+	public Integer getNewtimes()
+	{
+		return newtimes;
+	}
+
+	public void setNewtimes(Integer newtimes)
+	{
+		this.newtimes = newtimes;
 	}
 
 	public String getRemark()

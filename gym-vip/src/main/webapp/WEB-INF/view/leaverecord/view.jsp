@@ -31,9 +31,17 @@
 				<!-- 销假 -->
 					<tr>
 						<td class="lefttdbgcolor">类　　型：</td>
-						<td class="tdbgcolor35"><label>销假</label></td>
+						<td class="tdbgcolor" colspan="3"><label>销假</label></td>
+					</tr>
+					<tr>
 						<td class="lefttdbgcolor">到期日期：</td>
-						<td class="tdbgcolor35"><label><fmt:formatDate pattern="yyyy-MM-dd" value="${leaveRecord.expiretime}" /></label></td>
+						<td class="tdbgcolor35"><fmt:formatDate pattern="yyyy-MM-dd" value="${leaveRecord.expiretime}" /></td>
+						<td class="lefttdbgcolor">到期日期变更：</td>
+						<td class="tdbgcolor35">
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${leaveRecord.oldexpiretime}" />
+							=>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${leaveRecord.expiretime}" />
+						</td>
 					</tr>
 				</c:if>
 					<tr>

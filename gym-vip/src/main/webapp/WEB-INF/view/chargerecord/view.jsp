@@ -22,15 +22,17 @@
 				<tbody>
 					<tr>
 						<td class="lefttdbgcolor">充值余额：</td>
-						<td class="tdbgcolor"><label>${chargeRecord.money}</label></td>
+						<td class="tdbgcolor35"><label>${chargeRecord.money}</label></td>
+						<td class="lefttdbgcolor">余额变更：</td>
+						<td class="tdbgcolor35"><label>${chargeRecord.oldbalance} => ${chargeRecord.newbalance}</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">充值时间：</td>
-						<td class="tdbgcolor"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></label></td>
+						<td class="tdbgcolor" colspan="3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chargeRecord.createtime}" /></label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">备注说明：</td>
-						<td class="tdbgcolor">
+						<td class="tdbgcolor" colspan="3">
 							<textarea style="width: 100%;" rows="4" cols="10" readonly="readonly">${chargeRecord.remark}</textarea>
 						</td>
 					</tr>

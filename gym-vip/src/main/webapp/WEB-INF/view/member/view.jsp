@@ -75,7 +75,12 @@ ul, li {
 							<label>${memberInfo.points}</label>
 							<c:if test="${deletetype == '0' && memberInfo.status > 1}">
 							<a class="view-button" href="javascript:void(0);" onclick="openSaveCardPoints('${memberInfo.guid}')">获取积分</a>
+
+							<c:if test="${memberInfo.cardtype == '0'}">
+							<!-- 时间卡 -->
 							<a class="view-button" href="javascript:void(0);" onclick="openPointsExchangeTime('${memberInfo.guid}', '<fmt:formatDate pattern="yyyy-MM-dd" value="${memberInfo.expiretime}" />')">兑换时间</a>
+							</c:if>
+
 							</c:if>
 						</td>
 						<td class="lefttdbgcolor">当前状态：</td>
@@ -87,12 +92,17 @@ ul, li {
 							<c:if test="${memberInfo.status==4}">到期</c:if>
 						</label></td>
 					</tr>
+
+				<c:if test="${memberInfo.cardtype == '1'}">
+				<!-- 次卡 -->
 					<tr>
 						<td class="lefttdbgcolor">可用次数：</td>
 						<td class="tdbgcolor35"><label>${memberInfo.times}</label></td>
 						<td class="lefttdbgcolor">已用次数：</td>
 						<td class="tdbgcolor35"><label>${memberInfo.usedtimes}</label></td>
 					</tr>
+				</c:if>
+
 					<tr>
 						<td class="tdbgcolor" colspan="4">会员资料</td>
 					</tr>
@@ -215,7 +225,7 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="tdbgcolor70 view-info-important" colspan="2">买卡记录</td>
-									<td class="lefttdbgcolor30"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 
 								<tr>
@@ -294,7 +304,7 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="tdbgcolor70 view-info-important" colspan="2">积分记录</td>
-									<td class="lefttdbgcolor30"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/pointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="lefttdbgcolor30" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/pointsrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 
 								<tr>
@@ -324,7 +334,7 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="tdbgcolor view-info-important">签到记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="lefttdbgcolor" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/signrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 								<tr>
 									<td class="tdbgcolor" colspan="2">签到时间</td>
@@ -344,7 +354,7 @@ ul, li {
 							<tbody>
 								<tr>
 									<td class="tdbgcolor view-info-important" colspan="3">购买次数记录</td>
-									<td class="lefttdbgcolor"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardnumberrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
+									<td class="lefttdbgcolor" style="text-align: center;"><a href="javascript:void(0);" onclick="openIFrameDialog('${ctx}/record/buycardnumberrecord/list?memberguid=${memberInfo.guid}');">更多</a></td>
 								</tr>
 
 								<tr>

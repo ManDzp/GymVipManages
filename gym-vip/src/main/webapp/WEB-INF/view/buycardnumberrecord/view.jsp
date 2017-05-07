@@ -22,23 +22,37 @@
 				<tbody>
 					<tr>
 						<td class="lefttdbgcolor">消费金额：</td>
-						<td class="tdbgcolor"><label>${buyCardNumberRecord.money}</label></td>
+						<td class="tdbgcolor" colspan="3"><label>${buyCardNumberRecord.money}</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">购买次数：</td>
-						<td class="tdbgcolor"><label>${buyCardNumberRecord.number}</label></td>
+						<td class="tdbgcolor35"><label>${buyCardNumberRecord.number}</label></td>
+						<td class="lefttdbgcolor">可用次数变更：</td>
+						<td class="tdbgcolor35"><label>${buyCardNumberRecord.oldtimes} => ${buyCardNumberRecord.newtimes}</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">到期日期：</td>
-						<td class="tdbgcolor"><fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardNumberRecord.expiretime}" /></label></td>
+						<td class="tdbgcolor35"><fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardNumberRecord.expiretime}" /></td>
+						<td class="lefttdbgcolor">到期日期变更：</td>
+						<td class="tdbgcolor35">
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardNumberRecord.oldexpiretime}" />
+							=>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${buyCardNumberRecord.expiretime}" />
+						</td>
+					</tr>
+					<tr>
+						<td class="lefttdbgcolor">卡内余额变更：</td>
+						<td class="tdbgcolor35"><label>${buyCardNumberRecord.oldbalance} => ${buyCardNumberRecord.newbalance}</label></td>
+						<td class="lefttdbgcolor">累计消费变更：</td>
+						<td class="tdbgcolor35"><label>${buyCardNumberRecord.oldconsumption} => ${buyCardNumberRecord.newconsumption}</label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">购买时间：</td>
-						<td class="tdbgcolor"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardNumberRecord.createtime}" /></label></td>
+						<td class="tdbgcolor" colspan="3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${buyCardNumberRecord.createtime}" /></label></td>
 					</tr>
 					<tr>
 						<td class="lefttdbgcolor">备注说明：</td>
-						<td class="tdbgcolor">
+						<td class="tdbgcolor" colspan="3">
 							<textarea style="width: 100%;" rows="4" cols="10" readonly="readonly">${buyCardNumberRecord.remark}</textarea>
 						</td>
 					</tr>

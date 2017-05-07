@@ -417,6 +417,8 @@ public class MemberInfoService
 			chargeRecord.setGuid(BaseUtils.getPrimaryKey());
 			chargeRecord.setMemberguid(guid);
 			chargeRecord.setMoney(money);
+			chargeRecord.setOldbalance(balance);
+			chargeRecord.setNewbalance(balance + money);
 			chargeRecord.setRemark(content);
 			chargeRecord.setCreator(currentUser.getUserName());
 			chargeRecord.setCreatorid(currentUser.getUserGuid());
@@ -487,6 +489,10 @@ public class MemberInfoService
 			buyCardRecord.setGuid(BaseUtils.getPrimaryKey());
 			buyCardRecord.setMemberguid(guid);
 			buyCardRecord.setMoney(money);
+			buyCardRecord.setOldbalance(balance);
+			buyCardRecord.setNewbalance(balance - money);
+			buyCardRecord.setOldconsumption(consumption);
+			buyCardRecord.setNewconsumption(consumption + money);
 			buyCardRecord.setRemark(content);
 			buyCardRecord.setCreator(currentUser.getUserName());
 			buyCardRecord.setCreatorid(currentUser.getUserGuid());
@@ -606,6 +612,8 @@ public class MemberInfoService
 			if (consumption == null)
 				consumption = 0d;
 
+			Date oldExpireTime = memberInfo.getExpiretime();
+
 			// 更新会员资料
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
@@ -619,6 +627,11 @@ public class MemberInfoService
 			continueCardRecord.setGuid(BaseUtils.getPrimaryKey());
 			continueCardRecord.setMemberguid(guid);
 			continueCardRecord.setMoney(money);
+			continueCardRecord.setOldbalance(balance);
+			continueCardRecord.setNewbalance(balance - money);
+			continueCardRecord.setOldconsumption(consumption);
+			continueCardRecord.setNewconsumption(consumption + money);
+			continueCardRecord.setOldexpiretime(oldExpireTime);
 			continueCardRecord.setExpiretime(expiretime);
 			continueCardRecord.setRemark(content);
 			continueCardRecord.setCreator(currentUser.getUserName());
@@ -771,6 +784,8 @@ public class MemberInfoService
 			if (status != 3)
 				return CommonUtil.newFailedDTO("会员信息状态不正确！");
 
+			Date oldExpireTime = memberInfo.getExpiretime();
+
 			// 更新会员资料
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
@@ -783,6 +798,7 @@ public class MemberInfoService
 			leaveRecord.setGuid(BaseUtils.getPrimaryKey());
 			leaveRecord.setMemberguid(guid);
 			leaveRecord.setLeavetype("1");
+			leaveRecord.setOldexpiretime(oldExpireTime);
 			leaveRecord.setExpiretime(expiretime);
 			leaveRecord.setRemark(content);
 			leaveRecord.setCreator(currentUser.getUserName());
@@ -848,6 +864,8 @@ public class MemberInfoService
 			if (oldTimes == null)
 				oldTimes = 0;
 
+			Date oldExpireTime = memberInfo.getExpiretime();
+
 			// 更新会员资料状态为正常
 			MemberInfo updateMemberInfo = new MemberInfo();
 			updateMemberInfo.setGuid(guid);
@@ -864,7 +882,14 @@ public class MemberInfoService
 			buyCardNumberRecord.setMemberguid(guid);
 			buyCardNumberRecord.setMoney(money);
 			buyCardNumberRecord.setNumber(times);
+			buyCardNumberRecord.setOldexpiretime(oldExpireTime);
 			buyCardNumberRecord.setExpiretime(expiretime);
+			buyCardNumberRecord.setOldbalance(balance);
+			buyCardNumberRecord.setNewbalance(balance - money);
+			buyCardNumberRecord.setOldconsumption(consumption);
+			buyCardNumberRecord.setNewconsumption(consumption + money);
+			buyCardNumberRecord.setOldtimes(oldTimes);
+			buyCardNumberRecord.setNewtimes(oldTimes + times);
 			buyCardNumberRecord.setRemark(content);
 			buyCardNumberRecord.setCreator(currentUser.getUserName());
 			buyCardNumberRecord.setCreatorid(currentUser.getUserGuid());
@@ -932,6 +957,10 @@ public class MemberInfoService
 			signRecord.setGuid(BaseUtils.getPrimaryKey());
 			signRecord.setMemberguid(guid);
 			signRecord.setCardtype(cardtype);
+			signRecord.setOldtimes(oldTimes);
+			signRecord.setNewtimes(oldTimes - 1);
+			signRecord.setOldusedtimes(oldUsedTimes);
+			signRecord.setNewusedtimes(oldUsedTimes + 1);
 			signRecord.setCreator(currentUser.getUserName());
 			signRecord.setCreatorid(currentUser.getUserGuid());
 			signRecord.setCreatetime(DateHelper.getCurrentDate());
@@ -991,6 +1020,8 @@ public class MemberInfoService
 			pointsRecord.setMemberguid(guid);
 			pointsRecord.setPointtype("0");
 			pointsRecord.setPoints(points);
+			pointsRecord.setOldpoints(oldPoints);
+			pointsRecord.setNewpoints(oldPoints + points);
 			pointsRecord.setRemark(content);
 			pointsRecord.setCreator(currentUser.getUserName());
 			pointsRecord.setCreatorid(currentUser.getUserGuid());
@@ -1063,6 +1094,8 @@ public class MemberInfoService
 			pointsRecord.setMemberguid(guid);
 			pointsRecord.setPointtype("1");
 			pointsRecord.setPoints(points);
+			pointsRecord.setOldpoints(oldPoints);
+			pointsRecord.setNewpoints(oldPoints - points);
 			pointsRecord.setOldexpiretime(oldExpireTime);
 			pointsRecord.setExpiretime(expiretime);
 			pointsRecord.setRemark(content);

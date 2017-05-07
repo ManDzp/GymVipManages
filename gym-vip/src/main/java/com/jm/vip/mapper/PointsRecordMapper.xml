@@ -6,6 +6,8 @@
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="pointType" property="pointtype" jdbcType="VARCHAR" />
 		<result column="points" property="points" jdbcType="INTEGER" />
+		<result column="oldPoints" property="oldpoints" jdbcType="INTEGER" />
+		<result column="newPoints" property="newpoints" jdbcType="INTEGER" />
 		<result column="oldExpireTime" property="oldexpiretime" jdbcType="TIMESTAMP" />
 		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -15,7 +17,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, pointType, points, oldExpireTime, expireTime, remark,
+		guid, memberGuid, pointType, points, oldPoints, newPoints, oldExpireTime, expireTime, remark,
 		createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
@@ -57,11 +59,12 @@
 
 	<insert id="insert" parameterType="PointsRecord">
 		INSERT INTO PointsRecord
-		(guid, memberGuid, pointType, points, oldExpireTime, expireTime, remark,
+		(guid, memberGuid, pointType, points, oldPoints, newPoints, oldExpireTime, expireTime, remark,
 		createTime, creator, creatorId)
 		values
 		(#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
 		#{pointtype,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER},
+		#{oldpoints,jdbcType=INTEGER}, #{newpoints,jdbcType=INTEGER},
 		#{oldexpiretime,jdbcType=TIMESTAMP},
 		#{expiretime,jdbcType=TIMESTAMP},
 		#{remark,jdbcType=VARCHAR},

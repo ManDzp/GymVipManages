@@ -22,6 +22,14 @@ public class ChargeRecord
 	 */
 	private Double money;
 	/**
+	 * 原始卡内余额
+	 */
+	private Double oldbalance;
+	/**
+	 * 现在卡内余额
+	 */
+	private Double newbalance;
+	/**
 	 * 备注说明
 	 */
 	private String remark;
@@ -67,6 +75,26 @@ public class ChargeRecord
 	public void setMoney(Double money)
 	{
 		this.money = money;
+	}
+
+	public Double getOldbalance()
+	{
+		return oldbalance;
+	}
+
+	public void setOldbalance(Double oldbalance)
+	{
+		this.oldbalance = oldbalance;
+	}
+
+	public Double getNewbalance()
+	{
+		return newbalance;
+	}
+
+	public void setNewbalance(Double newbalance)
+	{
+		this.newbalance = newbalance;
 	}
 
 	public String getRemark()

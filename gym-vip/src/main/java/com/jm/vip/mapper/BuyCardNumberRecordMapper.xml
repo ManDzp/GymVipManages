@@ -6,7 +6,14 @@
 		<result column="memberGuid" property="memberguid" jdbcType="BIGINT" />
 		<result column="money" property="money" jdbcType="DECIMAL" />
 		<result column="number" property="number" jdbcType="INTEGER" />
+		<result column="oldExpireTime" property="oldexpiretime" jdbcType="TIMESTAMP" />
 		<result column="expireTime" property="expiretime" jdbcType="TIMESTAMP" />
+		<result column="oldBalance" property="oldbalance" jdbcType="DECIMAL" />
+		<result column="newBalance" property="newbalance" jdbcType="DECIMAL" />
+		<result column="oldConsumption" property="oldconsumption" jdbcType="DECIMAL" />
+		<result column="newConsumption" property="newconsumption" jdbcType="DECIMAL" />
+		<result column="oldTimes" property="oldtimes" jdbcType="INTEGER" />
+		<result column="newTimes" property="newtimes" jdbcType="INTEGER" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -14,8 +21,10 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		guid, memberGuid, money, number, expireTime, remark,
-		createTime, creator, creatorId
+		guid, memberGuid, money, number, oldExpireTime, expireTime,
+		oldBalance, newBalance, oldConsumption, newConsumption,
+		oldTimes, newTimes,
+		remark, createTime, creator, creatorId
 	</sql>
 	<sql id="List_Column">
 		guid, memberGuid, money, number, expireTime, remark, createTime
@@ -56,12 +65,16 @@
 
 	<insert id="insert" parameterType="BuyCardNumberRecord">
 		INSERT INTO BuyCardNumberRecord
-		(guid, memberGuid, money,
-		number, expireTime, remark,
-		createTime, creator, creatorId)
+		(guid, memberGuid, money, number, oldExpireTime, expireTime,
+		oldBalance, newBalance, oldConsumption, newConsumption,
+		oldTimes, newTimes,
+		remark, createTime, creator, creatorId)
 		values (#{guid,jdbcType=BIGINT}, #{memberguid,jdbcType=BIGINT},
-		#{money,jdbcType=DECIMAL},
-		#{number,jdbcType=INTEGER}, #{expiretime,jdbcType=TIMESTAMP},
+		#{money,jdbcType=DECIMAL}, #{number,jdbcType=INTEGER},
+		#{oldexpiretime,jdbcType=TIMESTAMP}, #{expiretime,jdbcType=TIMESTAMP},
+		#{oldbalance,jdbcType=DECIMAL}, #{newbalance,jdbcType=DECIMAL},
+		#{oldconsumption,jdbcType=DECIMAL}, #{newconsumption,jdbcType=DECIMAL},
+		#{oldtimes,jdbcType=INTEGER}, #{newtimes,jdbcType=INTEGER},
 		#{remark,jdbcType=VARCHAR},
 		#{createtime,jdbcType=TIMESTAMP},
 		#{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR})

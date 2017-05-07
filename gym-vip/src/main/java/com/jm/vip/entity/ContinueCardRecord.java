@@ -22,6 +22,27 @@ public class ContinueCardRecord
 	 */
 	private Double money;
 	/**
+	 * 原始卡内余额
+	 */
+	private Double oldbalance;
+	/**
+	 * 现在卡内余额
+	 */
+	private Double newbalance;
+	/**
+	 * 原始累计消费
+	 */
+	private Double oldconsumption;
+	/**
+	 * 现在累计消费
+	 */
+	private Double newconsumption;
+	/**
+	 * 原始到期日期
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date oldexpiretime;
+	/**
 	 * 到期日期
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -72,6 +93,56 @@ public class ContinueCardRecord
 	public void setMoney(Double money)
 	{
 		this.money = money;
+	}
+
+	public Double getOldbalance()
+	{
+		return oldbalance;
+	}
+
+	public void setOldbalance(Double oldbalance)
+	{
+		this.oldbalance = oldbalance;
+	}
+
+	public Double getNewbalance()
+	{
+		return newbalance;
+	}
+
+	public void setNewbalance(Double newbalance)
+	{
+		this.newbalance = newbalance;
+	}
+
+	public Double getOldconsumption()
+	{
+		return oldconsumption;
+	}
+
+	public void setOldconsumption(Double oldconsumption)
+	{
+		this.oldconsumption = oldconsumption;
+	}
+
+	public Double getNewconsumption()
+	{
+		return newconsumption;
+	}
+
+	public void setNewconsumption(Double newconsumption)
+	{
+		this.newconsumption = newconsumption;
+	}
+
+	public Date getOldexpiretime()
+	{
+		return oldexpiretime;
+	}
+
+	public void setOldexpiretime(Date oldexpiretime)
+	{
+		this.oldexpiretime = oldexpiretime;
 	}
 
 	public Date getExpiretime()

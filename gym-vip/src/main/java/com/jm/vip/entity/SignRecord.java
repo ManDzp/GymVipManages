@@ -22,6 +22,22 @@ public class SignRecord
 	 */
 	private String cardtype;
 	/**
+	 * 原始可用次数
+	 */
+	private Integer oldtimes;
+	/**
+	 * 现在可用次数
+	 */
+	private Integer newtimes;
+	/**
+	 * 原始已用次数
+	 */
+	private Integer oldusedtimes;
+	/**
+	 * 现在已用次数
+	 */
+	private Integer newusedtimes;
+	/**
 	 * 记录时间
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -63,6 +79,46 @@ public class SignRecord
 	public void setCardtype(String cardtype)
 	{
 		this.cardtype = cardtype == null ? null : cardtype.trim();
+	}
+
+	public Integer getOldtimes()
+	{
+		return oldtimes;
+	}
+
+	public void setOldtimes(Integer oldtimes)
+	{
+		this.oldtimes = oldtimes;
+	}
+
+	public Integer getNewtimes()
+	{
+		return newtimes;
+	}
+
+	public void setNewtimes(Integer newtimes)
+	{
+		this.newtimes = newtimes;
+	}
+
+	public Integer getOldusedtimes()
+	{
+		return oldusedtimes;
+	}
+
+	public void setOldusedtimes(Integer oldusedtimes)
+	{
+		this.oldusedtimes = oldusedtimes;
+	}
+
+	public Integer getNewusedtimes()
+	{
+		return newusedtimes;
+	}
+
+	public void setNewusedtimes(Integer newusedtimes)
+	{
+		this.newusedtimes = newusedtimes;
 	}
 
 	public Date getCreatetime()

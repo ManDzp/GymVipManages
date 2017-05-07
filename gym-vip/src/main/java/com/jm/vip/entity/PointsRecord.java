@@ -18,13 +18,21 @@ public class PointsRecord
 	 */
 	private String memberguid;
 	/**
-	 * 积分类型 0：获取，1：兑换
+	 * 积分类型 0：获取积分，1：兑换积分
 	 */
 	private String pointtype;
 	/**
 	 * 变更积分
 	 */
 	private Integer points;
+	/**
+	 * 原始会员积分
+	 */
+	private Integer oldpoints;
+	/**
+	 * 现在会员积分
+	 */
+	private Integer newpoints;
 	/**
 	 * 原始到期日期
 	 */
@@ -91,6 +99,26 @@ public class PointsRecord
 	public void setPoints(Integer points)
 	{
 		this.points = points;
+	}
+
+	public Integer getOldpoints()
+	{
+		return oldpoints;
+	}
+
+	public void setOldpoints(Integer oldpoints)
+	{
+		this.oldpoints = oldpoints;
+	}
+
+	public Integer getNewpoints()
+	{
+		return newpoints;
+	}
+
+	public void setNewpoints(Integer newpoints)
+	{
+		this.newpoints = newpoints;
 	}
 
 	public Date getOldexpiretime()
