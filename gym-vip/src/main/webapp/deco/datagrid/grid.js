@@ -7,6 +7,7 @@
 		printurl : '',// 默认打印请求地址
 		queryParams : {},// 查询参数
 		toolbar : '#list_toolbar',// 顶部工具栏id
+		striped : true,
 		pagination : true,// 显示分页工具栏
 		pageSize : 20,// 初始化页面大小
 		pageList : [ 20, 40, 60, 80, 100 ],// 初始化页面大小选择列表

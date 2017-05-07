@@ -153,7 +153,7 @@
 .panel-title {
 	font-size: 14px;
 	font-weight: bold;
-	color: #777;
+	color: #333;
 	height: 16px;
 	line-height: 16px;
 }
@@ -181,6 +181,7 @@
 
 .accordion .accordion-body {
 	border-width: 0 0 1px;
+	background-color: #f6f5f5;
 }
 
 .accordion-noborder {
@@ -209,16 +210,16 @@
 }
 
 .accordion .accordion-header {
-	background: #F2F2F2;
+	background: #D9E7F8;
 	filter: none;
 }
 
 .accordion .accordion-header-selected {
-	background: #0081c2;
+	background: #D9E7F8;
 }
 
 .accordion .accordion-header-selected .panel-title {
-	color: #fff;
+	/* color: #fff; */
 }
 
 .window {
@@ -1567,6 +1568,10 @@
 	height: 25px;
 }
 
+.datagrid-row {
+	background-color: #fff;
+}
+
 .datagrid-header td, .datagrid-body td, .datagrid-footer td {
 	border-width: 0 1px 1px 0;
 	border-style: dotted;
@@ -1611,6 +1616,7 @@
 	padding: 0;
 	overflow: auto;
 	zoom: 1;
+	background: #dfe8f6;
 }
 
 .datagrid-view1 .datagrid-body-inner {
