@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jm.base.controller.BaseController;
-import com.jm.common.CommonUtil;
 import com.jm.common.ResultDTO;
 import com.jm.log.LogProxy;
 import com.jm.security.RegexHelper;
 import com.jm.utils.JSONUtils;
+import com.jm.utils.ResultDTOUtil;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardNumberRecord;
 import com.jm.vip.entity.BuyCardRecord;
@@ -473,7 +473,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "充值失败", ex.toString(), guid, money,
 					content);
-			return CommonUtil.newFailedDTO("充值失败！");
+			return ResultDTOUtil.error("充值失败！");
 		}
 	}
 
@@ -500,7 +500,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "买卡失败", ex.toString(), guid, money,
 					content);
-			return CommonUtil.newFailedDTO("买卡失败！");
+			return ResultDTOUtil.error("买卡失败！");
 		}
 	}
 
@@ -530,7 +530,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "开卡失败", ex.toString(), guid, activetime,
 					expiretime, content);
-			return CommonUtil.newFailedDTO("开卡失败！");
+			return ResultDTOUtil.error("开卡失败！");
 		}
 	}
 
@@ -560,7 +560,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "续卡失败", ex.toString(), guid, money,
 					expiretime, content);
-			return CommonUtil.newFailedDTO("续卡失败！");
+			return ResultDTOUtil.error("续卡失败！");
 		}
 	}
 
@@ -583,7 +583,7 @@ public class MemberController extends BaseController
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "保存签到记录失败", ex.toString(), guid);
-			return CommonUtil.newFailedDTO("保存签到记录失败！");
+			return ResultDTOUtil.error("保存签到记录失败！");
 		}
 	}
 
@@ -608,7 +608,7 @@ public class MemberController extends BaseController
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "请假失败", ex.toString(), guid, content);
-			return CommonUtil.newFailedDTO("请假失败！");
+			return ResultDTOUtil.error("请假失败！");
 		}
 	}
 
@@ -636,7 +636,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "销假失败", ex.toString(), guid, expiretime,
 					content);
-			return CommonUtil.newFailedDTO("销假失败！");
+			return ResultDTOUtil.error("销假失败！");
 		}
 	}
 
@@ -667,7 +667,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "购买次数失败", ex.toString(), guid, money,
 					times, expiretime, content);
-			return CommonUtil.newFailedDTO("购买次数失败！");
+			return ResultDTOUtil.error("购买次数失败！");
 		}
 	}
 
@@ -690,7 +690,7 @@ public class MemberController extends BaseController
 		{
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "次卡保存签到记录失败", ex.toString(), guid);
-			return CommonUtil.newFailedDTO("次卡保存签到记录失败！");
+			return ResultDTOUtil.error("次卡保存签到记录失败！");
 		}
 	}
 
@@ -717,7 +717,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "保存积分失败", ex.toString(), guid, points,
 					content);
-			return CommonUtil.newFailedDTO("保存积分失败！");
+			return ResultDTOUtil.error("保存积分失败！");
 		}
 	}
 
@@ -747,7 +747,7 @@ public class MemberController extends BaseController
 			// 记录错误日志
 			LogProxy.WriteLogError(log, "积分兑换时间失败", ex.toString(), guid, points,
 					expiretime, content);
-			return CommonUtil.newFailedDTO("积分兑换时间失败！");
+			return ResultDTOUtil.error("积分兑换时间失败！");
 		}
 	}
 
