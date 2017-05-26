@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.jm.base.tool.CurrentUser;
-import com.jm.log.LogProxy;
-import com.jm.utils.BaseUtils;
+import com.jm.commons.base.tool.CurrentUser;
+import com.jm.commons.log.LogProxy;
+import com.jm.commons.utils.BaseUtils;
 import com.jm.vip.dao.AdminInfoDao;
 import com.jm.vip.entity.AdminInfo;
 

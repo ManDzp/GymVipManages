@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.jm.log.LogProxy;
+import com.jm.commons.log.LogProxy;
 import com.jm.vip.dao.ActiveCardRecordDao;
 import com.jm.vip.dao.BuyCardNumberRecordDao;
 import com.jm.vip.dao.BuyCardRecordDao;

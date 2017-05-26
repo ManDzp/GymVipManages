@@ -2,7 +2,7 @@ package com.jm.vip.dao;
 
 import java.util.List;
 
-import com.jm.page.PageSearch;
+import com.jm.commons.page.PageSearch;
 import com.jm.vip.entity.MemberInfo;
 
 public interface MemberInfoDao extends BaseDao<MemberInfo>

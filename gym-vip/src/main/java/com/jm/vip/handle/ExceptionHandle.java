@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jm.common.Result;
-import com.jm.utils.ResultUtil;
+import com.jm.commons.domain.Result;
+import com.jm.commons.utils.ResultUtil;
 import com.jm.vip.exception.VipException;
 
 /**

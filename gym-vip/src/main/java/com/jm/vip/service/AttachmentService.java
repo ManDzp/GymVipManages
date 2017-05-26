@@ -19,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.google.common.collect.Lists;
-import com.jm.log.LogProxy;
-import com.jm.utils.BaseUtils;
-import com.jm.utils.DateHelper;
+import com.jm.commons.log.LogProxy;
+import com.jm.commons.utils.BaseUtils;
+import com.jm.commons.utils.DateHelper;
 import com.jm.vip.dao.AttachmentInfoDao;
 import com.jm.vip.dao.BlobInfoDao;
 import com.jm.vip.entity.AttachmentInfo;

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jm.base.controller.BaseController;
-import com.jm.common.ResultDTO;
-import com.jm.log.LogProxy;
-import com.jm.security.RegexHelper;
-import com.jm.utils.JSONUtils;
+import com.jm.commons.base.controller.BaseController;
+import com.jm.commons.domain.ResultDTO;
+import com.jm.commons.log.LogProxy;
+import com.jm.commons.security.RegexHelper;
+import com.jm.commons.utils.JSONUtils;
 import com.jm.vip.entity.AdminInfo;
 import com.jm.vip.menu.AdminInfoHelper;
 import com.jm.vip.service.AdminInfoService;

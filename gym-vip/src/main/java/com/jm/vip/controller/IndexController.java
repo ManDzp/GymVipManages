@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Maps;
-import com.jm.base.controller.BaseController;
+import com.jm.commons.base.controller.BaseController;
 
 /**
  * 主页请求控制器

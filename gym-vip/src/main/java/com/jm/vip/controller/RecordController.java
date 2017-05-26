@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jm.security.RegexHelper;
+import com.jm.commons.security.RegexHelper;
 import com.jm.vip.entity.ActiveCardRecord;
 import com.jm.vip.entity.BuyCardNumberRecord;
 import com.jm.vip.entity.BuyCardRecord;

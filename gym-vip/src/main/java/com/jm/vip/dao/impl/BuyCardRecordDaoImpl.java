@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import com.google.common.collect.Maps;
-import com.jm.page.PageSearch;
+import com.jm.commons.page.PageSearch;
 import com.jm.vip.dao.BuyCardRecordDao;
 import com.jm.vip.entity.BuyCardRecord;
 

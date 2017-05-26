@@ -17,9 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.jm.common.ResultDTO;
-import com.jm.log.LogProxy;
-import com.jm.utils.BaseUtils;
+import com.jm.commons.domain.ResultDTO;
+import com.jm.commons.log.LogProxy;
+import com.jm.commons.utils.BaseUtils;
 import com.jm.vip.service.AttachmentService;
 
 /**

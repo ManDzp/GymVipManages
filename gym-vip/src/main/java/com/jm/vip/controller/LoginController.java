@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jm.base.controller.BaseController;
-import com.jm.base.tool.CurrentUser;
-import com.jm.interceptor.IdentityInterceptorDB;
-import com.jm.interceptor.ValidatorHelper;
+import com.jm.commons.base.controller.BaseController;
+import com.jm.commons.base.tool.CurrentUser;
+import com.jm.commons.interceptor.IdentityInterceptorDB;
+import com.jm.commons.interceptor.ValidatorHelper;
 import com.jm.vip.entity.AdminInfo;
 import com.jm.vip.service.AdminInfoService;
 

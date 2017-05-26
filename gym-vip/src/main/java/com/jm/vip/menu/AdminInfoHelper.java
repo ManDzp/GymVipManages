@@ -3,7 +3,7 @@ package com.jm.vip.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jm.base.tool.MenuItem;
+import com.jm.commons.base.tool.MenuItem;
 
 /**
  * 用户菜单帮助类

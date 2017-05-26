@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
-import com.jm.page.PageSearch;
+import com.jm.commons.page.PageSearch;
 import com.jm.vip.dao.MemberInfoDao;
 import com.jm.vip.entity.MemberInfo;
 
