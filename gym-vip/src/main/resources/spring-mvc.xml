@@ -59,7 +59,6 @@
 			<mvc:exclude-mapping path="/ftemp/**" />
 			<mvc:exclude-mapping path="/check" />
 			<mvc:exclude-mapping path="/login" />
-			<mvc:exclude-mapping path="/mobile/**" />
 
 			<!-- 拦截处理的interceptor -->
 			<bean class="com.jm.commons.interceptor.IdentityInterceptorDB"></bean>

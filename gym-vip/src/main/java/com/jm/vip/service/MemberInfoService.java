@@ -39,6 +39,9 @@ import com.jm.vip.entity.MemberInfo;
 import com.jm.vip.entity.PointsRecord;
 import com.jm.vip.entity.SignRecord;
 
+/**
+ * 会员资料业务逻辑层
+ */
 @Service
 public class MemberInfoService
 {

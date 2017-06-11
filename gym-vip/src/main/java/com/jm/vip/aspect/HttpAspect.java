@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -59,10 +58,10 @@ public class HttpAspect
 		// logger.info("222222222222");
 	}
 
-	@AfterReturning(returning = "object", pointcut = "log()")
-	public void doAfterReturning(Object object)
-	{
-		// logger.info("response=" + object.toString());
-	}
+//	@AfterReturning(returning = "object", pointcut = "log()")
+//	public void doAfterReturning(Object object)
+//	{
+//		// logger.info("response=" + object.toString());
+//	}
 
 }
