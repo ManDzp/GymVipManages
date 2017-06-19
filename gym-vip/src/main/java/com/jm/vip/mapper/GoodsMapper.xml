@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GoodsMapper" >
+	<resultMap id="BaseResultMap" type="Goods">
+		<id column="goods_id" property="goodsId" jdbcType="BIGINT" />
+		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+		<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+		<result column="goods_status" property="goodsStatus" jdbcType="CHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="creation_id" property="creationId" jdbcType="VARCHAR" />
+		<result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modification_id" property="modificationId" jdbcType="VARCHAR" />
+		<result column="modification_time" property="modificationTime" jdbcType="TIMESTAMP" />
+		<result column="logic_delete" property="logicDelete" jdbcType="CHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		goods_id, goods_name, goods_unit, goods_price, goods_status, creator,
+		creation_id, creation_time, modifier, modification_id, modification_time, logic_delete
+	</sql>
+    <sql id="List_Column">
+        goods_id, goods_name, goods_unit, goods_price, goods_status, creation_time
+    </sql>
+
+    <!-- 获取分页数据 -->
+    <select id="selectListByPage" resultMap="BaseResultMap"
+        parameterType="java.util.Map">
+        SELECT
+        <include refid="List_Column" />
+        FROM Goods
+        <where>
+            <if test="wheresql.advSql != null and wheresql.advSql != ''">
+                AND ${wheresql.advSql}
+            </if>
+            AND logic_delete = '0'
+        </where>
+
+        <if test="ordersql != null and ordersql != ''">
+            ORDER BY ${ordersql}
+        </if>
+        <if test="ordersql == null or ordersql == ''">
+            ORDER by creation_time desc
+        </if>
+    </select>
+
+    <select id="selectByGuid" resultMap="BaseResultMap"
+        parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM goods
+        WHERE goods_id = #{goodsId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="Goods">
+        INSERT INTO goods
+        (
+            goods_id,
+            goods_name,
+            goods_unit,
+            goods_price,
+            goods_status,
+            creator,
+            creation_id,
+            creation_time
+        )
+        VALUES
+        (
+            #{goodsId,jdbcType=BIGINT},
+            #{goodsName,jdbcType=VARCHAR},
+            #{goodsUnit,jdbcType=VARCHAR}, 
+            #{goodsPrice,jdbcType=DECIMAL},
+            #{goodsStatus,jdbcType=CHAR},
+            #{creator,jdbcType=VARCHAR},
+            #{creationId,jdbcType=VARCHAR},
+            #{creationTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="updateByGuid" parameterType="Goods">
+        UPDATE goods
+        SET
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+        goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+        goods_status = #{goodsStatus,jdbcType=CHAR},
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE goods_id = #{goodsId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 删除信息 -->
+    <update id="logicDeleteByGuid" parameterType="Goods">
+        UPDATE goods
+        SET
+        logic_delete = '1',
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE goods_id = #{goodsId,jdbcType=VARCHAR}
+        AND logic_delete = '0'
+    </update>
+
+</mapper>
