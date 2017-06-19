@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PrizeMapper" >
+    <resultMap id="BaseResultMap" type="Prize">
+        <id column="prize_id" property="prizeId" jdbcType="BIGINT" />
+        <result column="prize_name" property="prizeName" jdbcType="VARCHAR" />
+        <result column="prize_code" property="prizeCode" jdbcType="VARCHAR" />
+        <result column="prize_unit" property="prizeUnit" jdbcType="VARCHAR" />
+        <result column="prize_status" property="prizeStatus" jdbcType="CHAR" />
+        <result column="prize_remark" property="prizeRemark" jdbcType="VARCHAR" />
+        <result column="creator" property="creator" jdbcType="VARCHAR" />
+        <result column="creation_id" property="creationId" jdbcType="VARCHAR" />
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+        <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+        <result column="modification_id" property="modificationId" jdbcType="VARCHAR" />
+        <result column="modification_time" property="modificationTime" jdbcType="TIMESTAMP" />
+        <result column="logic_delete" property="logicDelete" jdbcType="CHAR" />
+    </resultMap>
+
+	<sql id="Base_Column_List">
+		prize_id, prize_name, prize_code, prize_unit, prize_status, prize_remark,
+		creator, creation_id, creation_time, modifier, modification_id, modification_time, logic_delete
+	</sql>
+    <sql id="List_Column">
+        prize_id, prize_name, prize_code, prize_unit, prize_status, creation_time
+    </sql>
+
+    <!-- 获取分页数据 -->
+    <select id="selectListByPage" resultMap="BaseResultMap"
+        parameterType="java.util.Map">
+        SELECT
+        <include refid="List_Column" />
+        FROM prize
+        <where>
+            <if test="wheresql.advSql != null and wheresql.advSql != ''">
+                AND ${wheresql.advSql}
+            </if>
+            AND logic_delete = '0'
+        </where>
+
+        <if test="ordersql != null and ordersql != ''">
+            ORDER BY ${ordersql}
+        </if>
+        <if test="ordersql == null or ordersql == ''">
+            ORDER by creation_time desc
+        </if>
+    </select>
+
+    <select id="selectByGuid" resultMap="BaseResultMap"
+        parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM prize
+        WHERE prize_id = #{prizeId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="Prize">
+        INSERT INTO prize
+        (
+            prize_id,
+            prize_name,
+            prize_code,
+            prize_unit,
+            prize_status,
+            prize_remark,
+            creator,
+            creation_id,
+            creation_time
+        )
+        VALUES
+        (
+            #{prizeId,jdbcType=BIGINT},
+            #{prizeName,jdbcType=VARCHAR},
+            #{prizeCode,jdbcType=VARCHAR},
+            #{prizeUnit,jdbcType=VARCHAR},
+            #{prizeStatus,jdbcType=CHAR},
+            #{prizeRemark,jdbcType=VARCHAR},
+            #{creator,jdbcType=VARCHAR},
+            #{creationId,jdbcType=VARCHAR},
+            #{creationTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="updateByGuid" parameterType="Prize">
+        UPDATE prize
+        SET
+        prize_name = #{prizeName,jdbcType=VARCHAR},
+        prize_code = #{prizeCode,jdbcType=VARCHAR},
+        prize_unit = #{prizeUnit,jdbcType=VARCHAR},
+        prize_status = #{prizeStatus,jdbcType=CHAR},
+        prize_remark = #{prizeRemark,jdbcType=VARCHAR},
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE prize_id = #{prizeId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 删除信息 -->
+    <update id="logicDeleteByGuid" parameterType="Prize">
+        UPDATE prize
+        SET
+        logic_delete = '1',
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE prize_id = #{prizeId,jdbcType=VARCHAR}
+        AND logic_delete = '0'
+    </update>
+
+</mapper>

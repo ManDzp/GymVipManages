@@ -1,41 +1,39 @@
 package com.jm.vip.entity;
 
-import java.math.BigDecimal;
-
 /**
- * 商品信息
+ * 奖品信息
  */
-public class Goods {
+public class Prize {
 
     /**
      * 唯一标识
      */
-    private String goodsId;
+    private String prizeId;
 
     /**
      * 商品名称
      */
-    private String goodsName;
+    private String prizeName;
 
     /**
      * 商品编码
      */
-    private String goodsCode;
+    private String prizeCode;
 
     /**
      * 单位
      */
-    private String goodsUnit;
-
-    /**
-     * 单价
-     */
-    private BigDecimal goodsPrice;
+    private String prizeUnit;
 
     /**
      * 状态
      */
-    private String goodsStatus;
+    private String prizeStatus;
+
+    /**
+     * 备注
+     */
+    private String prizeRemark;
 
     /**
      * 创建人
@@ -72,52 +70,52 @@ public class Goods {
      */
     private String logicDelete;
 
-    public String getGoodsId() {
-        return goodsId;
+    public String getPrizeId() {
+        return prizeId;
     }
 
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId;
+    public void setPrizeId(String prizeId) {
+        this.prizeId = prizeId;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public String getPrizeName() {
+        return prizeName;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName == null ? null : goodsName.trim();
+    public void setPrizeName(String prizeName) {
+        this.prizeName = prizeName == null ? null : prizeName.trim();
     }
 
-    public String getGoodsCode() {
-        return goodsCode;
+    public String getPrizeCode() {
+        return prizeCode;
     }
 
-    public void setGoodsCode(String goodsCode) {
-        this.goodsCode = goodsCode == null ? null : goodsCode.trim();
+    public void setPrizeCode(String prizeCode) {
+        this.prizeCode = prizeCode == null ? null : prizeCode.trim();
     }
 
-    public String getGoodsUnit() {
-        return goodsUnit;
+    public String getPrizeUnit() {
+        return prizeUnit;
     }
 
-    public void setGoodsUnit(String goodsUnit) {
-        this.goodsUnit = goodsUnit == null ? null : goodsUnit.trim();
+    public void setPrizeUnit(String prizeUnit) {
+        this.prizeUnit = prizeUnit == null ? null : prizeUnit.trim();
     }
 
-    public BigDecimal getGoodsPrice() {
-        return goodsPrice;
+    public String getPrizeStatus() {
+        return prizeStatus;
     }
 
-    public void setGoodsPrice(BigDecimal goodsPrice) {
-        this.goodsPrice = goodsPrice;
+    public void setPrizeStatus(String prizeStatus) {
+        this.prizeStatus = prizeStatus == null ? null : prizeStatus.trim();
     }
 
-    public String getGoodsStatus() {
-        return goodsStatus;
+    public String getPrizeRemark() {
+        return prizeRemark;
     }
 
-    public void setGoodsStatus(String goodsStatus) {
-        this.goodsStatus = goodsStatus == null ? null : goodsStatus.trim();
+    public void setPrizeRemark(String prizeRemark) {
+        this.prizeRemark = prizeRemark;
     }
 
     public String getCreator() {
@@ -179,13 +177,13 @@ public class Goods {
 
     @Override
     public String toString() {
-        return "Goods [goodsId=" + goodsId + ", goodsName=" + goodsName
-                + ", goodsCode=" + goodsCode + ", goodsUnit=" + goodsUnit
-                + ", goodsPrice=" + goodsPrice + ", goodsStatus=" + goodsStatus
-                + ", creator=" + creator + ", creationId=" + creationId
-                + ", creationTime=" + creationTime + ", modifier=" + modifier
-                + ", modificationId=" + modificationId + ", modificationTime="
-                + modificationTime + ", logicDelete=" + logicDelete + "]";
+        return "Prize [prizeId=" + prizeId + ", prizeName=" + prizeName
+                + ", prizeCode=" + prizeCode + ", prizeUnit=" + prizeUnit
+                + ", prizeStatus=" + prizeStatus + ", creator=" + creator
+                + ", creationId=" + creationId + ", creationTime="
+                + creationTime + ", modifier=" + modifier + ", modificationId="
+                + modificationId + ", modificationTime=" + modificationTime
+                + ", logicDelete=" + logicDelete + "]";
     }
 
 }

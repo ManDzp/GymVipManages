@@ -43,6 +43,14 @@
                     </a>
                 </div>
             </li>
+            <li>
+                <div class="main-item">
+                    <img src='${ctx}/deco/img/iconlf01.gif' align="absmiddle" width='5' height='5' />
+                    <a href="javascript:void(0);" onclick="menuClick('${ctx}/prize/list', 'iframepage')">
+                        <span>奖品信息</span>
+                    </a>
+                </div>
+            </li>
 		</ul>
 	</div>
 </div>
