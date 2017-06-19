@@ -25,8 +25,11 @@
                         <td class="tdbgcolor" colspan="4">商品信息</td>
                     </tr>
                     <tr>
+                        <td class="lefttdbgcolor"><font color="#ff0000">*</font>商品编码：</td>
+                        <td class="tdbgcolor35"><input id="goodsCode" name="goodsCode"
+                            class="str" v_must="1" v_name="商品编码" v_type="string" /></td>
                         <td class="lefttdbgcolor"><font color="#ff0000">*</font>商 品 名：</td>
-                        <td class="tdbgcolor" colspan="3"><input id="goodsName" name="goodsName"
+                        <td class="tdbgcolor35"><input id="goodsName" name="goodsName"
                             class="str" v_must="1" v_name="商品名" v_type="string" /></td>
                     </tr>
                     <tr>

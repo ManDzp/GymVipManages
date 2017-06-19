@@ -25,8 +25,12 @@
                         <td class="tdbgcolor" colspan="4">会员卡资料</td>
                     </tr>
                     <tr>
+                        <td class="lefttdbgcolor"><font color="#ff0000">*</font>商品编码：</td>
+                        <td class="tdbgcolor35"><input id="goodsCode" name="goodsCode"
+                            class="str" v_must="1" v_name="商品编码" v_type="string"
+                            value="${goods.goodsCode}" /></td>
                         <td class="lefttdbgcolor"><font color="#ff0000">*</font>商 品 名：</td>
-                        <td class="tdbgcolor" colspan="3"><input id="goodsName" name="goodsName"
+                        <td class="tdbgcolor35"><input id="goodsName" name="goodsName"
                             class="str" v_must="1" v_name="商品名" v_type="string"
                             value="${goods.goodsName}" /></td>
                     </tr>

@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="Goods">
 		<id column="goods_id" property="goodsId" jdbcType="BIGINT" />
 		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
 		<result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
 		<result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
 		<result column="goods_status" property="goodsStatus" jdbcType="CHAR" />
@@ -17,11 +18,11 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		goods_id, goods_name, goods_unit, goods_price, goods_status, creator,
+		goods_id, goods_name, goods_code, goods_unit, goods_price, goods_status, creator,
 		creation_id, creation_time, modifier, modification_id, modification_time, logic_delete
 	</sql>
     <sql id="List_Column">
-        goods_id, goods_name, goods_unit, goods_price, goods_status, creation_time
+        goods_id, goods_name, goods_code, goods_unit, goods_price, goods_status, creation_time
     </sql>
 
     <!-- 获取分页数据 -->
@@ -58,6 +59,7 @@
         (
             goods_id,
             goods_name,
+            goods_code,
             goods_unit,
             goods_price,
             goods_status,
@@ -69,6 +71,7 @@
         (
             #{goodsId,jdbcType=BIGINT},
             #{goodsName,jdbcType=VARCHAR},
+            #{goodsCode,jdbcType=VARCHAR},
             #{goodsUnit,jdbcType=VARCHAR}, 
             #{goodsPrice,jdbcType=DECIMAL},
             #{goodsStatus,jdbcType=CHAR},
@@ -82,6 +85,7 @@
         UPDATE goods
         SET
         goods_name = #{goodsName,jdbcType=VARCHAR},
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
         goods_unit = #{goodsUnit,jdbcType=VARCHAR},
         goods_price = #{goodsPrice,jdbcType=DECIMAL},
         goods_status = #{goodsStatus,jdbcType=CHAR},

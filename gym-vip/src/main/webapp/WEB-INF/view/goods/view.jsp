@@ -25,8 +25,10 @@
                         <td class="tdbgcolor" colspan="4">商品信息</td>
                     </tr>
                     <tr>
+                        <td class="lefttdbgcolor">商品编码：</td>
+                        <td class="tdbgcolor35"><label>${goods.goodsCode}</label></td>
                         <td class="lefttdbgcolor">商 品 名：</td>
-                        <td class="tdbgcolor" colspan="3"><label>${goods.goodsName}</label></td>
+                        <td class="tdbgcolor35"><label>${goods.goodsName}</label></td>
                     </tr>
                     <tr>
                         <td class="lefttdbgcolor">单　　位：</td>

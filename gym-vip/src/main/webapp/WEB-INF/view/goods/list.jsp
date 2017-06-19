@@ -22,6 +22,8 @@
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
+                <th data-options="field:'goodsCode',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
+                    width="20">商品编码</th>
 				<th data-options="field:'goodsName',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
 					width="20">商品名</th>
 				<th data-options="field:'goodsUnit',align:'left',formatter:getViewUrl,sortable:true,order:'desc'"
@@ -56,7 +58,7 @@
 		$(function() {
 			// 加载数据
 			ywGrid.loadGrid({
-				columnSize : 5
+				columnSize : 6
 			});
 		});
 	</script>
