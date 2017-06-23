@@ -22,7 +22,7 @@
             <table class="tablebgcolor" cellspacing="1" cellpadding="2" width="100%" align="center" border="0">
                 <tbody>
                     <tr>
-                        <td class="tdbgcolor" colspan="4">会员卡资料</td>
+                        <td class="tdbgcolor" colspan="4">商品信息</td>
                     </tr>
                     <tr>
                         <td class="lefttdbgcolor"><font color="#ff0000">*</font>商品编码：</td>

@@ -30,7 +30,7 @@
         parameterType="java.util.Map">
         SELECT
         <include refid="List_Column" />
-        FROM prize
+        FROM t_prize
         <where>
             <if test="wheresql.advSql != null and wheresql.advSql != ''">
                 AND ${wheresql.advSql}
@@ -50,12 +50,12 @@
         parameterType="java.lang.String">
         SELECT
         <include refid="Base_Column_List" />
-        FROM prize
+        FROM t_prize
         WHERE prize_id = #{prizeId,jdbcType=VARCHAR}
     </select>
 
     <insert id="insert" parameterType="Prize">
-        INSERT INTO prize
+        INSERT INTO t_prize
         (
             prize_id,
             prize_name,
@@ -82,7 +82,7 @@
     </insert>
 
     <update id="updateByGuid" parameterType="Prize">
-        UPDATE prize
+        UPDATE t_prize
         SET
         prize_name = #{prizeName,jdbcType=VARCHAR},
         prize_code = #{prizeCode,jdbcType=VARCHAR},
@@ -97,7 +97,7 @@
 
     <!-- 删除信息 -->
     <update id="logicDeleteByGuid" parameterType="Prize">
-        UPDATE prize
+        UPDATE t_prize
         SET
         logic_delete = '1',
         modifier = #{modifier,jdbcType=VARCHAR},
