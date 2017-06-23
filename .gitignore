@@ -4,3 +4,5 @@ gym-vip/.project
 gym-vip/.settings/
 
 gym-vip/target/m2e-wtp/web-resources/META-INF/maven/com.jm.vip/gym-vip/pom.properties
+gym-vip/.mymetadata
+gym-vip/src/main/webapp/META-INF/MANIFEST.MF
