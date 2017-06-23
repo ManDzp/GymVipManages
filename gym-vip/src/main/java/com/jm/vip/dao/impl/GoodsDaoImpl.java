@@ -12,7 +12,7 @@ import com.jm.vip.entity.Goods;
 /**
  * 商品信息DAO实现
  */
-@Repository("goodsDao")
+@Repository
 public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements GoodsDao {
 
     @Override

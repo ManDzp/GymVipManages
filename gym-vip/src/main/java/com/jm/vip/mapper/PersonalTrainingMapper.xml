@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PersonalTrainingMapper" >
+    <resultMap id="BaseResultMap" type="PersonalTraining">
+        <id column="personal_training_id" property="personalTrainingId" jdbcType="BIGINT" />
+        <result column="personal_training_name" property="personalTrainingName" jdbcType="VARCHAR" />
+        <result column="personal_training_code" property="personalTrainingCode" jdbcType="VARCHAR" />
+        <result column="personal_training_status" property="personalTrainingStatus" jdbcType="CHAR" />
+        <result column="personal_training_remark" property="personalTrainingRemark" jdbcType="VARCHAR" />
+        <result column="creator" property="creator" jdbcType="VARCHAR" />
+        <result column="creation_id" property="creationId" jdbcType="VARCHAR" />
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+        <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+        <result column="modification_id" property="modificationId" jdbcType="VARCHAR" />
+        <result column="modification_time" property="modificationTime" jdbcType="TIMESTAMP" />
+        <result column="logic_delete" property="logicDelete" jdbcType="CHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        personal_training_id, personal_training_name, personal_training_code,
+        personal_training_status, personal_training_remark,
+        creator, creation_id, creation_time, modifier, modification_id,
+        modification_time, logic_delete
+    </sql>
+    <sql id="List_Column">
+        personal_training_id, personal_training_name, personal_training_code,
+        personal_training_status, creation_time
+    </sql>
+
+    <!-- 获取分页数据 -->
+    <select id="selectListByPage" resultMap="BaseResultMap"
+        parameterType="java.util.Map">
+        SELECT
+        <include refid="List_Column" />
+        FROM t_personal_training
+        <where>
+            <if test="wheresql.advSql != null and wheresql.advSql != ''">
+                AND ${wheresql.advSql}
+            </if>
+            AND logic_delete = '0'
+        </where>
+
+        <if test="ordersql != null and ordersql != ''">
+            ORDER BY ${ordersql}
+        </if>
+        <if test="ordersql == null or ordersql == ''">
+            ORDER by creation_time desc
+        </if>
+    </select>
+
+    <select id="selectByGuid" resultMap="BaseResultMap"
+        parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_personal_training
+        WHERE personal_training_id = #{personalTrainingId,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 添加信息 -->
+    <insert id="insert" parameterType="PersonalTraining">
+        INSERT INTO t_personal_training
+        (
+            personal_training_id,
+            personal_training_name,
+            personal_training_code,
+            personal_training_status,
+            personal_training_remark,
+            creator,
+            creation_id,
+            creation_time
+        )
+        VALUES
+        (
+            #{personalTrainingId,jdbcType=BIGINT},
+            #{personalTrainingName,jdbcType=VARCHAR},
+            #{personalTrainingCode,jdbcType=VARCHAR},
+            #{personalTrainingStatus,jdbcType=CHAR},
+            #{personalTrainingRemark,jdbcType=VARCHAR},
+            #{creator,jdbcType=VARCHAR},
+            #{creationId,jdbcType=VARCHAR},
+            #{creationTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!-- 修改信息 -->
+    <update id="updateByGuid" parameterType="Prize">
+        UPDATE t_personal_training
+        SET
+        personal_training_name = #{personalTrainingName,jdbcType=VARCHAR},
+        personal_training_code = #{personalTrainingCode,jdbcType=VARCHAR},
+        personal_training_status = #{personalTrainingStatus,jdbcType=CHAR},
+        personal_training_remark = #{personalTrainingRemark,jdbcType=VARCHAR},
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE personal_training_id = #{personalTrainingId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 逻辑删除信息 -->
+    <update id="logicDeleteByGuid" parameterType="PersonalTraining">
+        UPDATE t_personal_training
+        SET
+        logic_delete = '1',
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE personal_training_id = #{personalTrainingId,jdbcType=VARCHAR}
+        AND logic_delete = '0'
+    </update>
+
+</mapper>

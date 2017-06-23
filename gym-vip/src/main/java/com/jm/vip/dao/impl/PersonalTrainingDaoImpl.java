@@ -6,18 +6,19 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import com.jm.commons.page.PageSearch;
-import com.jm.vip.dao.PrizeDao;
-import com.jm.vip.entity.Prize;
+import com.jm.vip.dao.PersonalTrainingDao;
+import com.jm.vip.entity.PersonalTraining;
 
 /**
- * 奖品信息DAO实现
+ * 私教信息DAO实现
  */
-@Repository
-public class PrizeDaoImpl extends BaseDaoImpl<Prize> implements PrizeDao {
+@Repository("personalTrainingDao")
+public class PersonalTrainingDaoImpl extends BaseDaoImpl<PersonalTraining>
+        implements PersonalTrainingDao {
 
     @Override
     public String getMapperId() {
-        return "PrizeMapper";
+        return "PersonalTrainingMapper";
     }
 
     @Override
@@ -29,8 +30,9 @@ public class PrizeDaoImpl extends BaseDaoImpl<Prize> implements PrizeDao {
     }
 
     @Override
-    public int logicDeleteByGuid(Prize prize) {
-        return this.session.update(getMapperId() + ".logicDeleteByGuid", prize);
+    public int logicDeleteByGuid(PersonalTraining personalTraining) {
+        return this.session.update(getMapperId() + ".logicDeleteByGuid",
+                personalTraining);
     }
 
 }

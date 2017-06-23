@@ -27,7 +27,7 @@ public class PrizeService {
      */
     private Logger log = Logger.getLogger(this.getClass());
 
-    @Resource(name = "prizeDao")
+    @Resource
     private PrizeDao prizeDao;
 
     /**
