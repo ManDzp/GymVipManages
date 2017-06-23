@@ -8,7 +8,7 @@
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
-<script type="text/javascript" src="${ctx}/business/buycardnumberrecord/buycardnumberrecord.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/record/buycardnumberrecord/buycardnumberrecord.js${res_v}"></script>
 </head>
 
 <body>

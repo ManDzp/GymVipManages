@@ -4,27 +4,28 @@
 <html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 <c:import url="/WEB-INF/support/meta.jsp"></c:import>
-<title>买卡记录管理</title>
+<title>开卡记录管理</title>
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/buycardrecord/list.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/buycardrecord/buycardrecord.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/record/activecardrecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/record/activecardrecord/activecardrecord.js${res_v}"></script>
 </head>
 
 <body>
 	<!-- 列表页菜单栏 -->
 	<ywbar:listBar/>
 
-    <!-- 买卡记录列表页 -->
+    <!-- 开卡记录列表页 -->
 	<table id="grid" style="width: getWidth(1); height: 100%" >
 		<thead>	
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
-				<th data-options="field:'money',align:'left',formatter:getMoneyUrl,sortable:true,order:'desc'" width="40">消费金额</th>
-				<th data-options="field:'createtime',align:'left',formatter:getDateUrl,sortable:true,order:'desc'" width="50">买卡时间</th>
+				<th data-options="field:'activetime',align:'left',formatter:getDateUrl,sortable:true,order:'desc'" width="40">开卡日期</th>
+				<th data-options="field:'expiretime',align:'left',formatter:getShortDateUrl,sortable:true,order:'desc'"
+					width="50">到期日期</th>
 			</tr>
 		</thead>
 	</table>
@@ -44,7 +45,7 @@
 			gridData.defaultQueryParams = {
 				"params" : JSON.stringify(gridData.defaultParam),
 				'mapperid' : '${mapperid}'
-			}
+			};
 
 			win.gridData = gridData;
 		})(window);

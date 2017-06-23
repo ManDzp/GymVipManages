@@ -10,8 +10,8 @@
 
 <script type="text/javascript" src="${ctx}/deco/datagrid/grid.js${res_v}"></script>
 <script type="text/javascript" src="${ctx}/deco/dateformat.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/leaverecord/list.js${res_v}"></script>
-<script type="text/javascript" src="${ctx}/business/leaverecord/leaverecord.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/record/leaverecord/list.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/record/leaverecord/leaverecord.js${res_v}"></script>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
 			gridData.defaultQueryParams = {
 				"params" : JSON.stringify(gridData.defaultParam),
 				'mapperid' : '${mapperid}'
-			}
+			};
 
 			win.gridData = gridData;
 		})(window);

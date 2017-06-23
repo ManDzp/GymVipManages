@@ -30,21 +30,21 @@ public class RecordController
 	@Resource(name = "recordService")
 	private RecordService recordService;
 
-	private static final String CHARGE_RECORD_JSP_PATH = "chargerecord";
+	private static final String CHARGE_RECORD_JSP_PATH = "record/chargerecord";
 
-	private static final String BUY_CARD_RECORD_JSP_PATH = "buycardrecord";
+	private static final String BUY_CARD_RECORD_JSP_PATH = "record/buycardrecord";
 
-	private static final String ACTIVE_CARD_RECORD_JSP_PATH = "activecardrecord";
+	private static final String ACTIVE_CARD_RECORD_JSP_PATH = "record/activecardrecord";
 
-	private static final String CONTINUE_CARD_RECORD_JSP_PATH = "continuecardrecord";
+	private static final String CONTINUE_CARD_RECORD_JSP_PATH = "record/continuecardrecord";
 
-	private static final String LEAVE_RECORD_JSP_PATH = "leaverecord";
+	private static final String LEAVE_RECORD_JSP_PATH = "record/leaverecord";
 
-	private static final String SIGN_RECORD_JSP_PATH = "signrecord";
+	private static final String SIGN_RECORD_JSP_PATH = "record/signrecord";
 
-	private static final String BUY_CARD_NUMBER_RECORD_JSP_PATH = "buycardnumberrecord";
+	private static final String BUY_CARD_NUMBER_RECORD_JSP_PATH = "record/buycardnumberrecord";
 
-	private static final String POINTS_RECORD_JSP_PATH = "pointsrecord";
+	private static final String POINTS_RECORD_JSP_PATH = "record/pointsrecord";
 
 	/**
 	 * 加载充值记录的列表页

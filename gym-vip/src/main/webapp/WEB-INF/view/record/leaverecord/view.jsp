@@ -8,7 +8,7 @@
 
 <%@ include file="/WEB-INF/support/common.jsp"%>
 
-<script type="text/javascript" src="${ctx}/business/leaverecord/leaverecord.js${res_v}"></script>
+<script type="text/javascript" src="${ctx}/business/record/leaverecord/leaverecord.js${res_v}"></script>
 </head>
 
 <body>
