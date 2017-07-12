@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TrainingCategoryMapper">
+    <resultMap id="BaseResultMap" type="TrainingCategory">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="CHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="creator" property="creator" jdbcType="VARCHAR" />
+        <result column="creation_id" property="creationId" jdbcType="VARCHAR" />
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+        <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+        <result column="modification_id" property="modificationId" jdbcType="VARCHAR" />
+        <result column="modification_time" property="modificationTime" jdbcType="TIMESTAMP" />
+        <result column="logic_delete" property="logicDelete" jdbcType="CHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, code, status, remark,
+        creator, creation_id, creation_time, modifier, modification_id,
+        modification_time, logic_delete
+    </sql>
+    <sql id="List_Column">
+        id, name, code, status, creation_time
+    </sql>
+
+    <!-- 获取分页数据 -->
+    <select id="selectListByPage" resultMap="BaseResultMap"
+        parameterType="java.util.Map">
+        SELECT
+        <include refid="List_Column" />
+        FROM t_training_category
+        <where>
+            <if test="wheresql.advSql != null and wheresql.advSql != ''">
+                AND ${wheresql.advSql}
+            </if>
+            AND logic_delete = '0'
+        </where>
+
+        <if test="ordersql != null and ordersql != ''">
+            ORDER BY ${ordersql}
+        </if>
+        <if test="ordersql == null or ordersql == ''">
+            ORDER by creation_time desc
+        </if>
+    </select>
+
+    <select id="selectByGuid" resultMap="BaseResultMap"
+        parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_training_category
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 添加信息 -->
+    <insert id="insert" parameterType="TrainingCategory">
+        INSERT INTO t_training_category
+        (
+            id,
+            name,
+            code,
+            status,
+            remark,
+            creator,
+            creation_id,
+            creation_time
+        )
+        VALUES
+        (
+            #{id,jdbcType=BIGINT},
+            #{name,jdbcType=VARCHAR},
+            #{code,jdbcType=VARCHAR},
+            #{status,jdbcType=CHAR},
+            #{remark,jdbcType=VARCHAR},
+            #{creator,jdbcType=VARCHAR},
+            #{creationId,jdbcType=VARCHAR},
+            #{creationTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!-- 修改信息 -->
+    <update id="updateByGuid" parameterType="TrainingCategory">
+        UPDATE t_training_category
+        SET
+        name = #{name,jdbcType=VARCHAR},
+        code = #{code,jdbcType=VARCHAR},
+        status = #{status,jdbcType=CHAR},
+        remark = #{remark,jdbcType=VARCHAR},
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 逻辑删除信息 -->
+    <update id="logicDeleteByGuid" parameterType="TrainingCategory">
+        UPDATE t_training_category
+        SET
+        logic_delete = '1',
+        modifier = #{modifier,jdbcType=VARCHAR},
+        modification_id = #{modificationId,jdbcType=VARCHAR},
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id,jdbcType=VARCHAR}
+        AND logic_delete = '0'
+    </update>
+
+</mapper>
