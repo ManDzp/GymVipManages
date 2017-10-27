@@ -9,6 +9,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+        <springframework.version>4.1.4.RELEASE</springframework.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -17,26 +18,26 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.1.4.RELEASE</version>
+			<version>${springframework.version}</version>
 		</dependency>
 		<!-- 事务会用到 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>4.1.4.RELEASE</version>
+			<version>${springframework.version}</version>
 		</dependency>
 		<!-- springMVC相关jar包 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.1.4.RELEASE</version>
+			<version>${springframework.version}</version>
 		</dependency>
 
 		<!-- 单元测试 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>4.1.4.RELEASE</version>
+			<version>${springframework.version}</version>
 		</dependency>
 
 
